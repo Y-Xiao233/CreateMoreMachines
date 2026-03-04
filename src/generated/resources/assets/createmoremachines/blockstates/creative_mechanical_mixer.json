@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "createmoremachines:block/mechanical_mixer/creative_mechanical_mixer"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "itemGroup.createmoremachines": "Create More Machines",
+  "tier.createmoremachines.brass": "Brass ",
+  "tier.createmoremachines.netherite": "Netherite ",
+  "tier.createmoremachines.end": "End ",
+  "tier.createmoremachines.beyond": "Beyond ",
+  "tier.createmoremachines.creative": "Creative ",
+  
+  "config.createmoremachines.tier_settings": "Tier Settings",
+  "config.createmoremachines.brass_tier": "Brass Tier",
+  "config.createmoremachines.netherite_tier": "Netherite Tier",
+  "config.createmoremachines.end_tier": "End Tier",
+  "config.createmoremachines.beyond_tier": "Beyond Tier",
+  "config.createmoremachines.creative_tier": "Creative Tier",
+  "config.createmoremachines.item_capability": "Item Capability",
+  "config.createmoremachines.fluid_capability": "Fluid Capability",
+  "config.createmoremachines.processing_multiple": "Processing Multiple",
+  "config.createmoremachines.mechanical_press_impact": "Mechanical Press Impact",
+  "config.createmoremachines.mechanical_mixer_impact": "Mechanical Mixer Impact",
+
+  "block.createmoremachines.creative_casing": "Creative Casing",
+  "block.createmoremachines.netherite_casing": "Netherite Casing",
+  "block.createmoremachines.end_casing": "End Casing",
+  "block.createmoremachines.beyond_casing": "Beyond Casing",
+
+  "item.createmoremachines.netherite_alloy": "Netherite Alloy",
+  "item.createmoremachines.end_alloy": "End Alloy",
+  "item.createmoremachines.beyond_alloy": "Beyond Alloy"
+}

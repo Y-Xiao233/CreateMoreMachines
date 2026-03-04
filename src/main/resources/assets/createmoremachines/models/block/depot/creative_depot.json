@@ -1,0 +1,6 @@
+{
+  "parent": "createmoremachines:block/depot",
+  "textures": {
+    "casing": "createmoremachines:block/creative_casing"
+  }
+}

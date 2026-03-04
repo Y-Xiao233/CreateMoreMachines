@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.yxiao233.createmoremachines.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "createmoremachines.refmap.json",
+  "mixins": [
+    "MixinAssemblyOperatorBlockItem",
+    "MixinPressingBehaviour"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

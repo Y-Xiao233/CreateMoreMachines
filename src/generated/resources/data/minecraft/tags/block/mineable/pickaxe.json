@@ -1,0 +1,14 @@
+{
+  "values": [
+    "createmoremachines:creative_casing",
+    "createmoremachines:netherite_casing",
+    "createmoremachines:creative_depot",
+    "createmoremachines:brass_depot",
+    "createmoremachines:creative_mechanical_press",
+    "createmoremachines:brass_mechanical_press",
+    "createmoremachines:creative_mechanical_mixer",
+    "createmoremachines:brass_mechanical_mixer",
+    "createmoremachines:creative_spout",
+    "createmoremachines:brass_spout"
+  ]
+}

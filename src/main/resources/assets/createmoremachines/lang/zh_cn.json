@@ -1,0 +1,29 @@
+{
+  "itemGroup.createmoremachines": "Create More Machines",
+  "tier.createmoremachines.brass": "黄铜",
+  "tier.createmoremachines.netherite": "下界",
+  "tier.createmoremachines.end": "末地",
+  "tier.createmoremachines.beyond": "超越",
+  "tier.createmoremachines.creative": "创造",
+
+  "config.createmoremachines.tier_settings": "等级设置",
+  "config.createmoremachines.brass_tier": "黄铜等级",
+  "config.createmoremachines.netherite_tier": "下界等级",
+  "config.createmoremachines.end_tier": "末地等级",
+  "config.createmoremachines.beyond_tier": "超越等级",
+  "config.createmoremachines.creative_tier": "创造等级",
+  "config.createmoremachines.item_capability": "物品容量",
+  "config.createmoremachines.fluid_capability": "流体容量",
+  "config.createmoremachines.processing_multiple": "处理并行数",
+  "config.createmoremachines.mechanical_press_impact": "动力冲压机应力",
+  "config.createmoremachines.mechanical_mixer_impact": "搅拌机应力",
+
+  "block.createmoremachines.creative_casing": "创造机壳",
+  "block.createmoremachines.netherite_casing": "下界机壳",
+  "block.createmoremachines.end_casing": "末地机壳",
+  "block.createmoremachines.beyond_casing": "超越机壳",
+
+  "item.createmoremachines.netherite_alloy": "下界合金",
+  "item.createmoremachines.end_alloy": "末地合金",
+  "item.createmoremachines.beyond_alloy": "超越合金"
+}
