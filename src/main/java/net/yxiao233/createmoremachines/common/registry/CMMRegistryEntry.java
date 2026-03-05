@@ -49,8 +49,8 @@ public class CMMRegistryEntry {
     public static final ItemEntry<Item> END_ALLOY = simpleItem("end_alloy");
     public static final ItemEntry<Item> BEYOND_ALLOY = simpleItem("beyond_alloy");
     //Fluid
-    public static final CMMBaseFluidInstance BINDER = fluid("binder");
-    public static final CMMBaseFluidInstance PURE_WATER = fluid("pure_water");
+    public static final CMMBaseFluidInstance BINDER = simpleFluid("binder");
+    public static final CMMBaseFluidInstance PURE_WATER = simpleFluid("pure_water");
     //Block
     public static final BlockEntry<Block> NETHERITE_ALLOY_BLOCK = simpleBlock("netherite_alloy_block");
     public static final BlockEntry<Block> END_ALLOY_BLOCK = simpleBlock("end_alloy_block");
@@ -132,7 +132,6 @@ public class CMMRegistryEntry {
         CMMTierManager.registryBasinEntities(getBasins(),BASIN_ENTITIES);
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static BlockEntry<CasingBlock> casing(String name, CTSpriteShiftEntry spriteEntry, SoundType soundType){
         return REGISTRATE.block(name + "_casing", CasingBlock::new)
                 .setData(ProviderType.LANG, NonNullBiConsumer.noop())
@@ -141,7 +140,6 @@ public class CMMRegistryEntry {
                 .register();
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static <T extends Item> ItemEntry<T> simpleItem(String name, NonNullFunction<Item.Properties, T> itemFunction){
         return REGISTRATE
                 .item(name,itemFunction)
@@ -149,7 +147,6 @@ public class CMMRegistryEntry {
                 .register();
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static ItemEntry<Item> simpleItem(String name){
         return REGISTRATE
                 .item(name,Item::new)
@@ -157,14 +154,12 @@ public class CMMRegistryEntry {
                 .register();
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private static CMMBaseFluidInstance fluid(String name){
+    private static CMMBaseFluidInstance simpleFluid(String name){
         return new CMMBaseFluidInstance(CreateMoreMachines.ITEMS, CreateMoreMachines.BLOCKS, CreateMoreMachines.FLUIDS, CreateMoreMachines.FLUID_TYPES, name,
                 FluidType.Properties.create().density(1000),
                 new ClientFluidTypeExtensions(CreateMoreMachines.makeId("block/fluids/" + name + "_still"), CreateMoreMachines.makeId("block/fluids/" + name + "_flow")));
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static BlockEntry<Block> simpleBlock(String name){
         //TODO add blockstate and item model gen while has textures
         return REGISTRATE.block(name, Block::new)

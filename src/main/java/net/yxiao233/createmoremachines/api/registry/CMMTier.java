@@ -80,6 +80,9 @@ public class CMMTier {
     }
 
     public CMMTier fromConfig(TierConfigBase config){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
         return this.setItemCapability(config.getItemCapability())
                 .setFluidCapability(config.getFluidCapability())
                 .setProcessingMultiple(config.getProcessingMultiple())
@@ -190,6 +193,9 @@ public class CMMTier {
     }
 
     public CMMTier defaultRenderer(){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
         return this.withDefaultDepotRenderer()
                 .withDefaultSpoutRenderer()
                 .withDefaultMechanicalMixerRenderer()
