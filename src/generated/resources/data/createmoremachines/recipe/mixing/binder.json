@@ -1,0 +1,23 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "tag": "c:slime_balls"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "type": "fluid_stack",
+      "amount": 1000,
+      "fluid": "createmoremachines:pure_water"
+    }
+  ],
+  "results": [
+    {
+      "amount": 1000,
+      "id": "createmoremachines:binder"
+    }
+  ]
+}

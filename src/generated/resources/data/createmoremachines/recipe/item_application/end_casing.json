@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "minecraft:end_stone_bricks"
+    },
+    {
+      "item": "createmoremachines:end_alloy"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:end_casing"
+    }
+  ]
+}

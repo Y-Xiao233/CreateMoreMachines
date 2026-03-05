@@ -22,8 +22,22 @@
   "block.createmoremachines.netherite_casing": "下界机壳",
   "block.createmoremachines.end_casing": "末地机壳",
   "block.createmoremachines.beyond_casing": "超越机壳",
+  "block.createmoremachines.binder": "粘合剂",
+  "block.createmoremachines.pure_water": "纯净水",
+  "block.createmoremachines.netherite_alloy_block": "下界合金块",
+  "block.createmoremachines.end_alloy_block": "末地合金块",
+  "block.createmoremachines.beyond_alloy_block": "超越合金块",
 
   "item.createmoremachines.netherite_alloy": "下界合金",
   "item.createmoremachines.end_alloy": "末地合金",
-  "item.createmoremachines.beyond_alloy": "超越合金"
+  "item.createmoremachines.beyond_alloy": "超越合金",
+  "item.createmoremachines.binder_bucket": "桶装粘合剂",
+  "item.createmoremachines.pure_water_bucket": "纯净水桶",
+
+  "fluid_type.createmoremachines.binder": "粘合剂",
+  "fluid_type.createmoremachines.pure_water": "纯净水",
+
+  "tooltip.createmoremachines.item_capability": "§a物品容量:§f %d",
+  "tooltip.createmoremachines.fluid_capability": "§a流体容量:§f %dB",
+  "tooltip.createmoremachines.processing_multiple": "§a并行:§f %d"
 }

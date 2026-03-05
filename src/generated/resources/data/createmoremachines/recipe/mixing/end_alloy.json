@@ -1,0 +1,25 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "superheated",
+  "ingredients": [
+    {
+      "item": "minecraft:dragon_breath"
+    },
+    {
+      "item": "minecraft:dragon_head"
+    },
+    {
+      "item": "minecraft:chorus_fruit"
+    },
+    {
+      "type": "fluid_stack",
+      "amount": 4000,
+      "fluid": "createmoremachines:binder"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:end_alloy"
+    }
+  ]
+}

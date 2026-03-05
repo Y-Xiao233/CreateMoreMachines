@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_bricks"
+    },
+    {
+      "item": "createmoremachines:netherite_alloy"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:netherite_casing"
+    }
+  ]
+}

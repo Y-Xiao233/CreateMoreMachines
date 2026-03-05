@@ -26,16 +26,15 @@ public class CMMTierPlugin implements ICMMPlugin {
         CMMTier.create(CreateMoreMachines.makeId("brass"))
                 .fromConfig(CMMConfig.BRASS)
                 .defaultRenderer();
-        //TODO add tiers while have all textures
-//        CMMTier.create(CreateMoreMachines.makeId("netherite"))
-//                .fromConfig(CMMConfig.NETHERITE)
-//                .defaultRenderer();
-//        CMMTier.create(CreateMoreMachines.makeId("end"))
-//                .fromConfig(CMMConfig.END)
-//                .defaultRenderer();
-//        CMMTier.create(CreateMoreMachines.makeId("beyond"))
-//                .fromConfig(CMMConfig.BEYOND)
-//                .defaultRenderer();
+        CMMTier.create(CreateMoreMachines.makeId("netherite"))
+                .fromConfig(CMMConfig.NETHERITE)
+                .defaultRenderer();
+        CMMTier.create(CreateMoreMachines.makeId("end"))
+                .fromConfig(CMMConfig.END)
+                .defaultRenderer();
+        CMMTier.create(CreateMoreMachines.makeId("beyond"))
+                .fromConfig(CMMConfig.BEYOND)
+                .defaultRenderer();
         CMMTier.create(CreateMoreMachines.makeId("creative"))
                 .fromConfig(CMMConfig.CREATIVE)
                 .defaultRenderer();

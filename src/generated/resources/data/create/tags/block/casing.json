@@ -1,6 +1,8 @@
 {
   "values": [
     "createmoremachines:creative_casing",
-    "createmoremachines:netherite_casing"
+    "createmoremachines:netherite_casing",
+    "createmoremachines:end_casing",
+    "createmoremachines:beyond_casing"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "createmoremachines:end_alloy"
+    },
+    {
+      "item": "createmoremachines:end_casing"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:end_depot"
+  }
+}

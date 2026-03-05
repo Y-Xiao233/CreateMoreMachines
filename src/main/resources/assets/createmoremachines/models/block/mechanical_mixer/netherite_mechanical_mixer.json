@@ -1,0 +1,9 @@
+{
+  "parent": "createmoremachines:block/mechanical_mixer",
+  "textures": {
+    "casing": "createmoremachines:block/netherite_casing",
+    "side": "createmoremachines:block/netherite_mixer_side",
+    "top": "createmoremachines:block/netherite_press_top",
+    "particle": "createmoremachines:block/netherite_casing"
+  }
+}

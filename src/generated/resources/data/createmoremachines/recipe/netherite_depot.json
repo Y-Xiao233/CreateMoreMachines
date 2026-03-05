@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "createmoremachines:netherite_alloy"
+    },
+    {
+      "item": "createmoremachines:netherite_casing"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:netherite_depot"
+  }
+}

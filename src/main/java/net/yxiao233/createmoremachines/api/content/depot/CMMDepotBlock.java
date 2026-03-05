@@ -27,17 +27,30 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.yxiao233.createmoremachines.api.CMMTierTooltip;
+import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
 import net.yxiao233.createmoremachines.api.processing.IAdjustPlacedBlock;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
-public class CMMDepotBlock extends Block implements IBE<CMMDepotBlockEntity>, IWrenchable, ProperWaterloggedBlock, IAdjustPlacedBlock {
+import java.util.List;
+
+public class CMMDepotBlock extends Block implements IBE<CMMDepotBlockEntity>, IWrenchable, ProperWaterloggedBlock, IAdjustPlacedBlock, IHaveTierInformation {
     private final CMMTier tier;
     public CMMDepotBlock(CMMTier tier, Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
         this.tier = tier;
+    }
+
+    public CMMTier getTier() {
+        return tier;
+    }
+
+    @Override
+    public void addTierInformation(List<Component> tooltips) {
+        CMMTierTooltip.byTypes(tooltips,tier, CMMTierTooltip.Type.ITEM_CAPABILITY);
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

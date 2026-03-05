@@ -1,0 +1,11 @@
+{
+	"parent": "createmoremachines:block/mechanical_press",
+	"textures": {
+		"side": "createmoremachines:block/netherite_press_side",
+		"gearbox": "createmoremachines:block/netherite_gearbox",
+		"gearbox_top": "createmoremachines:block/netherite_casing",
+		"mechanical_press_bottom": "createmoremachines:block/netherite_press_bottom",
+		"mechanical_press_top": "createmoremachines:block/netherite_press_top",
+		"particle": "createmoremachines:block/netherite_casing"
+	}
+}

@@ -3,10 +3,13 @@ package net.yxiao233.createmoremachines.api.registry;
 import com.simibubi.create.AllDisplaySources;
 import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour;
+import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
 import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.logistics.depot.MountedDepotInteractionBehaviour;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
+import com.simibubi.create.content.processing.basin.BasinGenerator;
+import com.simibubi.create.content.processing.basin.BasinMovementBehaviour;
 import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -16,7 +19,10 @@ import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
+import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlock;
+import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlock;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotMountedStorageType;
@@ -26,6 +32,7 @@ import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
+import net.yxiao233.createmoremachines.datagen.content.CMMBasinGenerator;
 import net.yxiao233.createmoremachines.datagen.content.CMMBlockStateGen;
 import net.yxiao233.createmoremachines.utils.AnnotationUtil;
 import net.yxiao233.createmoremachines.datagen.content.CMMAssetLookup;
@@ -174,7 +181,7 @@ public class CMMTierManager {
                     blockMap.put(id, plugin.getRegistrate().block(id.getPath() + "_mechanical_mixer", properties -> new CMMMechanicalMixerBlock(CMMTier.getTiers().get(id),properties))
                                     .initialProperties(SharedProperties::stone)
                                     .properties(properties -> {
-                                        return properties.mapColor(MapColor.STONE);
+                                        return properties.noOcclusion().mapColor(MapColor.STONE);
                                     })
                                     .onRegister(CMMBlockStressValues.setImpact(CMMTier.getTiers().get(id).getMechanicalMixerImpact()))
                                     .setData(ProviderType.LANG, NonNullBiConsumer.noop())
@@ -229,6 +236,48 @@ public class CMMTierManager {
                             .item(AssemblyOperatorBlockItem::new)
                             .setData(ProviderType.LANG, NonNullBiConsumer.noop())
                             .transform(ModelGen.customItemModel("spout","item","_"))
+                            .register()
+                    );
+                }
+            });
+        });
+    }
+    //basin
+    @SuppressWarnings("unchecked")
+    public static void registryBasinEntities(Map<ResourceLocation, BlockEntry<CMMBasinBlock>> blockMap, Map<ResourceLocation, BlockEntityEntry<CMMBasinBlockEntity>> entityMap){
+        PLUGINS.forEach(plugin ->{
+            blockMap.forEach((id, spout) ->{
+                if(id.getNamespace().equals(plugin.getRegistrate().getModid())){
+                    entityMap.put(id,plugin.getRegistrate().blockEntity(id.getPath() + "_basin", (type, pos, state) -> new CMMBasinBlockEntity(CMMTier.getTiers().get(id),type,pos,state))
+                            .validBlocks(new NonNullSupplier[]{blockMap.get(id)})
+                            .renderer(CMMTier.getTiers().get(id).getBasinRenderer())
+                            .register()
+                    );
+                }
+            });
+        });
+    }
+
+    @SuppressWarnings("removal")
+    public static void registryBasins(Map<ResourceLocation, BlockEntry<CMMBasinBlock>> blockMap){
+        PLUGINS.forEach(plugin ->{
+            CMMTier.getTiers().forEach((id, type) ->{
+                if(id.getNamespace().equals(plugin.getRegistrate().getModid())){
+                    blockMap.put(id, plugin.getRegistrate().block(id.getPath() + "_basin", properties -> new CMMBasinBlock(CMMTier.getTiers().get(id),properties))
+                            .initialProperties(SharedProperties::stone)
+                            .properties(properties -> {
+                                return properties.mapColor(MapColor.COLOR_GRAY).sound(SoundType.NETHERITE_BLOCK);
+                            })
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(TagGen.pickaxeOnly())
+                            .blockstate(new CMMBasinGenerator()::generate)
+                            .addLayer(() -> {
+                                return RenderType::cutoutMipped;
+                            })
+                            .onRegister(MovementBehaviour.movementBehaviour(new BasinMovementBehaviour()))
+                            .item()
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(ModelGen.customItemModel("basin","_"))
                             .register()
                     );
                 }

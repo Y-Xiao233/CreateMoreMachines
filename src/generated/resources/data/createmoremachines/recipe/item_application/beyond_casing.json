@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "minecraft:dragon_egg"
+    },
+    {
+      "item": "createmoremachines:beyond_alloy"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:beyond_casing"
+    }
+  ]
+}

@@ -2,13 +2,27 @@
   "values": [
     "createmoremachines:creative_casing",
     "createmoremachines:netherite_casing",
+    "createmoremachines:end_casing",
+    "createmoremachines:beyond_casing",
+    "createmoremachines:netherite_depot",
+    "createmoremachines:beyond_depot",
     "createmoremachines:creative_depot",
     "createmoremachines:brass_depot",
+    "createmoremachines:end_depot",
+    "createmoremachines:netherite_mechanical_press",
+    "createmoremachines:beyond_mechanical_press",
     "createmoremachines:creative_mechanical_press",
     "createmoremachines:brass_mechanical_press",
+    "createmoremachines:end_mechanical_press",
+    "createmoremachines:netherite_mechanical_mixer",
+    "createmoremachines:beyond_mechanical_mixer",
     "createmoremachines:creative_mechanical_mixer",
     "createmoremachines:brass_mechanical_mixer",
+    "createmoremachines:end_mechanical_mixer",
+    "createmoremachines:netherite_spout",
+    "createmoremachines:beyond_spout",
     "createmoremachines:creative_spout",
-    "createmoremachines:brass_spout"
+    "createmoremachines:brass_spout",
+    "createmoremachines:end_spout"
   ]
 }

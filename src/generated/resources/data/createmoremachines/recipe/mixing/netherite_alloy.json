@@ -1,12 +1,20 @@
 {
   "type": "create:mixing",
-  "heat_requirement": "superheated",
+  "heat_requirement": "heated",
   "ingredients": [
     {
       "tag": "c:ingots/netherite"
     },
     {
       "tag": "c:gems/quartz"
+    },
+    {
+      "tag": "c:nether_stars"
+    },
+    {
+      "type": "fluid_stack",
+      "amount": 2000,
+      "fluid": "createmoremachines:binder"
     }
   ],
   "results": [

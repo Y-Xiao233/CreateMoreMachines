@@ -1,0 +1,9 @@
+{
+	"parent": "createmoremachines:block/mechanical_mixer_item",
+	"textures": {
+		"top": "createmoremachines:block/end_press_top",
+		"casing": "createmoremachines:block/end_casing",
+		"side": "createmoremachines:block/end_mixer_side",
+		"particle": "createmoremachines:block/end_casing"
+	}
+}

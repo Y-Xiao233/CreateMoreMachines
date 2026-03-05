@@ -22,5 +22,15 @@ public class RegisterCapabilitiesHandler {
                 return be.tank.getCapability();
             });
         });
+        CMMRegistryEntry.getBasinEntities().forEach((id, type) ->{
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, type.get(), (be, context) ->{
+                return be.getFluidCapability();
+            });
+        });
+        CMMRegistryEntry.getBasinEntities().forEach((id, type) ->{
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), (be, context) ->{
+                return be.getItemCapability();
+            });
+        });
     }
 }

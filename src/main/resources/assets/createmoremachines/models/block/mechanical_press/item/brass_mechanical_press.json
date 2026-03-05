@@ -1,3 +1,11 @@
 {
-	"parent": "createmoremachines:block/mechanical_press_item"
+	"parent": "createmoremachines:block/mechanical_press_item",
+	"textures": {
+		"mechanical_press_side": "createmoremachines:block/brass_press_side",
+		"gearbox": "create:block/brass_gearbox",
+		"gearbox_top": "create:block/brass_casing",
+		"mechanical_press_bottom": "createmoremachines:block/brass_press_bottom",
+		"mechanical_press_top": "createmoremachines:block/brass_press_top",
+		"particle": "create:block/brass_casing"
+	}
 }

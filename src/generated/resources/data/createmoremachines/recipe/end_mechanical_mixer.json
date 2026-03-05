@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "createmoremachines:end_casing"
+    },
+    "L": {
+      "item": "create:cogwheel"
+    },
+    "W": {
+      "item": "create:whisk"
+    }
+  },
+  "pattern": [
+    " L ",
+    " C ",
+    " W "
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:end_mechanical_mixer"
+  }
+}

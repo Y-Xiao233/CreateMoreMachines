@@ -20,12 +20,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.yxiao233.createmoremachines.api.CMMTierTooltip;
+import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
 import net.yxiao233.createmoremachines.api.processing.IAdjustPlacedBlock;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
-public class CMMSpoutBlock extends Block implements IWrenchable, IBE<CMMSpoutBlockEntity>, IAdjustPlacedBlock {
+import java.util.List;
+
+public class CMMSpoutBlock extends Block implements IWrenchable, IBE<CMMSpoutBlockEntity>, IAdjustPlacedBlock, IHaveTierInformation {
     private final CMMTier tier;
     public CMMSpoutBlock(CMMTier tier, BlockBehaviour.Properties properties) {
         super(properties);
@@ -34,6 +38,11 @@ public class CMMSpoutBlock extends Block implements IWrenchable, IBE<CMMSpoutBlo
 
     public CMMTier getTier() {
         return tier;
+    }
+
+    @Override
+    public void addTierInformation(List<Component> tooltips) {
+        CMMTierTooltip.byTypes(tooltips,tier, CMMTierTooltip.Type.FLUID_CAPABILITY, CMMTierTooltip.Type.PROCESSING_MULTIPLE);
     }
 
     @Override

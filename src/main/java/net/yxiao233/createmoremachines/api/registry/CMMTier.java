@@ -1,6 +1,7 @@
 package net.yxiao233.createmoremachines.api.registry;
 
 import com.simibubi.create.content.kinetics.mixer.MechanicalMixerRenderer;
+import com.simibubi.create.content.processing.basin.BasinRenderer;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
@@ -42,6 +43,7 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalPressBlockEntity>>> mechanicalPressRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, MechanicalMixerRenderer>> mechanicalMixerRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMSpoutBlockEntity>>> spoutRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> basinRenderer;
     private CMMTier(ResourceLocation id){
         tiers.put(id,this);
         this.id = id;
@@ -179,11 +181,20 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setBasinRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> renderer){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.basinRenderer = renderer;
+        return this;
+    }
+
     public CMMTier defaultRenderer(){
         return this.withDefaultDepotRenderer()
                 .withDefaultSpoutRenderer()
                 .withDefaultMechanicalMixerRenderer()
-                .withDefaultMechanicalPressRenderer();
+                .withDefaultMechanicalPressRenderer()
+                .withDefaultBasinRenderer();
     }
 
 
@@ -200,6 +211,9 @@ public class CMMTier {
 
     public CMMTier withDefaultSpoutRenderer(){
         return setSpoutRenderer(() -> CMMSpoutRenderer::new);
+    }
+    public CMMTier withDefaultBasinRenderer(){
+        return setBasinRenderer(() -> BasinRenderer::new);
     }
 
 
@@ -237,6 +251,10 @@ public class CMMTier {
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMSpoutBlockEntity>>> getSpoutRenderer() {
         return spoutRenderer;
+    }
+
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> getBasinRenderer() {
+        return basinRenderer;
     }
 
     public ResourceLocation getId() {

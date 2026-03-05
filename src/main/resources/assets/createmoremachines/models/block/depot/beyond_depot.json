@@ -1,0 +1,8 @@
+{
+  "parent": "createmoremachines:block/depot",
+  "textures": {
+    "top": "createmoremachines:block/beyond_depot_top",
+    "casing": "createmoremachines:block/beyond_casing",
+    "particle": "createmoremachines:block/beyond_casing"
+  }
+}

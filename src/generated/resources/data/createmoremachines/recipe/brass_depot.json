@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "create:brass_ingot"
+    },
+    {
+      "item": "create:brass_casing"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:brass_depot"
+  }
+}

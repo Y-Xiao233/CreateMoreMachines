@@ -1,0 +1,11 @@
+{
+	"parent": "createmoremachines:block/mechanical_press_item",
+	"textures": {
+		"mechanical_press_side": "createmoremachines:block/beyond_press_side",
+		"gearbox": "createmoremachines:block/beyond_gearbox",
+		"gearbox_top": "createmoremachines:block/beyond_casing",
+		"mechanical_press_bottom": "createmoremachines:block/beyond_press_bottom",
+		"mechanical_press_top": "createmoremachines:block/beyond_press_top",
+		"particle": "createmoremachines:block/beyond_casing"
+	}
+}

@@ -1,3 +1,9 @@
 {
-  "parent": "createmoremachines:block/mechanical_mixer"
+  "parent": "createmoremachines:block/mechanical_mixer",
+  "textures": {
+    "casing": "createmoremachines:block/creative_casing",
+    "side": "createmoremachines:block/creative_mixer_side",
+    "top": "createmoremachines:block/creative_press_top",
+    "particle": "createmoremachines:block/creative_casing"
+  }
 }

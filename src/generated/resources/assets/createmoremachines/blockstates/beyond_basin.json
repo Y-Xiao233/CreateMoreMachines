@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "createmoremachines:block/basin/beyond_basin"
+    },
+    "facing=east": {
+      "model": "createmoremachines:block/basin/beyond_basin_directional",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "createmoremachines:block/basin/beyond_basin_directional",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "createmoremachines:block/basin/beyond_basin_directional"
+    },
+    "facing=west": {
+      "model": "createmoremachines:block/basin/beyond_basin_directional",
+      "y": 90
+    }
+  }
+}

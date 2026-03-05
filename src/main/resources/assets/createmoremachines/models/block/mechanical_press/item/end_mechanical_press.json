@@ -1,0 +1,11 @@
+{
+	"parent": "createmoremachines:block/mechanical_press_item",
+	"textures": {
+		"mechanical_press_side": "createmoremachines:block/end_press_side",
+		"gearbox": "createmoremachines:block/end_gearbox",
+		"gearbox_top": "createmoremachines:block/end_casing",
+		"mechanical_press_bottom": "createmoremachines:block/end_press_bottom",
+		"mechanical_press_top": "createmoremachines:block/end_press_top",
+		"particle": "createmoremachines:block/end_casing"
+	}
+}

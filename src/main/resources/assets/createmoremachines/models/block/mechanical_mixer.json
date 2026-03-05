@@ -3,7 +3,7 @@
 	"parent": "block/block",
 	"ambientocclusion": false,
 	"textures": {
-		"log": "block/spruce_log_top",
+		"casing": "block/spruce_log_top",
 		"side": "create:block/mixer_base_side",
 		"top": "create:block/mechanical_press_top",
 		"particle": "create:block/mixer_base_side"
@@ -19,7 +19,7 @@
 				"south": {"uv": [0, 0, 16, 6], "texture": "#side"},
 				"west": {"uv": [0, 0, 16, 6], "texture": "#side"},
 				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#log"}
+				"down": {"uv": [0, 0, 16, 16], "texture": "#casing"}
 			}
 		},
 		{
@@ -31,7 +31,7 @@
 				"east": {"uv": [0, 10, 16, 14], "texture": "#side"},
 				"south": {"uv": [0, 10, 16, 14], "texture": "#side"},
 				"west": {"uv": [0, 10, 16, 14], "texture": "#side"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#log"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#casing"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#top"}
 			}
 		},

@@ -1,0 +1,17 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "type": "fluid_tag",
+      "amount": 20,
+      "fluid_tag": "c:water"
+    }
+  ],
+  "results": [
+    {
+      "amount": 20,
+      "id": "createmoremachines:pure_water"
+    }
+  ]
+}

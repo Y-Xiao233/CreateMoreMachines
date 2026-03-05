@@ -20,15 +20,24 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.yxiao233.createmoremachines.api.CMMTierTooltip;
+import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
-public class CMMMechanicalPressBlock extends HorizontalKineticBlock implements IBE<CMMMechanicalPressBlockEntity> {
+import java.util.List;
+
+public class CMMMechanicalPressBlock extends HorizontalKineticBlock implements IBE<CMMMechanicalPressBlockEntity>, IHaveTierInformation {
     private final CMMTier tier;
     public CMMMechanicalPressBlock(CMMTier tier, Properties properties) {
         super(properties);
         this.tier = tier;
+    }
+
+    @Override
+    public void addTierInformation(List<Component> tooltips) {
+        CMMTierTooltip.byTypes(tooltips,tier, CMMTierTooltip.Type.PROCESSING_MULTIPLE);
     }
 
     @Override

@@ -10,6 +10,8 @@ import net.yxiao233.createmoremachines.CreateMoreMachines;
 public class CMMSpriteShifts {
     public static final CTSpriteShiftEntry CREATIVE_CASING = omni("creative_casing");
     public static final CTSpriteShiftEntry NETHERITE_CASING = omni("netherite_casing");
+    public static final CTSpriteShiftEntry END_CASING = omni("end_casing");
+    public static final CTSpriteShiftEntry BEYOND_CASING = omni("beyond_casing");
     private static CTSpriteShiftEntry omni(String name) {
         return getCT(AllCTTypes.OMNIDIRECTIONAL, name);
     }

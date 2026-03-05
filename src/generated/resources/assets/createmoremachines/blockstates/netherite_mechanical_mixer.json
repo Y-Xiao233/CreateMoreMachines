@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "createmoremachines:block/mechanical_mixer/netherite_mechanical_mixer"
+    }
+  }
+}

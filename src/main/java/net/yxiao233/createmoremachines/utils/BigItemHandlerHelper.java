@@ -1,9 +1,25 @@
 package net.yxiao233.createmoremachines.utils;
 
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class BigItemHandlerHelper {
+
+    public static ItemStack insertItem(ItemStackHandler dest, ItemStack stack, int limit,boolean simulate) {
+        if (dest != null && !stack.isEmpty()) {
+            for(int i = 0; i < dest.getSlots(); ++i) {
+                stack = insertItem(dest, i, stack, limit, simulate);
+                if (stack.isEmpty()) {
+                    return ItemStack.EMPTY;
+                }
+            }
+
+            return stack;
+        } else {
+            return stack;
+        }
+    }
     public static ItemStack insertItem(ItemStackHandler handler, int slot, ItemStack stack, int limit, boolean simulate) {
         if (stack.isEmpty()) {
             return ItemStack.EMPTY;

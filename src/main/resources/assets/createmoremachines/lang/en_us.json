@@ -22,8 +22,22 @@
   "block.createmoremachines.netherite_casing": "Netherite Casing",
   "block.createmoremachines.end_casing": "End Casing",
   "block.createmoremachines.beyond_casing": "Beyond Casing",
+  "block.createmoremachines.binder": "Binder",
+  "block.createmoremachines.pure_water": "Pure Water",
+  "block.createmoremachines.netherite_alloy_block": "Netherite Alloy Block",
+  "block.createmoremachines.end_alloy_block": "End Alloy Block",
+  "block.createmoremachines.beyond_alloy_block": "Beyond Alloy Block",
 
   "item.createmoremachines.netherite_alloy": "Netherite Alloy",
   "item.createmoremachines.end_alloy": "End Alloy",
-  "item.createmoremachines.beyond_alloy": "Beyond Alloy"
+  "item.createmoremachines.beyond_alloy": "Beyond Alloy",
+  "item.createmoremachines.binder_bucket": "Binder Bucket",
+  "item.createmoremachines.pure_water_bucket": "Pure Water Bucket",
+
+  "fluid_type.createmoremachines.binder": "Binder",
+  "fluid_type.createmoremachines.pure_water": "Pure Water",
+
+  "tooltip.createmoremachines.item_capability": "§aItem Capability:§f %d",
+  "tooltip.createmoremachines.fluid_capability": "§aFluid Capability:§f %dB",
+  "tooltip.createmoremachines.processing_multiple": "§aProcessing Multiple:§f %d"
 }

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "createmoremachines:block/spout/netherite_spout"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": false,
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "create:andesite_alloy"
+    },
+    "B": {
+      "tag": "c:ingots/brass"
+    },
+    "E": {
+      "item": "createmoremachines:end_alloy"
+    },
+    "N": {
+      "item": "createmoremachines:netherite_alloy"
+    }
+  },
+  "pattern": [
+    "AAAA",
+    "ANBA",
+    "ABEA",
+    "AAAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:beyond_alloy"
+  },
+  "show_notification": false
+}

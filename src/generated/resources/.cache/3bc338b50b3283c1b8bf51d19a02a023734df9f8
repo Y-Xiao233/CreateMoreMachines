@@ -1,2 +1,5 @@
-// 1.21.1	2026-03-01T18:14:11.7913049	createmoremachines's processing recipes: mixing
-998e87a8fbfb13bb0e5808c325adc507a7d2abc4 data/createmoremachines/recipe/mixing/netherite_alloy.json
+// 1.21.1	2026-03-05T17:19:31.1579526	createmoremachines's processing recipes: mixing
+b39778996ec832406c05f2d0ed976377399eab0c data/createmoremachines/recipe/mixing/binder.json
+ab633189d0e4601933ce8ef4d5169f7dc6be9baf data/createmoremachines/recipe/mixing/end_alloy.json
+4a616ec6fe96b47c5e3aff566906e055792fc1f3 data/createmoremachines/recipe/mixing/netherite_alloy.json
+9e053f2c928823369a74ad979d22cd576a388b74 data/createmoremachines/recipe/mixing/pure_water.json

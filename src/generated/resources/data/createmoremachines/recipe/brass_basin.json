@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "create:brass_ingot"
+    }
+  },
+  "pattern": [
+    "   ",
+    "A A",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:brass_basin"
+  }
+}
