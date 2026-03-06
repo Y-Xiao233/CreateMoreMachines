@@ -3,9 +3,9 @@
   "heat_requirement": "heated",
   "ingredients": [
     {
-      "type": "fluid_tag",
+      "type": "neoforge:tag",
       "amount": 20,
-      "fluid_tag": "c:water"
+      "tag": "c:water"
     }
   ],
   "results": [

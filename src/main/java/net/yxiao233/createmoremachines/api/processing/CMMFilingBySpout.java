@@ -7,7 +7,6 @@ import com.simibubi.create.content.fluids.potion.PotionFluidHandler;
 import com.simibubi.create.content.fluids.transfer.FillingRecipe;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 import com.simibubi.create.foundation.fluid.FluidHelper;
-import com.simibubi.create.foundation.fluid.FluidIngredient;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -22,6 +21,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.Iterator;
 import java.util.List;
@@ -40,7 +40,7 @@ public class CMMFilingBySpout {
 
             RecipeHolder<Recipe<SingleRecipeInput>> recipe;
             FillingRecipe fr;
-            FluidIngredient requiredFluid;
+            SizedFluidIngredient requiredFluid;
             do {
                 if (!iterator.hasNext()) {
                     return null;
@@ -54,7 +54,7 @@ public class CMMFilingBySpout {
             return new RecipeHolder(recipe.id(), fr);
         });
         if (fillingRecipe != null) {
-            List<ItemStack> results = fillingRecipe.value().rollResults();
+            List<ItemStack> results = fillingRecipe.value().rollResults(world.random);
             availableFluid.shrink(requiredAmount * max);
             stack.shrink(max);
             return results.isEmpty() ? ItemStack.EMPTY : results.getFirst().copyWithCount(max);

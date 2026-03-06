@@ -12,7 +12,7 @@
       "item": "minecraft:chorus_fruit"
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 4000,
       "fluid": "createmoremachines:binder"
     }

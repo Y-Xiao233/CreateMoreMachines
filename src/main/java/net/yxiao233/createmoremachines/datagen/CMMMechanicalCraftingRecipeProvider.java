@@ -3,6 +3,7 @@ package net.yxiao233.createmoremachines.datagen;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.api.data.recipe.MechanicalCraftingRecipeGen;
+import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
@@ -18,7 +19,7 @@ public class CMMMechanicalCraftingRecipeProvider extends MechanicalCraftingRecip
         this.create(CMMRegistryEntry.BEYOND_ALLOY::get).returns(1).recipe(builder -> {
             return builder
                     .key('A', AllItems.ANDESITE_ALLOY)
-                    .key('B', AllTags.commonItemTag("ingots/brass"))
+                    .key('B', CommonMetal.BRASS.ingots)
                     .key('N', CMMRegistryEntry.NETHERITE_ALLOY)
                     .key('E', CMMRegistryEntry.END_ALLOY)
                     .patternLine("AAAA")

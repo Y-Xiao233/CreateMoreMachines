@@ -144,7 +144,7 @@ public class CMMMechanicalPressBlockEntity extends BasinOperatingBlockEntity imp
         } else {
             this.pressingBehaviour.particleItems.add(input.stack);
             int max = Math.min(tier.getProcessingMultiple(), input.stack.getCount());
-            List<ItemStack> outputs = RecipeApplier.applyRecipeOn(this.level, input.stack.copyWithCount(max), recipe.get());
+            List<ItemStack> outputs = RecipeApplier.applyRecipeOn(this.level, input.stack.copyWithCount(max), recipe.get().value(), true);
 
             for (ItemStack created : outputs) {
                 if (!created.isEmpty()) {
@@ -170,7 +170,7 @@ public class CMMMechanicalPressBlockEntity extends BasinOperatingBlockEntity imp
             ItemStack itemCreated = ItemStack.EMPTY;
             this.pressingBehaviour.particleItems.add(item.copy());
             int max = Math.min(item.getCount(), this.getTier().getProcessingMultiple());
-            for (ItemStack result : RecipeApplier.applyRecipeOn(this.level, item.copyWithCount(max), recipe.get())) {
+            for (ItemStack result : RecipeApplier.applyRecipeOn(this.level, item.copyWithCount(max), recipe.get().value(), true)) {
                 if (itemCreated.isEmpty()) {
                     itemCreated = result.copy();
                 }

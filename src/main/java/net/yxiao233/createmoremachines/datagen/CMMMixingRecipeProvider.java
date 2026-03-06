@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.annotation.RecipeGen;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
@@ -21,7 +22,7 @@ public class CMMMixingRecipeProvider extends MixingRecipeGen {
                     .require(Tags.Items.INGOTS_NETHERITE)
                     .require(Tags.Items.GEMS_QUARTZ)
                     .require(Tags.Items.NETHER_STARS)
-                    .require(CMMRegistryEntry.BINDER.getSourceFluid().get(), 2000)
+                    .require(SizedFluidIngredient.of(CMMRegistryEntry.BINDER.getSourceFluid().get(),2000))
                     .output(CMMRegistryEntry.NETHERITE_ALLOY,1)
                     .requiresHeat(HeatCondition.HEATED);
         });
@@ -31,7 +32,7 @@ public class CMMMixingRecipeProvider extends MixingRecipeGen {
                     .require(Items.DRAGON_BREATH)
                     .require(Items.DRAGON_HEAD)
                     .require(Items.CHORUS_FRUIT)
-                    .require(CMMRegistryEntry.BINDER.getSourceFluid().get(), 4000)
+                    .require(SizedFluidIngredient.of(CMMRegistryEntry.BINDER.getSourceFluid().get(), 4000))
                     .output(CMMRegistryEntry.END_ALLOY,1)
                     .requiresHeat(HeatCondition.SUPERHEATED);
         });
@@ -45,7 +46,7 @@ public class CMMMixingRecipeProvider extends MixingRecipeGen {
 
         this.create("binder", (builder) -> {
             return builder
-                    .require(CMMRegistryEntry.PURE_WATER.getSourceFluid().get(), 1000)
+                    .require(SizedFluidIngredient.of(CMMRegistryEntry.PURE_WATER.getSourceFluid().get(), 1000))
                     .require(Tags.Items.SLIME_BALLS)
                     .require(Items.MAGMA_CREAM)
                     .output(CMMRegistryEntry.BINDER.getSourceFluid().get(), 1000)

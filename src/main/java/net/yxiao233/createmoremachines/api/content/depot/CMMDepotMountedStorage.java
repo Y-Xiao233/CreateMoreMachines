@@ -54,11 +54,10 @@ public class CMMDepotMountedStorage extends WrapperMountedItemStorage<CMMDepotMo
     }
 
     public void afterSync(Contraption contraption, BlockPos localPos) {
-        BlockEntity be = (BlockEntity)contraption.presentBlockEntities.get(localPos);
+        BlockEntity be = contraption.getBlockEntityClientSide(localPos);
         if (be instanceof DepotBlockEntity depot) {
             depot.setHeldItem(this.getItem());
         }
-
     }
 
     public void setItem(ItemStack stack) {

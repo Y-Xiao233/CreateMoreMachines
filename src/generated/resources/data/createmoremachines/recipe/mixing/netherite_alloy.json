@@ -12,7 +12,7 @@
       "tag": "c:nether_stars"
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 2000,
       "fluid": "createmoremachines:binder"
     }
