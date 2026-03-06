@@ -161,15 +161,12 @@ public class CMMRegistryEntry {
     }
 
     private static BlockEntry<Block> simpleBlock(String name){
-        //TODO add blockstate and item model gen while has textures
         return REGISTRATE.block(name, Block::new)
                 .initialProperties(SharedProperties::stone)
                 .transform(TagGen.pickaxeOnly())
-                .setData(ProviderType.BLOCKSTATE, NonNullBiConsumer.noop())
-//                .blockstate((c, p) -> p.simpleBlock(c.get()))
+                .blockstate((c, p) -> p.simpleBlock(c.get()))
                 .setData(ProviderType.LANG, NonNullBiConsumer.noop())
                 .item()
-                .setData(ProviderType.ITEM_MODEL, NonNullBiConsumer.noop())
                 .build()
                 .register();
     }

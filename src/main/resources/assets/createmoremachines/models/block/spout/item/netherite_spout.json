@@ -3,7 +3,7 @@
 	"textures": {
 		"spout": "createmoremachines:block/netherite_spout",
 		"nozzle": "createmoremachines:block/netherite_spout_nozzle",
-		"pipe": "create:block/encased_pipe",
-		"particle": "minecraft:block/netherite_block"
+		"pipe": "createmoremachines:block/netherite_encased_pipe",
+		"particle": "createmoremachines:block/netherite_alloy_block"
 	}
 }

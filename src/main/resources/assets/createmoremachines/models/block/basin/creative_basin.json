@@ -1,3 +1,7 @@
 {
-  "parent": "createmoremachines:block/basin"
+  "parent": "createmoremachines:block/basin",
+  "textures": {
+    "basin": "createmoremachines:block/creative_basin",
+    "particle": "createmoremachines:block/creative_casing"
+  }
 }

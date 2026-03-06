@@ -5,10 +5,8 @@ import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour;
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
 import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
-import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.logistics.depot.MountedDepotInteractionBehaviour;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
-import com.simibubi.create.content.processing.basin.BasinGenerator;
 import com.simibubi.create.content.processing.basin.BasinMovementBehaviour;
 import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.providers.ProviderType;
@@ -283,5 +281,9 @@ public class CMMTierManager {
                 }
             });
         });
+    }
+
+    public static void registryModels(){
+        PLUGINS.forEach(ICMMPlugin::registryPartialModels);
     }
 }

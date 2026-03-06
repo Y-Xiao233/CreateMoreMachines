@@ -1,3 +1,8 @@
 {
-  "parent": "createmoremachines:block/basin_directional"
+  "parent": "createmoremachines:block/basin_directional",
+  "textures": {
+    "basin": "createmoremachines:block/beyond_basin",
+    "canal": "createmoremachines:block/beyond_basin_canal",
+    "particle": "createmoremachines:block/beyond_alloy_block"
+  }
 }

@@ -2,7 +2,7 @@
 	"parent": "createmoremachines:block/spout",
 	"textures": {
 		"spout": "createmoremachines:block/brass_spout",
-		"pipe": "create:block/encased_pipe",
+		"pipe": "createmoremachines:block/brass_encased_pipe",
 		"particle": "create:block/brass_block"
 	}
 }

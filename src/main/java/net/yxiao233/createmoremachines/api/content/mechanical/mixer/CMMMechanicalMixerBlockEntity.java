@@ -2,17 +2,20 @@ package net.yxiao233.createmoremachines.api.content.mechanical.mixer;
 
 import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.yxiao233.createmoremachines.api.IPartialModelRenderer;
 import net.yxiao233.createmoremachines.api.processing.CMMBasinRecipe;
+import net.yxiao233.createmoremachines.api.registry.CMMPartialModelsRegistry;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CMMMechanicalMixerBlockEntity extends MechanicalMixerBlockEntity {
+public class CMMMechanicalMixerBlockEntity extends MechanicalMixerBlockEntity implements IPartialModelRenderer {
     private final CMMTier tier;
     public CMMMechanicalMixerBlockEntity(CMMTier tier, BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -43,5 +46,10 @@ public class CMMMechanicalMixerBlockEntity extends MechanicalMixerBlockEntity {
                 }
             }
         }
+    }
+
+    @Override
+    public PartialModel[] getPartialModels() {
+        return CMMPartialModelsRegistry.getPartialModels(tier,"mixer");
     }
 }

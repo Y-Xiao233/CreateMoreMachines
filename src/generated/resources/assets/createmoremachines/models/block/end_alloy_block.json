@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "createmoremachines:block/end_alloy_block"
+  }
+}

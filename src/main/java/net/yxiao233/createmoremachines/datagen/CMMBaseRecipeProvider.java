@@ -70,10 +70,10 @@ public class CMMBaseRecipeProvider extends RecipeProvider {
 
 
 
-        pressRecipe(AllBlocks.BRASS_CASING, "brass").save(recipeOutput);
-        pressRecipe(CMMRegistryEntry.NETHERITE_CASING, "netherite").save(recipeOutput);
-        pressRecipe(CMMRegistryEntry.END_CASING, "end").save(recipeOutput);
-        pressRecipe(CMMRegistryEntry.BEYOND_CASING, "beyond").save(recipeOutput);
+        pressRecipe(AllBlocks.BRASS_CASING,"brass").save(recipeOutput);
+        pressRecipe(CMMRegistryEntry.NETHERITE_CASING,"netherite").save(recipeOutput);
+        pressRecipe(CMMRegistryEntry.END_CASING,"end").save(recipeOutput);
+        pressRecipe(CMMRegistryEntry.BEYOND_CASING,"beyond").save(recipeOutput);
 
         mixerRecipe(AllBlocks.BRASS_CASING, "brass").save(recipeOutput);
         mixerRecipe(CMMRegistryEntry.NETHERITE_CASING, "netherite").save(recipeOutput);

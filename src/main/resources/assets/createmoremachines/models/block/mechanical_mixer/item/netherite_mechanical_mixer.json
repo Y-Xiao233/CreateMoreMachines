@@ -3,6 +3,7 @@
 	"textures": {
 		"top": "createmoremachines:block/netherite_press_top",
 		"casing": "createmoremachines:block/netherite_casing",
+		"head": "createmoremachines:block/netherite_mixer_head",
 		"side": "createmoremachines:block/netherite_mixer_side",
 		"particle": "createmoremachines:block/netherite_casing"
 	}

@@ -2,6 +2,6 @@
   "parent": "createmoremachines:block/basin",
   "textures": {
     "basin": "createmoremachines:block/netherite_basin",
-    "particle": "minecraft:block/netherite_block"
+    "particle": "createmoremachines:block/netherite_alloy_block"
   }
 }

@@ -3,6 +3,7 @@
   "textures": {
     "top": "createmoremachines:block/beyond_depot_top",
     "casing": "createmoremachines:block/beyond_casing",
+    "side": "createmoremachines:block/beyond_depot_side",
     "particle": "createmoremachines:block/beyond_casing"
   }
 }

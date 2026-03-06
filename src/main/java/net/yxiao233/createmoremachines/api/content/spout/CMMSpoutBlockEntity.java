@@ -8,13 +8,13 @@ import com.simibubi.create.content.fluids.spout.FillingBySpout;
 import com.simibubi.create.content.kinetics.belt.behaviour.BeltProcessingBehaviour;
 import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour;
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
-import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.foundation.advancement.AdvancementBehaviour;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.fluid.FluidHelper;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.math.VecHelper;
 import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
@@ -29,13 +29,15 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.yxiao233.createmoremachines.api.IPartialModelRenderer;
 import net.yxiao233.createmoremachines.api.processing.CMMFilingBySpout;
+import net.yxiao233.createmoremachines.api.registry.CMMPartialModelsRegistry;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMMSpoutBlockEntity  extends SmartBlockEntity implements IHaveGoggleInformation {
+public class CMMSpoutBlockEntity  extends SmartBlockEntity implements IHaveGoggleInformation, IPartialModelRenderer {
     protected BeltProcessingBehaviour beltProcessing;
     public int processingTicks = -1;
     public boolean sendSplash;
@@ -263,5 +265,10 @@ public class CMMSpoutBlockEntity  extends SmartBlockEntity implements IHaveGoggl
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         return this.containedFluidTooltip(tooltip, isPlayerSneaking, this.level.getCapability(Capabilities.FluidHandler.BLOCK, this.worldPosition, null));
+    }
+
+    @Override
+    public PartialModel[] getPartialModels() {
+        return CMMPartialModelsRegistry.getPartialModels(tier,"spout");
     }
 }

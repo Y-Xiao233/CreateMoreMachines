@@ -3,6 +3,7 @@
   "textures": {
     "top": "createmoremachines:block/brass_depot_top",
     "casing": "create:block/brass_casing",
+    "side": "createmoremachines:block/brass_depot_side",
     "particle": "create:block/brass_casing"
   }
 }

@@ -3,6 +3,7 @@
 	"textures": {
 		"top": "createmoremachines:block/end_press_top",
 		"casing": "createmoremachines:block/end_casing",
+		"head": "createmoremachines:block/end_mixer_head",
 		"side": "createmoremachines:block/end_mixer_side",
 		"particle": "createmoremachines:block/end_casing"
 	}

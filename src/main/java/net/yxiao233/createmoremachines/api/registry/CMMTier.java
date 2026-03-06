@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.yxiao233.createmoremachines.api.config.TierConfigBase;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotRenderer;
+import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerRenderer;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressRenderer;
@@ -41,7 +42,7 @@ public class CMMTier {
     private static boolean registrateFrozen = false;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMDepotBlockEntity>>> depotRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalPressBlockEntity>>> mechanicalPressRenderer;
-    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, MechanicalMixerRenderer>> mechanicalMixerRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> mechanicalMixerRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMSpoutBlockEntity>>> spoutRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> basinRenderer;
     private CMMTier(ResourceLocation id){
@@ -168,7 +169,7 @@ public class CMMTier {
         return this;
     }
 
-    public CMMTier setMechanicalMixerRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, MechanicalMixerRenderer>> renderer){
+    public CMMTier setMechanicalMixerRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> renderer){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
@@ -243,7 +244,7 @@ public class CMMTier {
         return mechanicalMixerImpact;
     }
 
-    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, MechanicalMixerRenderer>> getMechanicalMixerRenderer() {
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> getMechanicalMixerRenderer() {
         return mechanicalMixerRenderer;
     }
 

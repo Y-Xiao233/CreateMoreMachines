@@ -3,7 +3,7 @@
 	"textures": {
 		"spout": "createmoremachines:block/brass_spout",
 		"nozzle": "createmoremachines:block/brass_spout_nozzle",
-		"pipe": "create:block/encased_pipe",
+		"pipe": "createmoremachines:block/brass_encased_pipe",
 		"particle": "create:block/brass_block"
 	}
 }

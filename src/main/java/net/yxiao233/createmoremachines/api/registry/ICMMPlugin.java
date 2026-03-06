@@ -9,4 +9,8 @@ public interface ICMMPlugin {
     default void registryTiers(){
 
     }
+
+    default void registryPartialModels(){
+
+    }
 }

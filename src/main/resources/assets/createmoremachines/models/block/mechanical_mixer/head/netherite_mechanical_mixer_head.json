@@ -1,0 +1,6 @@
+{
+  "parent": "createmoremachines:block/mechanical_mixer_head",
+  "textures": {
+    "head": "createmoremachines:block/netherite_mixer_head"
+  }
+}

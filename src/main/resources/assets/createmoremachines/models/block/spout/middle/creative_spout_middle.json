@@ -1,0 +1,7 @@
+{
+  "parent": "createmoremachines:block/spout_middle",
+  "textures": {
+    "nozzle": "createmoremachines:block/creative_spout_nozzle",
+    "particle": "createmoremachines:block/creative_spout_nozzle"
+  }
+}

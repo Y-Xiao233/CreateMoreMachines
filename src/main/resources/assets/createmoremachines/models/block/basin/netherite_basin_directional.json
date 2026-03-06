@@ -3,6 +3,6 @@
   "textures": {
     "basin": "createmoremachines:block/netherite_basin",
     "canal": "createmoremachines:block/netherite_basin_canal",
-    "particle": "minecraft:block/netherite_block"
+    "particle": "createmoremachines:block/netherite_alloy_block"
   }
 }

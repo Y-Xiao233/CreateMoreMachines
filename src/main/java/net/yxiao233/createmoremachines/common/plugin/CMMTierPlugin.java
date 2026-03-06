@@ -2,14 +2,17 @@ package net.yxiao233.createmoremachines.common.plugin;
 
 import net.yxiao233.createmoremachines.CMMConfig;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
-import net.yxiao233.createmoremachines.api.registry.CMMPlugin;
-import net.yxiao233.createmoremachines.api.registry.ICMMPlugin;
-import net.yxiao233.createmoremachines.api.registry.CMMTier;
-import net.yxiao233.createmoremachines.api.registry.CMMRegistrate;
+import net.yxiao233.createmoremachines.api.registry.*;
 
 @SuppressWarnings("unused")
 @CMMPlugin
 public class CMMTierPlugin implements ICMMPlugin {
+
+    @Override
+    public void registryPartialModels() {
+        CMMPartialModelsRegistry.registrySpouts();
+        CMMPartialModelsRegistry.registryMixers();
+    }
 
     @Override
     public void registryRegistrate() {

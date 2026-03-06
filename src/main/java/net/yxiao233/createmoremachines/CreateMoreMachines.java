@@ -20,6 +20,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
@@ -73,6 +74,7 @@ public class CreateMoreMachines {
         CMMTier.freezyRegistrate();
         modEventBus.addListener(CreateMoreMachines::init);
         modEventBus.addListener(CreateMoreMachines::gatherData);
+        modEventBus.addListener(CreateMoreMachines::clientInit);
 
         if (FMLEnvironment.dist == Dist.CLIENT){
             modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
@@ -81,6 +83,9 @@ public class CreateMoreMachines {
 
     private static void init(FMLCommonSetupEvent event) {
         event.enqueueWork(CMMSpoutingBehaviours::registerDefaults);
+    }
+    public static void clientInit(FMLClientSetupEvent event) {
+        CMMTierManager.registryModels();
     }
     private static void gatherData(GatherDataEvent event){
         DataGenerator generator = event.getGenerator();

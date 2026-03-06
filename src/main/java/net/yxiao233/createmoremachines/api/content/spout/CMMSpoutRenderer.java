@@ -1,7 +1,6 @@
 package net.yxiao233.createmoremachines.api.content.spout;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -14,15 +13,22 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-public class CMMSpoutRenderer  extends SafeBlockEntityRenderer<CMMSpoutBlockEntity> {
-    static final PartialModel[] BITS;
+public class CMMSpoutRenderer extends SafeBlockEntityRenderer<CMMSpoutBlockEntity> {
+    PartialModel[] BITS;
 
     public CMMSpoutRenderer(BlockEntityRendererProvider.Context context) {
+    }
+
+    public void initBits(CMMSpoutBlockEntity be) {
+        if(BITS == null || BITS.length == 0){
+            BITS = be.getPartialModels();
+        }
     }
 
     protected void renderSafe(CMMSpoutBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         SmartFluidTankBehaviour tank = be.tank;
         if (tank != null) {
+            initBits(be);
             SmartFluidTankBehaviour.TankSegment primaryTank = tank.getPrimaryTank();
             FluidStack fluidStack = primaryTank.getRenderedFluid();
             float level = primaryTank.getFluidLevel().getValue(partialTicks);
@@ -75,9 +81,5 @@ public class CMMSpoutRenderer  extends SafeBlockEntityRenderer<CMMSpoutBlockEnti
 
             ms.popPose();
         }
-    }
-
-    static {
-        BITS = new PartialModel[]{AllPartialModels.SPOUT_TOP, AllPartialModels.SPOUT_MIDDLE, AllPartialModels.SPOUT_BOTTOM};
     }
 }

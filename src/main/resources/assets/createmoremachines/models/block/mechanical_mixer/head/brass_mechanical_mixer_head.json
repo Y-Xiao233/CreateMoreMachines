@@ -1,0 +1,6 @@
+{
+  "parent": "createmoremachines:block/mechanical_mixer_head",
+  "textures": {
+    "head": "createmoremachines:block/brass_mixer_head"
+  }
+}

@@ -1,3 +1,9 @@
 {
-	"parent": "createmoremachines:block/spout_item"
+	"parent": "createmoremachines:block/spout_item",
+	"textures": {
+		"spout": "createmoremachines:block/end_spout",
+		"nozzle": "createmoremachines:block/end_spout_nozzle",
+		"pipe": "createmoremachines:block/end_encased_pipe",
+		"particle": "createmoremachines:block/end_alloy_block"
+	}
 }
