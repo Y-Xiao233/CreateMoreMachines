@@ -1,7 +1,7 @@
 package net.yxiao233.createmoremachines.api.registry;
 
-import com.simibubi.create.content.kinetics.mixer.MechanicalMixerRenderer;
 import com.simibubi.create.content.processing.basin.BasinRenderer;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
@@ -38,7 +38,7 @@ public class CMMTier {
     private double mechanicalPressImpact = 8;
     private double mechanicalMixerImpact = 4;
     private static boolean frozen = false;
-    private static final HashMap<String, CMMRegistrate> REGISTRATIONS = new HashMap<>();
+    private static final HashMap<String, CreateRegistrate> REGISTRATIONS = new HashMap<>();
     private static boolean registrateFrozen = false;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMDepotBlockEntity>>> depotRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalPressBlockEntity>>> mechanicalPressRenderer;
@@ -54,22 +54,22 @@ public class CMMTier {
         if(registrateFrozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
-        REGISTRATIONS.put(modid,CMMRegistrate.create(modid).defaultCreativeTab((ResourceKey)null).setTooltipModifierFactory((item) -> {
+        REGISTRATIONS.put(modid,CreateRegistrate.create(modid).defaultCreativeTab((ResourceKey)null).setTooltipModifierFactory((item) -> {
             return (new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)).andThen(TooltipModifier.mapNull(KineticStats.create(item)));
         }));
     }
 
-    public static void of(CMMRegistrate registrate){
+    public static void of(CreateRegistrate registrate){
         if(registrateFrozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
         REGISTRATIONS.put(registrate.getModid(),registrate);
     }
 
-    public static CMMRegistrate getRegistrate(String modid){
+    public static CreateRegistrate getRegistrate(String modid){
         return REGISTRATIONS.get(modid);
     }
-    public static List<CMMRegistrate> getAllRegistrate(){
+    public static List<CreateRegistrate> getAllRegistrate(){
         return REGISTRATIONS.values().stream().toList();
     }
 

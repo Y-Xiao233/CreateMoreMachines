@@ -25,7 +25,7 @@ public class CMMMechanicalPressRenderer extends KineticBlockEntityRenderer<CMMMe
 
     @Override
     protected void renderSafe(CMMMechanicalPressBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        if (VisualizationManager.supportsVisualization(be.getLevel())) {
+        if (!VisualizationManager.supportsVisualization(be.getLevel())) {
             BlockState state = this.getRenderedBlockState(be);
             BlockState blockState = be.getBlockState();
             RenderType type = this.getRenderType(be, state);

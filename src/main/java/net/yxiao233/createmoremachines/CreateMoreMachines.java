@@ -1,6 +1,7 @@
 package net.yxiao233.createmoremachines;
 
 import com.mojang.logging.LogUtils;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
@@ -35,7 +36,6 @@ import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMCreativeModeTab;
 import net.yxiao233.createmoremachines.api.registry.CMMTierManager;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
-import net.yxiao233.createmoremachines.api.registry.CMMRegistrate;
 import net.yxiao233.createmoremachines.utils.AnnotationUtil;
 import org.slf4j.Logger;
 
@@ -49,7 +49,7 @@ public class CreateMoreMachines {
     public static final String MODID = "createmoremachines";
     public static final Logger LOGGER = LogUtils.getLogger();
     private static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
-    private static final CMMRegistrate REGISTRATE = CMMRegistrate.create(MODID).defaultCreativeTab((ResourceKey)null).setTooltipModifierFactory((item) -> {
+    private static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID).defaultCreativeTab((ResourceKey)null).setTooltipModifierFactory((item) -> {
         return (new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)).andThen(TooltipModifier.mapNull(KineticStats.create(item)));
     });
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, CreateMoreMachines.MODID);
@@ -106,7 +106,7 @@ public class CreateMoreMachines {
         });
     }
 
-    public static CMMRegistrate registrate() {
+    public static CreateRegistrate registrate() {
         if (!STACK_WALKER.getCallerClass().getPackageName().startsWith("net.yxiao233.createmoremachines")) {
             throw new UnsupportedOperationException("Other mods are not permitted to use createmoremachines' registrate instance.");
         } else {

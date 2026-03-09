@@ -1,6 +1,5 @@
 package net.yxiao233.createmoremachines.common.event;
 
-import com.simibubi.create.foundation.item.KineticStats;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -22,11 +21,6 @@ public class ItemTooltipHandler {
         List<Component> tooltips = event.getToolTip();
         Block block = Block.byItem(item);
         if(BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(CreateMoreMachines.MODID)){
-            KineticStats kineticStats = KineticStats.create(item);
-            if(kineticStats != null){
-                kineticStats.modify(event);
-            }
-
             if(block instanceof IHaveTierInformation informationBlock){
                 informationBlock.addTierInformation(tooltips);
             }

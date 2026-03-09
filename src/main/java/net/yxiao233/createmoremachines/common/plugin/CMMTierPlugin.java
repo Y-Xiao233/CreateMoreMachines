@@ -20,11 +20,6 @@ public class CMMTierPlugin implements ICMMPlugin {
     }
 
     @Override
-    public CMMRegistrate getRegistrate() {
-        return CMMTier.getRegistrate(CreateMoreMachines.MODID);
-    }
-
-    @Override
     public void registryTiers() {
         CMMTier.create(CreateMoreMachines.makeId("brass"))
                 .fromConfig(CMMConfig.BRASS)

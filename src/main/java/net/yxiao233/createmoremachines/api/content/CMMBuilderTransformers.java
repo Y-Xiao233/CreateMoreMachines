@@ -11,15 +11,14 @@ import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.SoundType;
-import net.yxiao233.createmoremachines.api.registry.CMMRegistrate;
 
 import java.util.function.Supplier;
 
 public class CMMBuilderTransformers {
     @SuppressWarnings("unchecked")
-    public static <B extends CasingBlock> NonNullUnaryOperator<BlockBuilder<B, CMMRegistrate>> casing(Supplier<CTSpriteShiftEntry> ct) {
+    public static <B extends CasingBlock> NonNullUnaryOperator<BlockBuilder<B, CreateRegistrate>> casing(Supplier<CTSpriteShiftEntry> ct) {
         return (b) -> {
-            return (BlockBuilder<B, CMMRegistrate>) b.initialProperties(SharedProperties::stone)
+            return (BlockBuilder<B, CreateRegistrate>) b.initialProperties(SharedProperties::stone)
                     .properties(p -> p.sound(SoundType.WOOD))
                     .transform(TagGen.axeOrPickaxe())
                     .blockstate((c, p) -> p.simpleBlock(c.get()))

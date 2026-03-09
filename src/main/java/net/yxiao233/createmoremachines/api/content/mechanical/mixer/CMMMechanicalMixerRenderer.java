@@ -28,7 +28,7 @@ public class CMMMechanicalMixerRenderer extends KineticBlockEntityRenderer<CMMMe
         super(context);
     }
     protected void renderSafe(CMMMechanicalMixerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        if (VisualizationManager.supportsVisualization(be.getLevel())) {
+        if (!VisualizationManager.supportsVisualization(be.getLevel())) {
             initBits(be);
             BlockState blockState = be.getBlockState();
             VertexConsumer vb = buffer.getBuffer(RenderType.solid());

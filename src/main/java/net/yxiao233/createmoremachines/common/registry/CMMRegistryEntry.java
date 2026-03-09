@@ -3,6 +3,7 @@ package net.yxiao233.createmoremachines.common.registry;
 import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
 import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.providers.ProviderType;
@@ -29,7 +30,6 @@ import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
-import net.yxiao233.createmoremachines.api.registry.CMMRegistrate;
 import net.yxiao233.createmoremachines.api.registry.CMMTierManager;
 
 import java.util.Collections;
@@ -38,7 +38,7 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 public class CMMRegistryEntry {
-    public static final  CMMRegistrate REGISTRATE = CreateMoreMachines.registrate();
+    public static final CreateRegistrate REGISTRATE = CreateMoreMachines.registrate();
     //Casing
     public static final BlockEntry<CasingBlock> CREATIVE_CASING = casing("creative", CMMSpriteShifts.CREATIVE_CASING, SoundType.AMETHYST);
     public static final BlockEntry<CasingBlock> NETHERITE_CASING = casing("netherite", CMMSpriteShifts.NETHERITE_CASING, SoundType.NETHERRACK);
