@@ -15,6 +15,7 @@ import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.Containers;
@@ -66,7 +67,9 @@ public class CMMDepotBehaviour extends BlockEntityBehaviour {
                 entity.notifyUpdate();
             }
         };
-        this.tier = entity.getTier();
+        if(entity.getBlockState().getBlock() instanceof CMMDepotBlock depotBlock){
+            this.tier = depotBlock.getTier();
+        }
     }
 
     @Override
