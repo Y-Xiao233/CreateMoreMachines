@@ -1,9 +1,11 @@
 package net.yxiao233.createmoremachines.api.content.depot;
 
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
 import com.simibubi.create.content.logistics.depot.DepotBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,7 +13,7 @@ import net.yxiao233.createmoremachines.api.registry.CMMTier;
 
 import java.util.List;
 
-public class CMMDepotBlockEntity extends DepotBlockEntity {
+public class CMMDepotBlockEntity extends DepotBlockEntity implements IHaveGoggleInformation {
     private CMMDepotBehaviour behaviour;
     private final CMMTier tier;
     public CMMDepotBlockEntity(CMMTier tier, BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -19,6 +21,10 @@ public class CMMDepotBlockEntity extends DepotBlockEntity {
         this.tier = tier;
     }
 
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        return false;
+    }
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
