@@ -80,6 +80,7 @@ public class CMMDepotMountedStorage extends WrapperMountedItemStorage<CMMDepotMo
         return new CMMDepotMountedStorage(id,held.copy());
     }
 
+    @SuppressWarnings("unused")
     public static CMMDepotMountedStorage fromLegacy(ResourceLocation id, HolderLookup.Provider registries, CompoundTag nbt) {
         ItemStackHandler handler = new ItemStackHandler();
         handler.deserializeNBT(registries, nbt);

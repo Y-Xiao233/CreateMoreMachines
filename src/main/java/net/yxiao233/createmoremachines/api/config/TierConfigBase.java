@@ -83,6 +83,7 @@ public class TierConfigBase {
         BUILDER.pop();
     }
 
+    @SuppressWarnings("unused")
     public void onLoad(ModConfigEvent.Loading event){
         this.tiredItemCapability = ITEM_CAPABILITY.get();
         this.tiredFluidCapability = FLUID_CAPABILITY.get();
@@ -117,7 +118,7 @@ public class TierConfigBase {
     }
 
     public double getDeployerImpact() {
-        return deployerImpact;
+        return tiredDeployerImpact;
     }
 
     public static String key(String... prefix){
@@ -134,8 +135,7 @@ public class TierConfigBase {
     }
 
     private static String upperCaseForFirstChar(String s){
-        String string = new String(s);
-        char first = string.toCharArray()[0];
-        return string.replaceFirst(String.valueOf(first), String.valueOf(first).toUpperCase());
+        char first = s.toCharArray()[0];
+        return s.replaceFirst(String.valueOf(first), String.valueOf(first).toUpperCase());
     }
 }

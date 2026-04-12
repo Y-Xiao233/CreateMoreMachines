@@ -1,7 +1,6 @@
 package net.yxiao233.createmoremachines.api.content.mechanical.press;
 
 import com.simibubi.create.AllShapes;
-import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.content.processing.basin.BasinBlock;
 import com.simibubi.create.foundation.block.IBE;

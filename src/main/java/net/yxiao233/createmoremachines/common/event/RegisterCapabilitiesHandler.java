@@ -1,7 +1,5 @@
 package net.yxiao233.createmoremachines.common.event;
 
-import com.simibubi.create.AllBlockEntityTypes;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;

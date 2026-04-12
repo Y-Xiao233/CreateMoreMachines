@@ -1,7 +1,6 @@
 package net.yxiao233.createmoremachines.utils;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class BigItemHandlerHelper {

@@ -15,7 +15,6 @@ import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.Containers;
@@ -37,6 +36,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+@SuppressWarnings({"CodeBlock2Expr","unused"})
 public class CMMDepotBehaviour extends BlockEntityBehaviour {
     public static final BehaviourType<CMMDepotBehaviour> TYPE = new BehaviourType<>();
     CMMTier tier;
@@ -199,7 +199,7 @@ public class CMMDepotBehaviour extends BlockEntityBehaviour {
             }
 
             ItemStack previousItem = this.heldItem.stack;
-            afterInsert = ((DirectBeltInputBehaviour)this.blockEntity.getBehaviour(DirectBeltInputBehaviour.TYPE)).tryExportingToBeltFunnel(previousItem, null, false);
+            afterInsert = this.blockEntity.getBehaviour(DirectBeltInputBehaviour.TYPE).tryExportingToBeltFunnel(previousItem, null, false);
             if (afterInsert == null) {
                 return false;
             } else if (previousItem.getCount() != afterInsert.getCount()) {

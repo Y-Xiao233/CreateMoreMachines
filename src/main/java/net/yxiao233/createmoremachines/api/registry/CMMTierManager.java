@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("CodeBlock2Expr")
 public class CMMTierManager {
     private static final List<ICMMPlugin> PLUGINS = new ArrayList<>();
     @SuppressWarnings("deprecation")
@@ -160,7 +161,7 @@ public class CMMTierManager {
     public static void registryMechanicalMixerEntities(Map<ResourceLocation, BlockEntry<CMMMechanicalMixerBlock>> blockMap, Map<ResourceLocation, BlockEntityEntry<CMMMechanicalMixerBlockEntity>> entityMap){
         PLUGINS.forEach(plugin ->{
             blockMap.forEach((id, press) ->{
-                CreateBlockEntityBuilder<CMMMechanicalMixerBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_mechanical_mixer", (type, pos, state) -> new CMMMechanicalMixerBlockEntity(CMMTier.getTiers().get(id),type,pos,state));;
+                CreateBlockEntityBuilder<CMMMechanicalMixerBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_mechanical_mixer", (type, pos, state) -> new CMMMechanicalMixerBlockEntity(CMMTier.getTiers().get(id),type,pos,state));
                 entityMap.put(id,builder.visual(() -> CMMMixerVisual::new)
                         .validBlocks(new NonNullSupplier[]{blockMap.get(id)})
                         .renderer(CMMTier.getTiers().get(id).getMechanicalMixerRenderer())
