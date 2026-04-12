@@ -1,14 +1,12 @@
 package net.yxiao233.createmoremachines.api.registry;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllDisplaySources;
 import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour;
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
 import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
-import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
-import com.simibubi.create.content.kinetics.mixer.MechanicalMixerRenderer;
-import com.simibubi.create.content.kinetics.mixer.MixerVisual;
+import com.simibubi.create.content.kinetics.deployer.DeployerMovementBehaviour;
+import com.simibubi.create.content.kinetics.deployer.DeployerMovingInteraction;
 import com.simibubi.create.content.logistics.depot.MountedDepotInteractionBehaviour;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import com.simibubi.create.content.processing.basin.BasinMovementBehaviour;
@@ -28,6 +26,9 @@ import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlock;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotMountedStorageType;
+import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlock;
+import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlockEntity;
+import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerVisual;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMixerVisual;
@@ -265,6 +266,43 @@ public class CMMTierManager {
                         .item()
                         .setData(ProviderType.LANG, NonNullBiConsumer.noop())
                         .transform(ModelGen.customItemModel("basin","_"))
+                        .register()
+                );
+            });
+        });
+    }
+
+    public static void registryDeployers(Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> blockMap){
+        PLUGINS.forEach(plugin ->{
+            CMMTier.getTiers().forEach((id, type) ->{
+                blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_deployer", properties -> new CMMDeployerBlock(CMMTier.getTiers().get(id),properties))
+                        .initialProperties(SharedProperties::stone)
+                        .properties(properties -> {
+                            return properties.mapColor(MapColor.PODZOL);
+                        })
+                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                        .blockstate(CMMBlockStateGen.directionalAxisBlockProvider())
+                        .onRegister(MovementBehaviour.movementBehaviour(new DeployerMovementBehaviour()))
+                        .onRegister(MovingInteractionBehaviour.interactionBehaviour(new DeployerMovingInteraction()))
+                        .onRegister(CMMBlockStressValues.setImpact(CMMTier.getTiers().get(id).getDeployerImpact()))
+                        .item(AssemblyOperatorBlockItem::new)
+//                        .tag(new TagKey[]{AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag})
+                        .transform(ModelGen.customItemModel("deployer","_"))
+                        .register()
+                );
+            });
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void registryDeployerEntities(Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> blockMap, Map<ResourceLocation, BlockEntityEntry<CMMDeployerBlockEntity>> entityMap){
+        PLUGINS.forEach(plugin ->{
+            blockMap.forEach((id, spout) ->{
+                CreateBlockEntityBuilder<CMMDeployerBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_deployer", (type, pos, state) -> new CMMDeployerBlockEntity(CMMTier.getTiers().get(id), type, pos, state));
+                entityMap.put(id,builder
+                         .visual(() -> CMMDeployerVisual::new)
+                        .validBlocks(new NonNullSupplier[]{blockMap.get(id)})
+                        .renderer(CMMTier.getTiers().get(id).getDeployerRenderer())
                         .register()
                 );
             });

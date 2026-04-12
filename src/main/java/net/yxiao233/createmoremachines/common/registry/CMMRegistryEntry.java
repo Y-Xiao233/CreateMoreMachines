@@ -24,6 +24,8 @@ import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlock;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
 import net.yxiao233.createmoremachines.api.content.fluid.CMMBaseFluidInstance;
 import net.yxiao233.createmoremachines.api.content.fluid.ClientFluidTypeExtensions;
+import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlock;
+import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlock;
@@ -48,6 +50,14 @@ public class CMMRegistryEntry {
     public static final ItemEntry<Item> NETHERITE_ALLOY = simpleItem("netherite_alloy");
     public static final ItemEntry<Item> END_ALLOY = simpleItem("end_alloy");
     public static final ItemEntry<Item> BEYOND_ALLOY = simpleItem("beyond_alloy");
+    //Plate
+    public static final ItemEntry<Item> NETHERITE_ALLOY_SHEET = simpleItem("netherite_alloy_sheet");
+    public static final ItemEntry<Item> END_ALLOY_SHEET = simpleItem("end_alloy_sheet");
+    public static final ItemEntry<Item> BEYOND_ALLOY_SHEET = simpleItem("beyond_alloy_sheet");
+    //Hand
+    public static final ItemEntry<Item> NETHERITE_ALLOY_HAND = simpleItem("netherite_alloy_hand");
+    public static final ItemEntry<Item> END_ALLOY_HAND = simpleItem("end_alloy_hand");
+    public static final ItemEntry<Item> BEYOND_ALLOY_HAND = simpleItem("beyond_alloy_hand");
     //Fluid
     public static final CMMBaseFluidInstance BINDER = simpleFluid("binder");
     public static final CMMBaseFluidInstance PURE_WATER = simpleFluid("pure_water");
@@ -71,6 +81,8 @@ public class CMMRegistryEntry {
     //Basin
     private static final Map<ResourceLocation, BlockEntry<CMMBasinBlock>> BASINS = new HashMap<>();
     private static final Map<ResourceLocation, BlockEntityEntry<CMMBasinBlockEntity>> BASIN_ENTITIES = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> DEPLOYERS = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntityEntry<CMMDeployerBlockEntity>> DEPLOYER_ENTITIES = new HashMap<>();
 
     public static Map<ResourceLocation, RegistryEntry<MountedItemStorageType<?>, ?>> getAllDepotStorageTypes(){
         return Collections.unmodifiableMap(DEPOT_STORAGE_TYPES);
@@ -114,6 +126,14 @@ public class CMMRegistryEntry {
         return Collections.unmodifiableMap(BASIN_ENTITIES);
     }
 
+    public static Map<ResourceLocation, BlockEntityEntry<CMMDeployerBlockEntity>> getDeployerEntities(){
+        return Collections.unmodifiableMap(DEPLOYER_ENTITIES);
+    }
+
+    public static Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> getDeployers(){
+        return Collections.unmodifiableMap(DEPLOYERS);
+    }
+
     public static void register() {
         CMMTierManager.registryDepotTypes(DEPOT_STORAGE_TYPES);
         CMMTierManager.registryDepots(getAllDepotStorageTypes(),DEPOTS);
@@ -130,6 +150,9 @@ public class CMMRegistryEntry {
 
         CMMTierManager.registryBasins(BASINS);
         CMMTierManager.registryBasinEntities(getBasins(),BASIN_ENTITIES);
+
+        CMMTierManager.registryDeployers(DEPLOYERS);
+        CMMTierManager.registryDeployerEntities(getDeployers(),DEPLOYER_ENTITIES);
     }
 
     private static BlockEntry<CasingBlock> casing(String name, CTSpriteShiftEntry spriteEntry, SoundType soundType){

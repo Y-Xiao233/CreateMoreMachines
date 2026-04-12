@@ -36,6 +36,9 @@ public class CMMJEIPlugin implements IModPlugin {
         MapUtil.valueList(CMMRegistryEntry.getDepots()).forEach(depot ->{
             registration.addRecipeCatalyst(depot, deploying);
         });
+        MapUtil.valueList(CMMRegistryEntry.getDeployers()).forEach(deployer ->{
+            registration.addRecipeCatalyst(deployer, deploying);
+        });
         MapUtil.valueList(CMMRegistryEntry.getMechanicalPresses()).forEach(press ->{
             registration.addRecipeCatalyst(press, pressing);
             registration.addRecipeCatalyst(press, packing);

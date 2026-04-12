@@ -8,31 +8,39 @@ public class TierConfigBase {
     private ModConfigSpec.IntValue ITEM_CAPABILITY;
     private ModConfigSpec.IntValue FLUID_CAPABILITY;
     private ModConfigSpec.IntValue PROCESSING_MULTIPLE;
+    private ModConfigSpec.IntValue DEPLOYER_PROCESSING_MULTIPLE;
     private ModConfigSpec.DoubleValue MECHANICAL_PRESS_IMPACT;
     private ModConfigSpec.DoubleValue MECHANICAL_MIXER_IMPACT;
+    private ModConfigSpec.DoubleValue DEPLOYER_IMPACT;
     private int tiredItemCapability;
     private int tiredFluidCapability;
     private int tiredProcessingMultiple;
+    private int tiredDeployerProcessingMultiple;
     private double tiredMechanicalPressImpact;
     private double tiredMechanicalMixerImpact;
+    private double tiredDeployerImpact;
     private final String tier;
     private final int itemCapability;
     private final int fluidCapability;
     private final int processingMultiple;
+    private final int deployerProcessingMultiple;
     private final double mechanicalPressImpact;
     private final double mechanicalMixerImpact;
+    private final double deployerImpact;
 
-    private TierConfigBase(String tier, int itemCapability, int fluidCapability, int processingMultiple, double mechanicalPressImpact, double mechanicalMixerImpact){
+    private TierConfigBase(String tier, int itemCapability, int fluidCapability, int processingMultiple, int deployerProcessingMultiple, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact){
         this.tier = tier;
         this.itemCapability = itemCapability;
         this.fluidCapability = fluidCapability;
         this.processingMultiple = processingMultiple;
         this.mechanicalPressImpact = mechanicalPressImpact;
         this.mechanicalMixerImpact = mechanicalMixerImpact;
+        this.deployerImpact = deployerImpact;
+        this.deployerProcessingMultiple = deployerProcessingMultiple;
     }
 
-    public static TierConfigBase create(String tier, int itemCapability, int fluidCapability, int processingMultiple, double mechanicalPressImpact, double mechanicalMixerImpact){
-        return new TierConfigBase(tier,itemCapability,fluidCapability,processingMultiple,mechanicalPressImpact,mechanicalMixerImpact);
+    public static TierConfigBase create(String tier, int itemCapability, int fluidCapability, int processingMultiple,int deployerProcessingMultiple, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact){
+        return new TierConfigBase(tier,itemCapability,fluidCapability,processingMultiple,deployerProcessingMultiple,mechanicalPressImpact,mechanicalMixerImpact,deployerImpact);
     }
     public void registry(ModConfigSpec.Builder BUILDER){
         BUILDER.translation(key(tier + "_tier")).push(upperCaseForFirstChar(tier) + "Tier");
@@ -52,6 +60,11 @@ public class TierConfigBase {
                 .comment("Processing multiple for " + tier + " tier mechanical[default:" + processingMultiple + "]")
                 .defineInRange(tier + "_processing_multiple",processingMultiple,1,Integer.MAX_VALUE);
 
+        DEPLOYER_PROCESSING_MULTIPLE = BUILDER
+                .translation(key("deployer_processing_multiple"))
+                .comment("Processing multiple for " + tier + " tier Deployer[default:" + deployerProcessingMultiple + "]")
+                .defineInRange(tier + "_deployer_processing_multiple",deployerProcessingMultiple,1,64);
+
         MECHANICAL_PRESS_IMPACT = BUILDER
                 .translation(key("mechanical_press_impact"))
                 .comment("Impact needed for " + tier + " tier mechanical press[default:" + mechanicalPressImpact + "]")
@@ -62,6 +75,11 @@ public class TierConfigBase {
                 .comment("Impact needed for " + tier + " tier mechanical mixer[default:" + mechanicalMixerImpact + "]")
                 .defineInRange(tier + "_mechanical_mixer_impact",mechanicalMixerImpact,1,Double.MAX_VALUE);
 
+        DEPLOYER_IMPACT = BUILDER
+                .translation(key("deployer_impact"))
+                .comment("Impact needed for" + tier + "tier deployer[default:" + deployerImpact + "]")
+                .defineInRange(tier + "deployer_impact",deployerImpact,1,Double.MAX_VALUE);
+
         BUILDER.pop();
     }
 
@@ -69,8 +87,10 @@ public class TierConfigBase {
         this.tiredItemCapability = ITEM_CAPABILITY.get();
         this.tiredFluidCapability = FLUID_CAPABILITY.get();
         this.tiredProcessingMultiple = PROCESSING_MULTIPLE.get();
+        this.tiredDeployerProcessingMultiple = DEPLOYER_PROCESSING_MULTIPLE.get();
         this.tiredMechanicalPressImpact = MECHANICAL_PRESS_IMPACT.get();
         this.tiredMechanicalMixerImpact = MECHANICAL_MIXER_IMPACT.get();
+        this.tiredDeployerImpact = DEPLOYER_IMPACT.get();
     }
 
     public int getItemCapability(){
@@ -84,6 +104,9 @@ public class TierConfigBase {
     public int getProcessingMultiple(){
         return tiredProcessingMultiple;
     }
+    public int getDeployerProcessingMultiple(){
+        return tiredDeployerProcessingMultiple;
+    }
 
     public double getMechanicalPressImpact(){
         return tiredMechanicalPressImpact;
@@ -91,6 +114,10 @@ public class TierConfigBase {
 
     public double getMechanicalMixerImpact(){
         return tiredMechanicalMixerImpact;
+    }
+
+    public double getDeployerImpact() {
+        return deployerImpact;
     }
 
     public static String key(String... prefix){

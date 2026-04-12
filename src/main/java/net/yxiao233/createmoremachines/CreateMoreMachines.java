@@ -74,7 +74,6 @@ public class CreateMoreMachines {
         CMMTier.freezyRegistrate();
         modEventBus.addListener(CreateMoreMachines::init);
         modEventBus.addListener(CreateMoreMachines::gatherData);
-        modEventBus.addListener(CreateMoreMachines::clientInit);
 
         if (FMLEnvironment.dist == Dist.CLIENT){
             modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
@@ -83,9 +82,6 @@ public class CreateMoreMachines {
 
     private static void init(FMLCommonSetupEvent event) {
         event.enqueueWork(CMMSpoutingBehaviours::registerDefaults);
-    }
-    public static void clientInit(FMLClientSetupEvent event) {
-        CMMTierManager.registryModels();
     }
     private static void gatherData(GatherDataEvent event){
         DataGenerator generator = event.getGenerator();

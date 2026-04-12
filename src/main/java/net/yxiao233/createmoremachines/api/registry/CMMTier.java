@@ -1,5 +1,6 @@
 package net.yxiao233.createmoremachines.api.registry;
 
+import com.simibubi.create.content.kinetics.deployer.DeployerRenderer;
 import com.simibubi.create.content.processing.basin.BasinRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
@@ -33,10 +34,12 @@ public class CMMTier {
     private final ResourceLocation id;
     private final Map<String, Object> values = new HashMap<>();
     private int processingMultiple = 1;
+    private int deployerProcessingMultiple = 1;
     private int itemCapability = 64;
     private int fluidCapability = 1;
     private double mechanicalPressImpact = 8;
     private double mechanicalMixerImpact = 4;
+    private double deployerImpact = 4;
     private static boolean frozen = false;
     private static final HashMap<String, CreateRegistrate> REGISTRATIONS = new HashMap<>();
     private static boolean registrateFrozen = false;
@@ -45,6 +48,7 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> mechanicalMixerRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMSpoutBlockEntity>>> spoutRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> basinRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DeployerRenderer>> deployerRenderer;
     private CMMTier(ResourceLocation id){
         tiers.put(id,this);
         this.id = id;
@@ -88,7 +92,9 @@ public class CMMTier {
                 .setFluidCapability(config.getFluidCapability())
                 .setProcessingMultiple(config.getProcessingMultiple())
                 .setMechanicalPressImpact(config.getMechanicalPressImpact())
-                .setMechanicalMixerImpact(config.getMechanicalMixerImpact());
+                .setMechanicalMixerImpact(config.getMechanicalMixerImpact())
+                .setDeployerImpact(config.getDeployerImpact())
+                .setDeployerProcessingMultiple(config.getDeployerProcessingMultiple());
     }
     public static void freezy(){
         frozen = true;
@@ -145,11 +151,27 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setDeployerImpact(double impact) {
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.deployerImpact = impact;
+        return this;
+    }
+
     public CMMTier setProcessingMultiple(int processingMultiple) {
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
         this.processingMultiple = processingMultiple;
+        return this;
+    }
+
+    public CMMTier setDeployerProcessingMultiple(int deployerProcessingMultiple) {
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.deployerProcessingMultiple = deployerProcessingMultiple;
         return this;
     }
 
@@ -193,6 +215,14 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setDeployerRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DeployerRenderer>> renderer){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.deployerRenderer = renderer;
+        return this;
+    }
+
     public CMMTier defaultRenderer(){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
@@ -201,7 +231,8 @@ public class CMMTier {
                 .withDefaultSpoutRenderer()
                 .withDefaultMechanicalMixerRenderer()
                 .withDefaultMechanicalPressRenderer()
-                .withDefaultBasinRenderer();
+                .withDefaultBasinRenderer()
+                .withDefaultDeployerRenderer();
     }
 
 
@@ -223,6 +254,10 @@ public class CMMTier {
         return setBasinRenderer(() -> BasinRenderer::new);
     }
 
+    public CMMTier withDefaultDeployerRenderer(){
+        return setDeployerRenderer(() -> DeployerRenderer::new);
+    }
+
 
     public int getItemCapability() {
         return itemCapability;
@@ -236,12 +271,20 @@ public class CMMTier {
         return processingMultiple;
     }
 
+    public int getDeployerProcessingMultiple() {
+        return deployerProcessingMultiple;
+    }
+
     public double getMechanicalPressImpact() {
         return mechanicalPressImpact;
     }
 
     public double getMechanicalMixerImpact() {
         return mechanicalMixerImpact;
+    }
+
+    public double getDeployerImpact() {
+        return deployerImpact;
     }
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> getMechanicalMixerRenderer() {
@@ -262,6 +305,10 @@ public class CMMTier {
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> getBasinRenderer() {
         return basinRenderer;
+    }
+
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DeployerRenderer>> getDeployerRenderer() {
+        return deployerRenderer;
     }
 
     public ResourceLocation getId() {

@@ -17,6 +17,8 @@
   "config.createmoremachines.processing_multiple": "Processing Multiple",
   "config.createmoremachines.mechanical_press_impact": "Mechanical Press Impact",
   "config.createmoremachines.mechanical_mixer_impact": "Mechanical Mixer Impact",
+  "config.createmoremachines.deployer_impact": "Deployer Impact",
+  "config.createmoremachines.deployer_processing_multiple": "Deployer Processing Multiple",
 
   "block.createmoremachines.creative_casing": "Creative Casing",
   "block.createmoremachines.netherite_casing": "Netherite Casing",
@@ -33,6 +35,12 @@
   "item.createmoremachines.beyond_alloy": "Beyond Alloy",
   "item.createmoremachines.binder_bucket": "Binder Bucket",
   "item.createmoremachines.pure_water_bucket": "Pure Water Bucket",
+  "item.createmoremachines.netherite_alloy_sheet": "Netherite Alloy Sheet",
+  "item.createmoremachines.end_alloy_sheet": "End Alloy Sheet",
+  "item.createmoremachines.beyond_alloy_sheet": "Beyond Alloy Sheet",
+  "item.createmoremachines.netherite_alloy_hand": "Netherite Alloy Hand",
+  "item.createmoremachines.end_alloy_hand": "End Alloy Hand",
+  "item.createmoremachines.beyond_alloy_hand": "Beyond Alloy Hand",
 
   "fluid_type.createmoremachines.binder": "Binder",
   "fluid_type.createmoremachines.pure_water": "Pure Water",

@@ -1,5 +1,7 @@
 package net.yxiao233.createmoremachines.common.event;
 
+import com.simibubi.create.AllBlockEntityTypes;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -30,6 +32,16 @@ public class RegisterCapabilitiesHandler {
         CMMRegistryEntry.getBasinEntities().forEach((id, type) ->{
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), (be, context) ->{
                 return be.getItemCapability();
+            });
+        });
+
+        CMMRegistryEntry.getDeployerEntities().forEach((id,type) ->{
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), (be, context) -> {
+                if (be.getInvHandler().getValue() == null) {
+                    be.initHandler();
+                }
+
+                return be.getInvHandler().getValue();
             });
         });
     }

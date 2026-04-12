@@ -311,29 +311,21 @@ public class CMMDepotBehaviour extends BlockEntityBehaviour {
 
     public ItemStack insert(TransportedItemStack heldItem, boolean simulate) {
         if (!(Boolean)this.canAcceptItems.get()) {
-            System.out.println("1");
             return heldItem.stack;
         } else if (!this.acceptedItems.test(heldItem.stack)) {
-            System.out.println("2");
             return heldItem.stack;
         } else if (this.canMergeItems()) {
-            System.out.println("3");
             int remainingSpace = this.getRemainingSpace();
             ItemStack inserted = heldItem.stack;
             if (remainingSpace <= 0) {
-                System.out.println("4");
                 return inserted;
             } else if (this.heldItem != null && !ItemStack.isSameItemSameComponents(this.heldItem.stack, inserted)) {
-                System.out.println("5");
                 return inserted;
             } else {
-                System.out.println("6");
                 ItemStack returned = ItemStack.EMPTY;
                 if (remainingSpace < inserted.getCount()) {
-                    System.out.println("7");
                     returned = heldItem.stack.copyWithCount(inserted.getCount() - remainingSpace);
                     if (!simulate) {
-                        System.out.println("8");
                         TransportedItemStack copy = heldItem.copy();
                         copy.stack.setCount(remainingSpace);
                         if (this.heldItem != null) {

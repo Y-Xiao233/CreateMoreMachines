@@ -17,6 +17,8 @@
   "config.createmoremachines.processing_multiple": "处理并行数",
   "config.createmoremachines.mechanical_press_impact": "动力冲压机应力",
   "config.createmoremachines.mechanical_mixer_impact": "搅拌机应力",
+  "config.createmoremachines.deployer_impact": "机械手应力",
+  "config.createmoremachines.deployer_processing_multiple": "机械手处理并行数",
 
   "block.createmoremachines.creative_casing": "创造机壳",
   "block.createmoremachines.netherite_casing": "下界机壳",
@@ -33,6 +35,12 @@
   "item.createmoremachines.beyond_alloy": "超越合金",
   "item.createmoremachines.binder_bucket": "桶装粘合剂",
   "item.createmoremachines.pure_water_bucket": "纯净水桶",
+  "item.createmoremachines.netherite_alloy_sheet": "下界合金板",
+  "item.createmoremachines.end_alloy_sheet": "末地合金板",
+  "item.createmoremachines.beyond_alloy_sheet": "超越合金板",
+  "item.createmoremachines.netherite_alloy_hand": "下界合金手部零件",
+  "item.createmoremachines.end_alloy_hand": "末地合金手部零件",
+  "item.createmoremachines.beyond_alloy_hand": "超越合金手部零件",
 
   "fluid_type.createmoremachines.binder": "粘合剂",
   "fluid_type.createmoremachines.pure_water": "纯净水",
