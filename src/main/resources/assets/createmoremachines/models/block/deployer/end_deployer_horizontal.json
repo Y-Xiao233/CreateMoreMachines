@@ -1,0 +1,11 @@
+{
+  "parent": "createmoremachines:block/deployer_horizontal",
+  "textures": {
+    "casing_piston": "createmoremachines:block/end_casing_piston",
+    "piston_bottom": "createmoremachines:block/end_piston_bottom",
+    "piston_inner": "createmoremachines:block/end_press_bottom",
+    "andesite_casing_short": "createmoremachines:block/end_casing_short",
+    "gearbox": "createmoremachines:block/end_gearbox",
+    "gearbox_top": "createmoremachines:block/end_casing"
+  }
+}

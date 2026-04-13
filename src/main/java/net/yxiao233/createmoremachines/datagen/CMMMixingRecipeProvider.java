@@ -40,6 +40,7 @@ public class CMMMixingRecipeProvider extends MixingRecipeGen {
         this.create("pure_water", (builder) -> {
             return builder
                     .require(Tags.Fluids.WATER, 20)
+                    .require(Tags.Fluids.LAVA, 1)
                     .output(CMMRegistryEntry.PURE_WATER.getSourceFluid().get(), 20)
                     .requiresHeat(HeatCondition.HEATED);
         });

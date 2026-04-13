@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "axis_along_first=false,facing=down": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_horizontal",
+      "x": 270,
+      "y": 90
+    },
+    "axis_along_first=false,facing=east": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_horizontal",
+      "y": 270
+    },
+    "axis_along_first=false,facing=north": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_vertical",
+      "y": 180
+    },
+    "axis_along_first=false,facing=south": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_vertical"
+    },
+    "axis_along_first=false,facing=up": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis_along_first=false,facing=west": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_horizontal",
+      "y": 90
+    },
+    "axis_along_first=true,facing=down": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_horizontal",
+      "x": 270
+    },
+    "axis_along_first=true,facing=east": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_vertical",
+      "y": 270
+    },
+    "axis_along_first=true,facing=north": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_horizontal",
+      "y": 180
+    },
+    "axis_along_first=true,facing=south": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_horizontal"
+    },
+    "axis_along_first=true,facing=up": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_horizontal",
+      "x": 90
+    },
+    "axis_along_first=true,facing=west": {
+      "model": "createmoremachines:block/deployer/beyond_deployer_vertical",
+      "y": 90
+    }
+  }
+}

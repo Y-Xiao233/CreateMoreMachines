@@ -17,7 +17,7 @@ import net.yxiao233.createmoremachines.utils.ReflectionValue;
 
 import java.util.List;
 
-public class CMMDeployerBlockEntity extends DeployerBlockEntity {
+public class CMMDeployerBlockEntity extends DeployerBlockEntity{
     private final CMMTier tier;
     public CMMDeployerBlockEntity(CMMTier tier, BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);

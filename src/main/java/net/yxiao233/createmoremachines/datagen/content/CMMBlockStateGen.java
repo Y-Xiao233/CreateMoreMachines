@@ -31,7 +31,7 @@ public class CMMBlockStateGen {
             BlockStateGen.directionalAxisBlock(c, p, ($, vertical) -> {
                 BlockModelProvider provider = p.models();
                 String name = c.getName();
-                return provider.getExistingFile(p.modLoc("block/" + "deployer/" +  name + "/" + (vertical ? "vertical" : "horizontal")));
+                return provider.getExistingFile(p.modLoc("block/" + "deployer/" +  name + "_" + (vertical ? "vertical" : "horizontal")));
             });
         };
     }

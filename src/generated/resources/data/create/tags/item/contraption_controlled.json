@@ -1,0 +1,9 @@
+{
+  "values": [
+    "createmoremachines:netherite_deployer",
+    "createmoremachines:beyond_deployer",
+    "createmoremachines:creative_deployer",
+    "createmoremachines:brass_deployer",
+    "createmoremachines:end_deployer"
+  ]
+}

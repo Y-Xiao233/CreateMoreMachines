@@ -23,6 +23,11 @@
     "createmoremachines:beyond_spout",
     "createmoremachines:creative_spout",
     "createmoremachines:brass_spout",
-    "createmoremachines:end_spout"
+    "createmoremachines:end_spout",
+    "createmoremachines:netherite_deployer",
+    "createmoremachines:beyond_deployer",
+    "createmoremachines:creative_deployer",
+    "createmoremachines:brass_deployer",
+    "createmoremachines:end_deployer"
   ]
 }

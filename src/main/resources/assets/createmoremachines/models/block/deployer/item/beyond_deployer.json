@@ -1,0 +1,11 @@
+{
+  "parent": "createmoremachines:block/deployer_item",
+  "textures": {
+    "casing_piston": "createmoremachines:block/beyond_casing_piston",
+    "piston_bottom": "createmoremachines:block/beyond_piston_bottom",
+    "piston_inner": "createmoremachines:block/beyond_press_bottom",
+    "andesite_casing_short": "createmoremachines:block/beyond_casing_short",
+    "gearbox": "createmoremachines:block/beyond_gearbox",
+    "gearbox_top": "createmoremachines:block/beyond_casing"
+  }
+}

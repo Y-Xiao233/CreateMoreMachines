@@ -13,6 +13,7 @@ import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.annotation.RecipeGen;
 import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlock;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlock;
+import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
@@ -95,6 +96,14 @@ public class CMMBaseRecipeProvider extends RecipeProvider {
         basinRecipe(CMMRegistryEntry.END_ALLOY, "end").save(recipeOutput);
         basinRecipe(CMMRegistryEntry.BEYOND_ALLOY, "beyond").save(recipeOutput);
 
+        handRecipe(CMMRegistryEntry.NETHERITE_ALLOY_SHEET, CMMRegistryEntry.NETHERITE_ALLOY_HAND).save(recipeOutput);
+        handRecipe(CMMRegistryEntry.END_ALLOY_SHEET, CMMRegistryEntry.END_ALLOY_HAND).save(recipeOutput);
+        handRecipe(CMMRegistryEntry.BEYOND_ALLOY_SHEET, CMMRegistryEntry.BEYOND_ALLOY_HAND).save(recipeOutput);
+
+        deployerRecipe(AllItems.BRASS_HAND, AllBlocks.BRASS_CASING, "brass").save(recipeOutput);
+        deployerRecipe(CMMRegistryEntry.NETHERITE_ALLOY_HAND, CMMRegistryEntry.NETHERITE_CASING, "netherite").save(recipeOutput);
+        deployerRecipe(CMMRegistryEntry.END_ALLOY_HAND, CMMRegistryEntry.END_CASING, "end").save(recipeOutput);
+        deployerRecipe(CMMRegistryEntry.BEYOND_ALLOY_HAND, CMMRegistryEntry.BEYOND_CASING, "beyond").save(recipeOutput);
     }
 
     private ShapedRecipeBuilder pressRecipe(ItemLike casing, String id){
@@ -149,5 +158,29 @@ public class CMMBaseRecipeProvider extends RecipeProvider {
                 .pattern("AAA")
                 .define('A', alloy)
                 .unlockedBy("has_item",has(alloy));
+    }
+
+    private ShapedRecipeBuilder deployerRecipe(ItemLike hand, ItemLike casing, String id){
+        BlockEntry<CMMDeployerBlock> deployer = CMMRegistryEntry.getDeployers().get(CreateMoreMachines.makeId(id));
+        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, deployer)
+                .pattern(" E ")
+                .pattern(" C ")
+                .pattern(" H ")
+                .define('E', AllItems.ELECTRON_TUBE)
+                .define('C', casing)
+                .define('H', hand)
+                .unlockedBy("has_item",has(hand))
+                .unlockedBy("has_item",has(casing));
+
+    }
+
+    private ShapedRecipeBuilder handRecipe(ItemLike sheet, ItemLike hand){
+        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, hand)
+                .pattern(" A ")
+                .pattern("SSS")
+                .pattern(" S ")
+                .define('A', AllItems.ANDESITE_ALLOY)
+                .define('S', sheet)
+                .unlockedBy("has_item",has(sheet));
     }
 }

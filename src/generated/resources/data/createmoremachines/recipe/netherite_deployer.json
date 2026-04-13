@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "createmoremachines:netherite_casing"
+    },
+    "E": {
+      "item": "create:electron_tube"
+    },
+    "H": {
+      "item": "createmoremachines:netherite_alloy_hand"
+    }
+  },
+  "pattern": [
+    " E ",
+    " C ",
+    " H "
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:netherite_deployer"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "parent": "createmoremachines:block/deployer_vertical",
+  "textures": {
+    "casing_piston": "createmoremachines:block/netherite_casing_piston",
+    "piston_bottom": "createmoremachines:block/netherite_piston_bottom",
+    "piston_inner": "createmoremachines:block/netherite_press_bottom",
+    "andesite_casing_short": "createmoremachines:block/netherite_casing_short",
+    "gearbox": "createmoremachines:block/netherite_gearbox",
+    "gearbox_top": "createmoremachines:block/netherite_casing"
+  }
+}

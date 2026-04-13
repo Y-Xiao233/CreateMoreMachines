@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "create:andesite_alloy"
+    },
+    "S": {
+      "item": "createmoremachines:beyond_alloy_sheet"
+    }
+  },
+  "pattern": [
+    " A ",
+    "SSS",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:beyond_alloy_hand"
+  }
+}

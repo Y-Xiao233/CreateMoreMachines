@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "createmoremachines:end_alloy"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:end_alloy_sheet"
+    }
+  ]
+}

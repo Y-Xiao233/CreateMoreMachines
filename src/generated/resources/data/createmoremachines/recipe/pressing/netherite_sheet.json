@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "createmoremachines:netherite_alloy"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:netherite_alloy_sheet"
+    }
+  ]
+}

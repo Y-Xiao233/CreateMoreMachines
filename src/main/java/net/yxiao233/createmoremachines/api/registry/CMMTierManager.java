@@ -1,6 +1,7 @@
 package net.yxiao233.createmoremachines.api.registry;
 
 import com.simibubi.create.AllDisplaySources;
+import com.simibubi.create.AllTags;
 import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour;
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
@@ -19,6 +20,7 @@ import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlock;
@@ -273,22 +275,24 @@ public class CMMTierManager {
         });
     }
 
+    @SuppressWarnings("unchecked")
     public static void registryDeployers(Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id, type) ->{
-                blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_deployer", properties -> new CMMDeployerBlock(CMMTier.getTiers().get(id),properties))
+                blockMap.put(id, (BlockEntry<CMMDeployerBlock>) CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_deployer", properties -> new CMMDeployerBlock(CMMTier.getTiers().get(id),properties))
                         .initialProperties(SharedProperties::stone)
                         .properties(properties -> {
                             return properties.mapColor(MapColor.PODZOL);
                         })
                         .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                        .transform(TagGen.axeOrPickaxe())
                         .blockstate(CMMBlockStateGen.directionalAxisBlockProvider())
                         .onRegister(MovementBehaviour.movementBehaviour(new DeployerMovementBehaviour()))
                         .onRegister(MovingInteractionBehaviour.interactionBehaviour(new DeployerMovingInteraction()))
                         .onRegister(CMMBlockStressValues.setImpact(CMMTier.getTiers().get(id).getDeployerImpact()))
                         .item(AssemblyOperatorBlockItem::new)
-//                        .tag(new TagKey[]{AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag})
-                        .transform(ModelGen.customItemModel("deployer","_"))
+                        .tag(new TagKey[]{AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag})
+                        .transform(ModelGen.customItemModel("deployer","item","_"))
                         .register()
                 );
             });

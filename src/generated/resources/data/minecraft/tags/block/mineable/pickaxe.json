@@ -31,6 +31,11 @@
     "createmoremachines:beyond_basin",
     "createmoremachines:creative_basin",
     "createmoremachines:brass_basin",
-    "createmoremachines:end_basin"
+    "createmoremachines:end_basin",
+    "createmoremachines:netherite_deployer",
+    "createmoremachines:beyond_deployer",
+    "createmoremachines:creative_deployer",
+    "createmoremachines:brass_deployer",
+    "createmoremachines:end_deployer"
   ]
 }

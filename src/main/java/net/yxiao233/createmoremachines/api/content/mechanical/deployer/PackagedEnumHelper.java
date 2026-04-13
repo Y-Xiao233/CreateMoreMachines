@@ -1,5 +1,8 @@
 package net.yxiao233.createmoremachines.api.content.mechanical.deployer;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+
 import java.lang.reflect.Field;
 
 public class PackagedEnumHelper {
@@ -19,5 +22,17 @@ public class PackagedEnumHelper {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String readEnumFromNbt(CompoundTag nbt, String key, String... enumValues) {
+        if (nbt.contains(key, Tag.TAG_STRING)) {
+            String name = nbt.getString(key);
+            for (String s : enumValues) {
+                if (s.equalsIgnoreCase(name)){
+                    return s;
+                }
+            }
+        }
+        return enumValues[0];
     }
 }
