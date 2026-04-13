@@ -6,6 +6,11 @@
       "type": "neoforge:tag",
       "amount": 20,
       "tag": "c:water"
+    },
+    {
+      "type": "neoforge:tag",
+      "amount": 1,
+      "tag": "c:lava"
     }
   ],
   "results": [
