@@ -108,7 +108,8 @@ public class CMMBeltDeployerCallbacks {
 
     @SuppressWarnings("deprecation")
     public static void activate(TransportedItemStack transported, TransportedItemStackHandlerBehaviour handler, DeployerBlockEntity blockEntity, Recipe<?> recipe, int maxThread) {
-        int processCount = Math.min(transported.stack.getCount(), maxThread);
+        ItemStack heldItem = blockEntity.getPlayer().getMainHandItem();
+        int processCount = Math.min(Math.min(transported.stack.getCount(), heldItem.getCount()), maxThread);
         List<TransportedItemStack> collect = RecipeApplier.applyRecipeOn(blockEntity.getLevel(), transported.stack.copyWithCount(processCount), recipe, true).stream().map((stack) -> {
             TransportedItemStack copy = transported.copy();
             boolean centered = BeltHelper.isItemUpright(stack);
@@ -131,7 +132,6 @@ public class CMMBeltDeployerCallbacks {
             handler.handleProcessingOnItem(transported, TransportedItemStackHandlerBehaviour.TransportedResult.convertToAndLeaveHeld(collect, left));
         }
 
-        ItemStack heldItem = blockEntity.getPlayer().getMainHandItem();
         boolean keepHeld = recipe instanceof ItemApplicationRecipe && ((ItemApplicationRecipe)recipe).shouldKeepHeldItem();
         if (!keepHeld) {
             if (heldItem.getMaxDamage() > 0) {
