@@ -1,6 +1,8 @@
 package net.yxiao233.createmoremachines.api.content.basin;
 
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
+import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -9,14 +11,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
+import net.yxiao233.createmoremachines.utils.ReflectionUtil;
+import net.yxiao233.createmoremachines.utils.TankCapabilityHelper;
 
 public class CMMBasinBlockEntity extends BasinBlockEntity {
     private final CMMTier tier;
+    private final TankCapabilityHelper capabilityHelper;
     public CMMBasinBlockEntity(CMMTier tier, BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.tier = tier;
-        this.inputTank.getPrimaryHandler().setCapacity(tier.getFluidCapability());
-        this.outputTank.getPrimaryHandler().setCapacity(tier.getFluidCapability());
+        this.capabilityHelper = new TankCapabilityHelper(this.inputTank,this.outputTank);
+        this.capabilityHelper.setCapability(tier.getFluidCapability());
     }
 
     public CMMTier getTier() {
@@ -44,8 +49,8 @@ public class CMMBasinBlockEntity extends BasinBlockEntity {
         super.read(compound, registries, clientPacket);
         if(compound.contains("fluid_capability")){
             int fluidCapability = compound.getInt("fluid_capability");
-            if(this.outputTank != null){
-                this.outputTank.getPrimaryHandler().setCapacity(fluidCapability);
+            if(this.capabilityHelper != null && this.outputTank != null && this.inputTank != null){
+                this.capabilityHelper.setCapability(fluidCapability);
             }
         }
     }
