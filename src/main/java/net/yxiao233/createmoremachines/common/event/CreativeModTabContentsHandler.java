@@ -30,7 +30,7 @@ public class CreativeModTabContentsHandler {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static <T> List<ItemLike> collectItems(Class<T> clazz){
+    public static <T> List<ItemLike> collectItems(Class<T> clazz){
         List<ItemLike> items = new ArrayList<>();
         Arrays.stream(clazz.getFields()).toList().forEach(field ->{
             if(Modifier.isStatic(field.getModifiers())){

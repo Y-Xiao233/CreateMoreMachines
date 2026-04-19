@@ -33,6 +33,7 @@ import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
 import net.yxiao233.createmoremachines.api.registry.CMMTierManager;
+import net.yxiao233.createmoremachines.api.registry.ICMMPlugin;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -135,6 +136,9 @@ public class CMMRegistryEntry {
     }
 
     public static void register() {
+        CMMTierManager.getPlugins().forEach(ICMMPlugin::onRegister);
+
+
         CMMTierManager.registryDepotTypes(DEPOT_STORAGE_TYPES);
         CMMTierManager.registryDepots(getAllDepotStorageTypes(),DEPOTS);
         CMMTierManager.registryDepotEntities(getDepots(),DEPOT_ENTITIES);
@@ -153,6 +157,9 @@ public class CMMRegistryEntry {
 
         CMMTierManager.registryDeployers(DEPLOYERS);
         CMMTierManager.registryDeployerEntities(getDeployers(),DEPLOYER_ENTITIES);
+
+
+        CMMTierManager.getPlugins().forEach(ICMMPlugin::onPostRegister);
     }
 
     private static BlockEntry<CasingBlock> casing(String name, CTSpriteShiftEntry spriteEntry, SoundType soundType){

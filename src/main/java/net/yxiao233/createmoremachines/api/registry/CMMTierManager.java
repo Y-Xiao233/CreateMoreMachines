@@ -317,4 +317,8 @@ public class CMMTierManager {
     public static void registryModels(){
         PLUGINS.forEach(ICMMPlugin::registryPartialModels);
     }
+
+    public static List<ICMMPlugin> getPlugins(){
+        return PLUGINS;
+    }
 }

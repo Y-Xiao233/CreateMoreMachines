@@ -10,4 +10,12 @@ public interface ICMMPlugin {
     default void registryPartialModels(){
 
     }
+
+    default void onRegister(){
+
+    }
+
+    default void onPostRegister(){
+
+    }
 }
