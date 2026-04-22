@@ -1,6 +1,9 @@
 package net.yxiao233.createmoremachines.api.registry;
 
 public interface ICMMPlugin {
+    default boolean shouldLoad(){
+        return true;
+    }
     default void registryRegistrate(){
 
     }

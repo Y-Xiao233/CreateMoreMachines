@@ -1,11 +1,14 @@
 package net.yxiao233.createmoremachines.api.registry;
 
 import com.simibubi.create.AllDisplaySources;
+import com.simibubi.create.AllMountedStorageTypes;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour;
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
+import com.simibubi.create.api.contraption.storage.fluid.MountedFluidStorageType;
 import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
+import com.simibubi.create.content.fluids.tank.*;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovementBehaviour;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovingInteraction;
 import com.simibubi.create.content.logistics.depot.MountedDepotInteractionBehaviour;
@@ -23,11 +26,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
+import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlock;
 import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlock;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotMountedStorageType;
+import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlock;
+import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerVisual;
@@ -57,7 +63,12 @@ public class CMMTierManager {
             if(ICMMPlugin.class.isAssignableFrom(clazz)){
                 try {
                     ICMMPlugin plugin = (ICMMPlugin) clazz.newInstance();
-                    PLUGINS.add(plugin);
+                    if(plugin.shouldLoad()){
+                        PLUGINS.add(plugin);
+                        CreateMoreMachines.LOGGER.info("[Create More Machines] Discovered CMMPlugin: {}", clazz.getName());
+                    }else{
+                        CreateMoreMachines.LOGGER.info("[Create More Machines] Skip CMMPlugin: {}", clazz.getName());
+                    }
                 } catch (InstantiationException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
@@ -305,9 +316,53 @@ public class CMMTierManager {
             blockMap.forEach((id, spout) ->{
                 CreateBlockEntityBuilder<CMMDeployerBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_deployer", (type, pos, state) -> new CMMDeployerBlockEntity(CMMTier.getTiers().get(id), type, pos, state));
                 entityMap.put(id,builder
-                         .visual(() -> CMMDeployerVisual::new)
+                        .visual(() -> CMMDeployerVisual::new)
                         .validBlocks(new NonNullSupplier[]{blockMap.get(id)})
                         .renderer(CMMTier.getTiers().get(id).getDeployerRenderer())
+                        .register()
+                );
+            });
+        });
+    }
+
+    @SuppressWarnings("removal")
+    public static void registryFluidTankBlocks(Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> blockMap){
+        PLUGINS.forEach(plugin ->{
+            CMMTier.getTiers().forEach((id,tier) ->{
+                if(!id.getPath().equals("creative")){
+                    blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_fluid_tank", properties -> new CMMFluidTankBlock(tier,properties))
+                            .initialProperties(SharedProperties::copperMetal)
+                            .properties(properties -> properties.noOcclusion().isRedstoneConductor((blockState, blockGetter, blockPos) -> true))
+                            .transform(TagGen.pickaxeOnly())
+                            .blockstate(new FluidTankGenerator()::generate)
+                            .onRegister(CreateRegistrate.blockModel(() ->{
+                                return FluidTankModel::standard;
+                            }))
+                            .transform(DisplaySource.displaySource(AllDisplaySources.BOILER))
+                            .transform(MountedFluidStorageType.mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
+                            .onRegister(MovementBehaviour.movementBehaviour(new FluidTankMovementBehavior()))
+                            .addLayer(() ->{
+                                return RenderType::cutoutMipped;
+                            })
+                            .item(FluidTankItem::new)
+                            .model(AssetLookup.customBlockItemModel("_","block_single_window"))
+                            .build()
+                            .register()
+                    );
+                }
+            });
+        });
+    }
+
+    public static void registryFluidTankEntities(Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> blockMap, Map<ResourceLocation, BlockEntityEntry<CMMFluidTankBlockEntity>> entityMap){
+        PLUGINS.forEach(plugin ->{
+            blockMap.forEach((id, spout) ->{
+                CreateBlockEntityBuilder<CMMFluidTankBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_fluid_tank", (type, pos, state) -> new CMMFluidTankBlockEntity(CMMTier.getTiers().get(id), type, pos, state));
+                entityMap.put(id,builder
+                        .validBlocks(spout)
+                        .renderer(() ->{
+                            return FluidTankRenderer::new;
+                        })
                         .register()
                 );
             });

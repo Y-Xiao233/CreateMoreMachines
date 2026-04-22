@@ -29,6 +29,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.RegisterEvent;
 import net.yxiao233.createmoremachines.api.annotation.RecipeGen;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutingBehaviours;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
@@ -60,22 +61,28 @@ public class CreateMoreMachines {
         modEventBus.addListener(CMMConfig::loadConfig);
         modContainer.registerConfig(ModConfig.Type.STARTUP, CMMConfig.SPEC);
         CMMTierManager.loadAllPlugin();
-        CMMTierManager.registryTiers();
         CMMTierManager.registryRegistrate();
         CMMTier.getAllRegistrate().forEach(registrate -> registrate.registerEventListeners(modEventBus));
-        CMMRegistryEntry.register();
         FLUID_TYPES.register(modEventBus);
         FLUIDS.register(modEventBus);
         ITEMS.register(modEventBus);
         BLOCKS.register(modEventBus);
         CMMCreativeModeTab.TABS.register(modEventBus);
-        CMMTier.freezy();
-        CMMTier.freezyRegistrate();
+        modEventBus.addListener(CreateMoreMachines::registry);
         modEventBus.addListener(CreateMoreMachines::init);
         modEventBus.addListener(CreateMoreMachines::gatherData);
 
         if (FMLEnvironment.dist == Dist.CLIENT){
             modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        }
+    }
+
+    private static void registry(RegisterEvent event){
+        if(CMMTier.isReady()){
+            CMMTierManager.registryTiers();
+            CMMRegistryEntry.register();
+            CMMTier.freezy();
+            CMMTier.freezyRegistrate();
         }
     }
 

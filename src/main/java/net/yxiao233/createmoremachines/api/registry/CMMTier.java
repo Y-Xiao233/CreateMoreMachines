@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.config.TierConfigBase;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotRenderer;
@@ -81,6 +82,7 @@ public class CMMTier {
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
+        CreateMoreMachines.LOGGER.info("[Create More Machines] Successfully created tier {}", id.toString());
         return new CMMTier(id);
     }
 
@@ -313,5 +315,9 @@ public class CMMTier {
 
     public ResourceLocation getId() {
         return id;
+    }
+
+    public static boolean isReady(){
+        return !frozen && !registrateFrozen;
     }
 }

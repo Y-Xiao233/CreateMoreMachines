@@ -139,6 +139,10 @@ dependencies {
             prefer "$ponder_version+mc$minecraft_version"
         }
     })
+
+    //KubeJS
+    implementation "curse.maven:kubejs-238086:7278501"
+    implementation "curse.maven:rhino-416294:7104526"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
