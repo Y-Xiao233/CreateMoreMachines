@@ -26,10 +26,7 @@ import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutRenderer;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings({"UnusedReturnValue","unused","rawtypes","unchecked"})
 public class CMMTier {
@@ -46,6 +43,8 @@ public class CMMTier {
     private int fluidTankCapability = 8;
     private double steamEngineCapacity = 1024;
     private int steamEngineGeneratedSpeed = 64;
+    private List<BuiltInAdvancedMachineType.AdvancedMachineType> blackList = new ArrayList<>();
+    private List<BuiltInAdvancedMachineType.AdvancedMachineType> whiteList = new ArrayList<>();
     private static boolean frozen = false;
     private static final HashMap<String, CreateRegistrate> REGISTRATIONS = new HashMap<>();
     private static boolean registrateFrozen = false;
@@ -91,6 +90,36 @@ public class CMMTier {
         }
         CreateMoreMachines.LOGGER.info("[Create More Machines] Successfully created tier {}", id.toString());
         return new CMMTier(id);
+    }
+
+    public CMMTier without(BuiltInAdvancedMachineType.AdvancedMachineType type){
+        if(this.whiteList.contains(type)){
+            throw new UnsupportedOperationException(String.format("Type: [%s] has been defined in white list",type.getName()));
+        }
+        this.blackList.add(type);
+        return this;
+    }
+
+    public CMMTier without(BuiltInAdvancedMachineType.AdvancedMachineType... types){
+        for (BuiltInAdvancedMachineType.AdvancedMachineType type : types) {
+            without(type);
+        }
+        return this;
+    }
+
+    public CMMTier with(BuiltInAdvancedMachineType.AdvancedMachineType type){
+        if(this.blackList.contains(type)){
+            throw new UnsupportedOperationException(String.format("Type: [%s] has been defined in black list",type.getName()));
+        }
+        this.whiteList.add(type);
+        return this;
+    }
+
+    public CMMTier with(BuiltInAdvancedMachineType.AdvancedMachineType... types){
+        for (BuiltInAdvancedMachineType.AdvancedMachineType type : types) {
+            with(type);
+        }
+        return this;
     }
 
     public CMMTier fromConfig(TierConfigBase config){
@@ -388,6 +417,44 @@ public class CMMTier {
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> getFluidTankRenderer() {
         return fluidTankRenderer;
+    }
+
+    public List<BuiltInAdvancedMachineType.AdvancedMachineType> getBlackList() {
+        return blackList;
+    }
+
+    public List<BuiltInAdvancedMachineType.AdvancedMachineType> getWhiteList() {
+        return whiteList;
+    }
+
+    public static boolean shouldRegistry(CMMTier tier, BuiltInAdvancedMachineType.AdvancedMachineType type){
+        boolean white = false;
+        for (BuiltInAdvancedMachineType.AdvancedMachineType advancedMachineType : tier.getWhiteList()) {
+            if(advancedMachineType.equals(type)){
+                white = true;
+                break;
+            }
+        }
+        boolean isBlackEmpty = tier.getBlackList().isEmpty();
+        if(isBlackEmpty && (white || tier.getWhiteList().isEmpty())){
+            return true;
+        }
+        boolean black = false;
+        for (BuiltInAdvancedMachineType.AdvancedMachineType advancedMachineType : tier.getBlackList()) {
+            if(advancedMachineType.equals(type)){
+                black = true;
+                break;
+            }
+        }
+        return !black;
+    }
+
+    public static boolean shouldRegistry(ResourceLocation tierLocation, BuiltInAdvancedMachineType.AdvancedMachineType type){
+        boolean contains = CMMTier.getTiers().containsKey(tierLocation);
+        if(contains){
+            return shouldRegistry(CMMTier.getTiers().get(tierLocation),type);
+        }
+        return false;
     }
 
     public ResourceLocation getId() {

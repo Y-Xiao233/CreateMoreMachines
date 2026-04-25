@@ -6,14 +6,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class CMMSteamEngineBlock extends SteamEngineBlock implements IHaveTierInformation {
+public class CMMSteamEngineBlock extends SteamEngineBlock{
     private final CMMTier tier;
     public CMMSteamEngineBlock(CMMTier tier, Properties properties) {
         super(properties);
@@ -32,10 +29,5 @@ public class CMMSteamEngineBlock extends SteamEngineBlock implements IHaveTierIn
     @Override
     public @NotNull String getDescriptionId() {
         return ChatFormatting.YELLOW + Component.translatable(Util.makeDescriptionId("tier",tier.getId())).getString() + ChatFormatting.WHITE + Component.translatable("block.create.steam_engine").getString();
-    }
-
-    @Override
-    public void addTierInformation(List<Component> tooltips) {
-
     }
 }

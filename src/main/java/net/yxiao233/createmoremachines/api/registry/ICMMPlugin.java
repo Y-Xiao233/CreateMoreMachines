@@ -21,4 +21,8 @@ public interface ICMMPlugin {
     default void onPostRegister(){
 
     }
+
+    default void onPostRegisterTier(){
+
+    }
 }

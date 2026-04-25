@@ -11,7 +11,6 @@ import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
 import com.simibubi.create.content.fluids.tank.*;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovementBehaviour;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovingInteraction;
-import com.simibubi.create.content.kinetics.steamEngine.SteamEngineRenderer;
 import com.simibubi.create.content.kinetics.steamEngine.SteamEngineVisual;
 import com.simibubi.create.content.logistics.depot.MountedDepotInteractionBehaviour;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
@@ -26,7 +25,6 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
@@ -132,7 +130,9 @@ public class CMMTierManager {
         PLUGINS.forEach(plugin ->{
             Map<ResourceLocation, CMMTier> tiers = CMMTier.getTiers();
             tiers.forEach((id, tier) ->{
-                storageTypeMap.put(id,CMMTier.getRegistrate(id.getNamespace()).mountedItemStorage(id.getPath() + "_depot", () -> new CMMDepotMountedStorageType(CMMTier.getTiers().get(id))).register());
+                if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineType.DEPOT)) {
+                    storageTypeMap.put(id, CMMTier.getRegistrate(id.getNamespace()).mountedItemStorage(id.getPath() + "_depot", () -> new CMMDepotMountedStorageType(tier)).register());
+                }
             });
         });
     }
@@ -155,21 +155,23 @@ public class CMMTierManager {
 
     public static void registryMechanicalPresses(Map<ResourceLocation, BlockEntry<CMMMechanicalPressBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
-            CMMTier.getTiers().forEach((id, type) ->{
-                blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_mechanical_press", properties -> new CMMMechanicalPressBlock(CMMTier.getTiers().get(id),properties))
-                        .initialProperties(SharedProperties::stone)
-                        .onRegister(CMMBlockStressValues.setImpact(CMMTier.getTiers().get(id).getMechanicalPressImpact()))
-                        .properties(properties -> {
-                            return properties.noOcclusion().mapColor(MapColor.PODZOL);
-                        })
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(TagGen.axeOrPickaxe())
-                        .blockstate(CMMBlockStateGen.horizontalBlockProvider("mechanical_press"))
-                        .item(AssemblyOperatorBlockItem::new)
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(ModelGen.customItemModel("mechanical_press","item","_"))
-                        .register()
-                );
+            CMMTier.getTiers().forEach((id, tier) ->{
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineType.PRESS)){
+                    blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_mechanical_press", properties -> new CMMMechanicalPressBlock(tier,properties))
+                            .initialProperties(SharedProperties::stone)
+                            .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalPressImpact()))
+                            .properties(properties -> {
+                                return properties.noOcclusion().mapColor(MapColor.PODZOL);
+                            })
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(TagGen.axeOrPickaxe())
+                            .blockstate(CMMBlockStateGen.horizontalBlockProvider("mechanical_press"))
+                            .item(AssemblyOperatorBlockItem::new)
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(ModelGen.customItemModel("mechanical_press","item","_"))
+                            .register()
+                    );
+                }
             });
         });
     }
@@ -192,26 +194,28 @@ public class CMMTierManager {
     @SuppressWarnings("removal")
     public static void registryMechanicalMixers(Map<ResourceLocation, BlockEntry<CMMMechanicalMixerBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
-            CMMTier.getTiers().forEach((id, type) ->{
-                blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_mechanical_mixer", properties -> new CMMMechanicalMixerBlock(CMMTier.getTiers().get(id),properties))
-                        .initialProperties(SharedProperties::stone)
-                        .properties(properties -> {
-                            return properties.noOcclusion().mapColor(MapColor.STONE);
-                        })
-                        .onRegister(CMMBlockStressValues.setImpact(CMMTier.getTiers().get(id).getMechanicalMixerImpact()))
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(TagGen.axeOrPickaxe())
-                        .blockstate((c, p) -> {
-                            p.simpleBlock(c.getEntry(), CMMAssetLookup.partialBaseModel(c, p,"mechanical_mixer"));
-                        })
-                        .addLayer(() -> {
-                            return RenderType::cutoutMipped;
-                        })
-                        .item(AssemblyOperatorBlockItem::new)
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(ModelGen.customItemModel("mechanical_mixer","item","_"))
-                        .register()
-                );
+            CMMTier.getTiers().forEach((id, tier) ->{
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineType.MIXER)){
+                    blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_mechanical_mixer", properties -> new CMMMechanicalMixerBlock(tier,properties))
+                            .initialProperties(SharedProperties::stone)
+                            .properties(properties -> {
+                                return properties.noOcclusion().mapColor(MapColor.STONE);
+                            })
+                            .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalMixerImpact()))
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(TagGen.axeOrPickaxe())
+                            .blockstate((c, p) -> {
+                                p.simpleBlock(c.getEntry(), CMMAssetLookup.partialBaseModel(c, p,"mechanical_mixer"));
+                            })
+                            .addLayer(() -> {
+                                return RenderType::cutoutMipped;
+                            })
+                            .item(AssemblyOperatorBlockItem::new)
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(ModelGen.customItemModel("mechanical_mixer","item","_"))
+                            .register()
+                    );
+                }
             });
         });
     }
@@ -233,22 +237,24 @@ public class CMMTierManager {
     @SuppressWarnings("removal")
     public static void registrySpouts(Map<ResourceLocation, BlockEntry<CMMSpoutBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
-            CMMTier.getTiers().forEach((id, type) ->{
-                blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_spout", properties -> new CMMSpoutBlock(CMMTier.getTiers().get(id),properties))
-                        .initialProperties(SharedProperties::copperMetal)
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(TagGen.axeOrPickaxe())
-                        .blockstate((c, p) -> {
-                               p.simpleBlock(c.getEntry(), CMMAssetLookup.partialBaseModel(c, p,"spout"));
-                        })
-                        .addLayer(() -> {
-                            return RenderType::cutoutMipped;
-                        })
-                        .item(AssemblyOperatorBlockItem::new)
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(ModelGen.customItemModel("spout","item","_"))
-                        .register()
-                );
+            CMMTier.getTiers().forEach((id, tier) ->{
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineType.SPOUT)){
+                    blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_spout", properties -> new CMMSpoutBlock(tier,properties))
+                            .initialProperties(SharedProperties::copperMetal)
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(TagGen.axeOrPickaxe())
+                            .blockstate((c, p) -> {
+                                p.simpleBlock(c.getEntry(), CMMAssetLookup.partialBaseModel(c, p,"spout"));
+                            })
+                            .addLayer(() -> {
+                                return RenderType::cutoutMipped;
+                            })
+                            .item(AssemblyOperatorBlockItem::new)
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(ModelGen.customItemModel("spout","item","_"))
+                            .register()
+                    );
+                }
             });
         });
     }
@@ -269,24 +275,26 @@ public class CMMTierManager {
     @SuppressWarnings("removal")
     public static void registryBasins(Map<ResourceLocation, BlockEntry<CMMBasinBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
-            CMMTier.getTiers().forEach((id, type) ->{
-                blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_basin", properties -> new CMMBasinBlock(CMMTier.getTiers().get(id),properties))
-                        .initialProperties(SharedProperties::stone)
-                        .properties(properties -> {
-                            return properties.mapColor(MapColor.COLOR_GRAY).sound(SoundType.NETHERITE_BLOCK);
-                        })
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(TagGen.pickaxeOnly())
-                        .blockstate(new CMMBasinGenerator()::generate)
-                        .addLayer(() -> {
-                            return RenderType::cutoutMipped;
-                        })
-                        .onRegister(MovementBehaviour.movementBehaviour(new BasinMovementBehaviour()))
-                        .item()
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(ModelGen.customItemModel("basin","_"))
-                        .register()
-                );
+            CMMTier.getTiers().forEach((id, tier) ->{
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineType.BASIN)){
+                    blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_basin", properties -> new CMMBasinBlock(tier,properties))
+                            .initialProperties(SharedProperties::stone)
+                            .properties(properties -> {
+                                return properties.mapColor(MapColor.COLOR_GRAY).sound(SoundType.NETHERITE_BLOCK);
+                            })
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(TagGen.pickaxeOnly())
+                            .blockstate(new CMMBasinGenerator()::generate)
+                            .addLayer(() -> {
+                                return RenderType::cutoutMipped;
+                            })
+                            .onRegister(MovementBehaviour.movementBehaviour(new BasinMovementBehaviour()))
+                            .item()
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(ModelGen.customItemModel("basin","_"))
+                            .register()
+                    );
+                }
             });
         });
     }
@@ -294,23 +302,25 @@ public class CMMTierManager {
     @SuppressWarnings("unchecked")
     public static void registryDeployers(Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
-            CMMTier.getTiers().forEach((id, type) ->{
-                blockMap.put(id, (BlockEntry<CMMDeployerBlock>) CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_deployer", properties -> new CMMDeployerBlock(CMMTier.getTiers().get(id),properties))
-                        .initialProperties(SharedProperties::stone)
-                        .properties(properties -> {
-                            return properties.mapColor(MapColor.PODZOL);
-                        })
-                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .transform(TagGen.axeOrPickaxe())
-                        .blockstate(CMMBlockStateGen.directionalAxisBlockProvider())
-                        .onRegister(MovementBehaviour.movementBehaviour(new DeployerMovementBehaviour()))
-                        .onRegister(MovingInteractionBehaviour.interactionBehaviour(new DeployerMovingInteraction()))
-                        .onRegister(CMMBlockStressValues.setImpact(CMMTier.getTiers().get(id).getDeployerImpact()))
-                        .item(AssemblyOperatorBlockItem::new)
-                        .tag(new TagKey[]{AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag})
-                        .transform(ModelGen.customItemModel("deployer","item","_"))
-                        .register()
-                );
+            CMMTier.getTiers().forEach((id, tier) ->{
+                if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineType.DEPLOYER)){
+                    blockMap.put(id, (BlockEntry<CMMDeployerBlock>) CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_deployer", properties -> new CMMDeployerBlock(tier,properties))
+                            .initialProperties(SharedProperties::stone)
+                            .properties(properties -> {
+                                return properties.mapColor(MapColor.PODZOL);
+                            })
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(TagGen.axeOrPickaxe())
+                            .blockstate(CMMBlockStateGen.directionalAxisBlockProvider())
+                            .onRegister(MovementBehaviour.movementBehaviour(new DeployerMovementBehaviour()))
+                            .onRegister(MovingInteractionBehaviour.interactionBehaviour(new DeployerMovingInteraction()))
+                            .onRegister(CMMBlockStressValues.setImpact(tier.getDeployerImpact()))
+                            .item(AssemblyOperatorBlockItem::new)
+                            .tag(new TagKey[]{AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag})
+                            .transform(ModelGen.customItemModel("deployer","item","_"))
+                            .register()
+                    );
+                }
             });
         });
     }
@@ -334,7 +344,7 @@ public class CMMTierManager {
     public static void registryFluidTankBlocks(Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id,tier) ->{
-                if(!id.getPath().equals("creative")){
+                if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineType.FLUID_TANK)){
                     blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_fluid_tank", properties -> new CMMFluidTankBlock(tier,properties))
                             .initialProperties(SharedProperties::copperMetal)
                             .properties(properties -> properties.noOcclusion().isRedstoneConductor((blockState, blockGetter, blockPos) -> true))
@@ -376,18 +386,20 @@ public class CMMTierManager {
     public static void registrySteamEngines(Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id,tier) ->{
-                blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_steam_engine", properties -> new CMMSteamEngineBlock(tier,properties))
-                        .initialProperties(SharedProperties::copperMetal)
-                        .transform(TagGen.pickaxeOnly())
-                        .blockstate((context, provider) ->{
-                            provider.horizontalFaceBlock(context.get(), AssetLookup.partialBaseModel(context, provider));
-                        })
-                        .onRegister(CMMBlockStressValues.setGeneratorSpeed(tier.getSteamEngineGeneratedSpeed(),true))
-                        .onRegister(CMMBlockStressValues.setCapacities(tier.getSteamEngineCapacity()))
-                        .item()
-                        .transform(ModelGen.customItemModel())
-                        .register()
-                );
+                if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineType.STEAM_ENGINE)){
+                    blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_steam_engine", properties -> new CMMSteamEngineBlock(tier,properties))
+                            .initialProperties(SharedProperties::copperMetal)
+                            .transform(TagGen.pickaxeOnly())
+                            .blockstate((context, provider) ->{
+                                provider.horizontalFaceBlock(context.get(), AssetLookup.partialBaseModel(context, provider));
+                            })
+                            .onRegister(CMMBlockStressValues.setGeneratorSpeed(tier.getSteamEngineGeneratedSpeed(),true))
+                            .onRegister(CMMBlockStressValues.setCapacities(tier.getSteamEngineCapacity()))
+                            .item()
+                            .transform(ModelGen.customItemModel())
+                            .register()
+                    );
+                }
             });
         });
     }

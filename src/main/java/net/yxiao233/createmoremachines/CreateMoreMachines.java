@@ -32,6 +32,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.yxiao233.createmoremachines.api.annotation.RecipeGen;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutingBehaviours;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
+import net.yxiao233.createmoremachines.api.registry.ICMMPlugin;
 import net.yxiao233.createmoremachines.common.registry.CMMCreativeModeTab;
 import net.yxiao233.createmoremachines.api.registry.CMMTierManager;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
@@ -61,6 +62,7 @@ public class CreateMoreMachines {
         modContainer.registerConfig(ModConfig.Type.STARTUP, CMMConfig.SPEC);
         CMMTierManager.loadAllPlugin();
         CMMTierManager.registryTiers();
+        CMMTierManager.getPlugins().forEach(ICMMPlugin::onPostRegisterTier);
         CMMTierManager.registryRegistrate();
         CMMTier.getAllRegistrate().forEach(registrate -> registrate.registerEventListeners(modEventBus));
         CMMRegistryEntry.register();
