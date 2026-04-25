@@ -130,7 +130,7 @@ public class CMMTierManager {
         PLUGINS.forEach(plugin ->{
             Map<ResourceLocation, CMMTier> tiers = CMMTier.getTiers();
             tiers.forEach((id, tier) ->{
-                if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineType.DEPOT)) {
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.DEPOT)) {
                     storageTypeMap.put(id, CMMTier.getRegistrate(id.getNamespace()).mountedItemStorage(id.getPath() + "_depot", () -> new CMMDepotMountedStorageType(tier)).register());
                 }
             });
@@ -156,7 +156,7 @@ public class CMMTierManager {
     public static void registryMechanicalPresses(Map<ResourceLocation, BlockEntry<CMMMechanicalPressBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id, tier) ->{
-                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineType.PRESS)){
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.PRESS)){
                     blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_mechanical_press", properties -> new CMMMechanicalPressBlock(tier,properties))
                             .initialProperties(SharedProperties::stone)
                             .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalPressImpact()))
@@ -195,7 +195,7 @@ public class CMMTierManager {
     public static void registryMechanicalMixers(Map<ResourceLocation, BlockEntry<CMMMechanicalMixerBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id, tier) ->{
-                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineType.MIXER)){
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.MIXER)){
                     blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_mechanical_mixer", properties -> new CMMMechanicalMixerBlock(tier,properties))
                             .initialProperties(SharedProperties::stone)
                             .properties(properties -> {
@@ -238,7 +238,7 @@ public class CMMTierManager {
     public static void registrySpouts(Map<ResourceLocation, BlockEntry<CMMSpoutBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id, tier) ->{
-                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineType.SPOUT)){
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.SPOUT)){
                     blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_spout", properties -> new CMMSpoutBlock(tier,properties))
                             .initialProperties(SharedProperties::copperMetal)
                             .setData(ProviderType.LANG, NonNullBiConsumer.noop())
@@ -276,7 +276,7 @@ public class CMMTierManager {
     public static void registryBasins(Map<ResourceLocation, BlockEntry<CMMBasinBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id, tier) ->{
-                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineType.BASIN)){
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.BASIN)){
                     blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_basin", properties -> new CMMBasinBlock(tier,properties))
                             .initialProperties(SharedProperties::stone)
                             .properties(properties -> {
@@ -303,7 +303,7 @@ public class CMMTierManager {
     public static void registryDeployers(Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id, tier) ->{
-                if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineType.DEPLOYER)){
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.DEPLOYER)){
                     blockMap.put(id, (BlockEntry<CMMDeployerBlock>) CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_deployer", properties -> new CMMDeployerBlock(tier,properties))
                             .initialProperties(SharedProperties::stone)
                             .properties(properties -> {
@@ -344,7 +344,7 @@ public class CMMTierManager {
     public static void registryFluidTankBlocks(Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id,tier) ->{
-                if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineType.FLUID_TANK)){
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.FLUID_TANK)){
                     blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_fluid_tank", properties -> new CMMFluidTankBlock(tier,properties))
                             .initialProperties(SharedProperties::copperMetal)
                             .properties(properties -> properties.noOcclusion().isRedstoneConductor((blockState, blockGetter, blockPos) -> true))
@@ -386,7 +386,7 @@ public class CMMTierManager {
     public static void registrySteamEngines(Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id,tier) ->{
-                if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineType.STEAM_ENGINE)){
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.STEAM_ENGINE)){
                     blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_steam_engine", properties -> new CMMSteamEngineBlock(tier,properties))
                             .initialProperties(SharedProperties::copperMetal)
                             .transform(TagGen.pickaxeOnly())

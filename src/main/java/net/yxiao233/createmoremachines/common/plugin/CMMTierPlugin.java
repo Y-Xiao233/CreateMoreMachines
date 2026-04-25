@@ -45,6 +45,6 @@ public class CMMTierPlugin implements ICMMPlugin {
 
     @Override
     public void onPostRegisterTier() {
-        CREATIVE.without(BuiltInAdvancedMachineType.FLUID_TANK);
+        CREATIVE.without(BuiltInAdvancedMachineTypes.FLUID_TANK);
     }
 }

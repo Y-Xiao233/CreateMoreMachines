@@ -1,6 +1,6 @@
 package net.yxiao233.createmoremachines.api.registry;
 
-public class BuiltInAdvancedMachineType {
+public class BuiltInAdvancedMachineTypes {
     public static final AdvancedMachineType BASIN = AdvancedMachineType.create("basin");
     public static final AdvancedMachineType DEPOT = AdvancedMachineType.create("depot");
     public static final AdvancedMachineType FLUID_TANK = AdvancedMachineType.create("fluid_tank");

@@ -43,8 +43,8 @@ public class CMMTier {
     private int fluidTankCapability = 8;
     private double steamEngineCapacity = 1024;
     private int steamEngineGeneratedSpeed = 64;
-    private List<BuiltInAdvancedMachineType.AdvancedMachineType> blackList = new ArrayList<>();
-    private List<BuiltInAdvancedMachineType.AdvancedMachineType> whiteList = new ArrayList<>();
+    private final List<BuiltInAdvancedMachineTypes.AdvancedMachineType> blackList = new ArrayList<>();
+    private final List<BuiltInAdvancedMachineTypes.AdvancedMachineType> whiteList = new ArrayList<>();
     private static boolean frozen = false;
     private static final HashMap<String, CreateRegistrate> REGISTRATIONS = new HashMap<>();
     private static boolean registrateFrozen = false;
@@ -92,7 +92,7 @@ public class CMMTier {
         return new CMMTier(id);
     }
 
-    public CMMTier without(BuiltInAdvancedMachineType.AdvancedMachineType type){
+    public CMMTier without(BuiltInAdvancedMachineTypes.AdvancedMachineType type){
         if(this.whiteList.contains(type)){
             throw new UnsupportedOperationException(String.format("Type: [%s] has been defined in white list",type.getName()));
         }
@@ -100,14 +100,14 @@ public class CMMTier {
         return this;
     }
 
-    public CMMTier without(BuiltInAdvancedMachineType.AdvancedMachineType... types){
-        for (BuiltInAdvancedMachineType.AdvancedMachineType type : types) {
+    public CMMTier without(BuiltInAdvancedMachineTypes.AdvancedMachineType... types){
+        for (BuiltInAdvancedMachineTypes.AdvancedMachineType type : types) {
             without(type);
         }
         return this;
     }
 
-    public CMMTier with(BuiltInAdvancedMachineType.AdvancedMachineType type){
+    public CMMTier with(BuiltInAdvancedMachineTypes.AdvancedMachineType type){
         if(this.blackList.contains(type)){
             throw new UnsupportedOperationException(String.format("Type: [%s] has been defined in black list",type.getName()));
         }
@@ -115,8 +115,8 @@ public class CMMTier {
         return this;
     }
 
-    public CMMTier with(BuiltInAdvancedMachineType.AdvancedMachineType... types){
-        for (BuiltInAdvancedMachineType.AdvancedMachineType type : types) {
+    public CMMTier with(BuiltInAdvancedMachineTypes.AdvancedMachineType... types){
+        for (BuiltInAdvancedMachineTypes.AdvancedMachineType type : types) {
             with(type);
         }
         return this;
@@ -419,17 +419,17 @@ public class CMMTier {
         return fluidTankRenderer;
     }
 
-    public List<BuiltInAdvancedMachineType.AdvancedMachineType> getBlackList() {
+    public List<BuiltInAdvancedMachineTypes.AdvancedMachineType> getBlackList() {
         return blackList;
     }
 
-    public List<BuiltInAdvancedMachineType.AdvancedMachineType> getWhiteList() {
+    public List<BuiltInAdvancedMachineTypes.AdvancedMachineType> getWhiteList() {
         return whiteList;
     }
 
-    public static boolean shouldRegistry(CMMTier tier, BuiltInAdvancedMachineType.AdvancedMachineType type){
+    public static boolean shouldRegistry(CMMTier tier, BuiltInAdvancedMachineTypes.AdvancedMachineType type){
         boolean white = false;
-        for (BuiltInAdvancedMachineType.AdvancedMachineType advancedMachineType : tier.getWhiteList()) {
+        for (BuiltInAdvancedMachineTypes.AdvancedMachineType advancedMachineType : tier.getWhiteList()) {
             if(advancedMachineType.equals(type)){
                 white = true;
                 break;
@@ -440,7 +440,7 @@ public class CMMTier {
             return true;
         }
         boolean black = false;
-        for (BuiltInAdvancedMachineType.AdvancedMachineType advancedMachineType : tier.getBlackList()) {
+        for (BuiltInAdvancedMachineTypes.AdvancedMachineType advancedMachineType : tier.getBlackList()) {
             if(advancedMachineType.equals(type)){
                 black = true;
                 break;
@@ -449,7 +449,7 @@ public class CMMTier {
         return !black;
     }
 
-    public static boolean shouldRegistry(ResourceLocation tierLocation, BuiltInAdvancedMachineType.AdvancedMachineType type){
+    public static boolean shouldRegistry(ResourceLocation tierLocation, BuiltInAdvancedMachineTypes.AdvancedMachineType type){
         boolean contains = CMMTier.getTiers().containsKey(tierLocation);
         if(contains){
             return shouldRegistry(CMMTier.getTiers().get(tierLocation),type);
