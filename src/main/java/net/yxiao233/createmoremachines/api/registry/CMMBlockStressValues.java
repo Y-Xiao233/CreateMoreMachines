@@ -10,4 +10,16 @@ public class CMMBlockStressValues {
             BlockStressValues.IMPACTS.register(block, () -> value);
         };
     }
+
+    public static NonNullConsumer<Block> setGeneratorSpeed(int value, boolean mayGenerateLess) {
+        return (block) -> {
+            BlockStressValues.RPM.register(block, new BlockStressValues.GeneratedRpm(value, mayGenerateLess));
+        };
+    }
+
+    public static <T extends Block> NonNullConsumer<T> setCapacities(double value) {
+        return (block) -> {
+            BlockStressValues.CAPACITIES.register(block, () -> value);
+        };
+    }
 }

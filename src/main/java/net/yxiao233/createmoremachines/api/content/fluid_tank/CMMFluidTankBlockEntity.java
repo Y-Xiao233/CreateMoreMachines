@@ -1,6 +1,7 @@
 package net.yxiao233.createmoremachines.api.content.fluid_tank;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -11,16 +12,15 @@ import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 
 public class CMMFluidTankBlockEntity extends FluidTankBlockEntity {
-    private final CMMTier tier;
+    private CMMTier tier;
     public CMMFluidTankBlockEntity(CMMTier tier, BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.tier = tier;
-        this.getTankInventory().setCapacity(tier.getFluidCapability());
     }
 
     @Override
     public void applyFluidTankSize(int blocks) {
-        this.tankInventory.setCapacity(Math.min(Integer.MAX_VALUE, blocks * this.tier.getFluidCapability()));
+        this.tankInventory.setCapacity(Math.min(Integer.MAX_VALUE, blocks * this.tier.getFluidTankCapability()));
         int overflow = this.tankInventory.getFluidAmount() - this.tankInventory.getCapacity();
         if (overflow > 0) {
             this.tankInventory.drain(overflow, IFluidHandler.FluidAction.EXECUTE);
@@ -34,14 +34,25 @@ public class CMMFluidTankBlockEntity extends FluidTankBlockEntity {
     }
 
     public void superRefreshCapability() {
-        ReflectionUtil.runPrivateMethod("refreshCapability", null, this, FluidTankBlockEntity.class, null);
+        ReflectionUtil.runPrivateMethod("refreshCapability", null, this, FluidTankBlockEntity.class, null, null);
+    }
+
+    @Override
+    protected SmartFluidTank createInventory() {
+        return new SmartFluidTank(getFluidTankCapacity() * Math.max(1,getTotalTankSize()), this::onFluidStackChanged);
+    }
+    public int getFluidTankCapacity() {
+        if(tier == null){
+            this.tier = this.getBlockState().getBlock() instanceof CMMFluidTankBlock tankBlock ? tankBlock.getTier() : this.tier;
+        }
+        return tier.getFluidTankCapability();
     }
 
     @Override
     public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(compound, registries, clientPacket);
         if(this.tier != null){
-            compound.putInt("fluid_capability", this.tier.getFluidCapability());
+            compound.putInt("fluid_capability", this.tier.getFluidTankCapability());
         }
     }
 
@@ -50,8 +61,8 @@ public class CMMFluidTankBlockEntity extends FluidTankBlockEntity {
         super.read(compound, registries, clientPacket);
         if(compound.contains("fluid_capability")){
             int fluidCapability = compound.getInt("fluid_capability");
-            if(this.getTankInventory() != null){
-                this.getTankInventory().setCapacity(fluidCapability);
+            if(this.tankInventory != null){
+                this.getTankInventory().setCapacity(fluidCapability * this.getTotalTankSize());
             }
         }
     }

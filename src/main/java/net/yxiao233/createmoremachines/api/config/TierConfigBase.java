@@ -12,6 +12,9 @@ public class TierConfigBase {
     private ModConfigSpec.DoubleValue MECHANICAL_PRESS_IMPACT;
     private ModConfigSpec.DoubleValue MECHANICAL_MIXER_IMPACT;
     private ModConfigSpec.DoubleValue DEPLOYER_IMPACT;
+    private ModConfigSpec.IntValue FLUID_TANK_CAPABILITY;
+    private ModConfigSpec.IntValue STEAM_ENGINE_GENERATED_SPEED;
+    private ModConfigSpec.DoubleValue STEAM_ENGINE_CAPACITY;
     private int tiredItemCapability;
     private int tiredFluidCapability;
     private int tiredProcessingMultiple;
@@ -19,6 +22,9 @@ public class TierConfigBase {
     private double tiredMechanicalPressImpact;
     private double tiredMechanicalMixerImpact;
     private double tiredDeployerImpact;
+    private int tiredFluidTankCapability;
+    private int tiredSteamEngineGeneratedSpeed;
+    private double tiredSteamEngineCapacity;
     private final String tier;
     private final int itemCapability;
     private final int fluidCapability;
@@ -27,20 +33,26 @@ public class TierConfigBase {
     private final double mechanicalPressImpact;
     private final double mechanicalMixerImpact;
     private final double deployerImpact;
+    private final int fluidTankCapability;
+    private final int steamEngineGeneratedSpeed;
+    private final double steamEngineCapacity;
 
-    private TierConfigBase(String tier, int itemCapability, int fluidCapability, int processingMultiple, int deployerProcessingMultiple, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact){
+    private TierConfigBase(String tier, int itemCapability, int fluidCapability, int fluidTankCapability, int processingMultiple, int deployerProcessingMultiple, int steamEngineGeneratedSpeed, double steamEngineCapacity, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact){
         this.tier = tier;
         this.itemCapability = itemCapability;
         this.fluidCapability = fluidCapability;
+        this.fluidTankCapability = fluidTankCapability;
         this.processingMultiple = processingMultiple;
         this.mechanicalPressImpact = mechanicalPressImpact;
         this.mechanicalMixerImpact = mechanicalMixerImpact;
         this.deployerImpact = deployerImpact;
         this.deployerProcessingMultiple = deployerProcessingMultiple;
+        this.steamEngineGeneratedSpeed = steamEngineGeneratedSpeed;
+        this.steamEngineCapacity = steamEngineCapacity;
     }
 
-    public static TierConfigBase create(String tier, int itemCapability, int fluidCapability, int processingMultiple,int deployerProcessingMultiple, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact){
-        return new TierConfigBase(tier,itemCapability,fluidCapability,processingMultiple,deployerProcessingMultiple,mechanicalPressImpact,mechanicalMixerImpact,deployerImpact);
+    public static TierConfigBase create(String tier, int itemCapability, int fluidCapability, int fluidTankCapability, int processingMultiple,int deployerProcessingMultiple, int steamEngineGeneratedSpeed, double steamEngineCapacity, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact){
+        return new TierConfigBase(tier,itemCapability,fluidCapability,fluidTankCapability,processingMultiple,deployerProcessingMultiple,steamEngineGeneratedSpeed,steamEngineCapacity,mechanicalPressImpact,mechanicalMixerImpact,deployerImpact);
     }
     public void registry(ModConfigSpec.Builder BUILDER){
         BUILDER.translation(key(tier + "_tier")).push(upperCaseForFirstChar(tier) + "Tier");
@@ -52,8 +64,13 @@ public class TierConfigBase {
 
         FLUID_CAPABILITY = BUILDER
                 .translation(key("fluid_capability"))
-                .comment("Fluid capability for " + tier + "tier mechanical[default:" + fluidCapability + "]")
+                .comment("Fluid capability for " + tier + " tier mechanical[default:" + fluidCapability + "]")
                 .defineInRange(tier + "_fluid_capability",fluidCapability,1,Integer.MAX_VALUE);
+
+        FLUID_TANK_CAPABILITY = BUILDER
+                .translation(key("fluid_tank_capability"))
+                .comment("Fluid Tank capability for " + tier + " tier mechanical[default:" + fluidTankCapability + "]")
+                .defineInRange(tier + "_fluid_tank_capability",fluidTankCapability,1,Integer.MAX_VALUE);
 
         PROCESSING_MULTIPLE = BUILDER
                 .translation(key("processing_multiple"))
@@ -64,6 +81,16 @@ public class TierConfigBase {
                 .translation(key("deployer_processing_multiple"))
                 .comment("Processing multiple for " + tier + " tier Deployer[default:" + deployerProcessingMultiple + "]")
                 .defineInRange(tier + "_deployer_processing_multiple",deployerProcessingMultiple,1,64);
+
+        STEAM_ENGINE_GENERATED_SPEED = BUILDER
+                .translation(key("steam_engine_generated_speed"))
+                .comment("Generated Speed for " + tier + " tier Steam Engine[default:" + steamEngineGeneratedSpeed + "]")
+                .defineInRange(tier + "_steam_engine_generated_speed",steamEngineGeneratedSpeed,1,256);
+
+        STEAM_ENGINE_CAPACITY = BUILDER
+                .translation(key("steam_engine_capacity"))
+                .comment("Capacity for " + tier + " tier Steam Engine[default:" + steamEngineCapacity + "]")
+                .defineInRange(tier + "_steam_engine_capacity",steamEngineCapacity,1,Integer.MAX_VALUE);
 
         MECHANICAL_PRESS_IMPACT = BUILDER
                 .translation(key("mechanical_press_impact"))
@@ -77,7 +104,7 @@ public class TierConfigBase {
 
         DEPLOYER_IMPACT = BUILDER
                 .translation(key("deployer_impact"))
-                .comment("Impact needed for" + tier + "tier deployer[default:" + deployerImpact + "]")
+                .comment("Impact needed for" + tier + " tier deployer[default:" + deployerImpact + "]")
                 .defineInRange(tier + "deployer_impact",deployerImpact,1,Double.MAX_VALUE);
 
         BUILDER.pop();
@@ -87,11 +114,14 @@ public class TierConfigBase {
     public void onLoad(ModConfigEvent.Loading event){
         this.tiredItemCapability = ITEM_CAPABILITY.get();
         this.tiredFluidCapability = FLUID_CAPABILITY.get();
+        this.tiredFluidTankCapability = FLUID_TANK_CAPABILITY.get();
         this.tiredProcessingMultiple = PROCESSING_MULTIPLE.get();
         this.tiredDeployerProcessingMultiple = DEPLOYER_PROCESSING_MULTIPLE.get();
         this.tiredMechanicalPressImpact = MECHANICAL_PRESS_IMPACT.get();
         this.tiredMechanicalMixerImpact = MECHANICAL_MIXER_IMPACT.get();
         this.tiredDeployerImpact = DEPLOYER_IMPACT.get();
+        this.tiredSteamEngineGeneratedSpeed = STEAM_ENGINE_GENERATED_SPEED.get();
+        this.tiredSteamEngineCapacity = STEAM_ENGINE_CAPACITY.get();
     }
 
     public int getItemCapability(){
@@ -100,6 +130,10 @@ public class TierConfigBase {
 
     public int getFluidCapability(){
         return tiredFluidCapability;
+    }
+
+    public int getFluidTankCapability() {
+        return tiredFluidTankCapability;
     }
 
     public int getProcessingMultiple(){
@@ -119,6 +153,14 @@ public class TierConfigBase {
 
     public double getDeployerImpact() {
         return tiredDeployerImpact;
+    }
+
+    public double getSteamEngineCapacity() {
+        return tiredSteamEngineCapacity;
+    }
+
+    public int getSteamEngineGeneratedSpeed() {
+        return tiredSteamEngineGeneratedSpeed;
     }
 
     public static String key(String... prefix){

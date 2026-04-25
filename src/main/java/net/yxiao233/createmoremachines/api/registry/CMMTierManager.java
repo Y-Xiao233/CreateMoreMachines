@@ -11,6 +11,8 @@ import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
 import com.simibubi.create.content.fluids.tank.*;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovementBehaviour;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovingInteraction;
+import com.simibubi.create.content.kinetics.steamEngine.SteamEngineRenderer;
+import com.simibubi.create.content.kinetics.steamEngine.SteamEngineVisual;
 import com.simibubi.create.content.logistics.depot.MountedDepotInteractionBehaviour;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import com.simibubi.create.content.processing.basin.BasinMovementBehaviour;
@@ -24,6 +26,7 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
@@ -45,6 +48,8 @@ import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMPressVisual;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
+import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlock;
+import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlockEntity;
 import net.yxiao233.createmoremachines.datagen.content.CMMBasinGenerator;
 import net.yxiao233.createmoremachines.datagen.content.CMMBlockStateGen;
 import net.yxiao233.createmoremachines.utils.AnnotationUtil;
@@ -354,15 +359,48 @@ public class CMMTierManager {
         });
     }
 
+    @SuppressWarnings("unchecked")
     public static void registryFluidTankEntities(Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> blockMap, Map<ResourceLocation, BlockEntityEntry<CMMFluidTankBlockEntity>> entityMap){
         PLUGINS.forEach(plugin ->{
             blockMap.forEach((id, spout) ->{
                 CreateBlockEntityBuilder<CMMFluidTankBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_fluid_tank", (type, pos, state) -> new CMMFluidTankBlockEntity(CMMTier.getTiers().get(id), type, pos, state));
                 entityMap.put(id,builder
-                        .validBlocks(spout)
-                        .renderer(() ->{
-                            return FluidTankRenderer::new;
+                        .validBlocks(new NonNullSupplier[]{blockMap.get(id)})
+                        .renderer(CMMTier.getTiers().get(id).getFluidTankRenderer())
+                        .register()
+                );
+            });
+        });
+    }
+
+    public static void registrySteamEngines(Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> blockMap){
+        PLUGINS.forEach(plugin ->{
+            CMMTier.getTiers().forEach((id,tier) ->{
+                blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_steam_engine", properties -> new CMMSteamEngineBlock(tier,properties))
+                        .initialProperties(SharedProperties::copperMetal)
+                        .transform(TagGen.pickaxeOnly())
+                        .blockstate((context, provider) ->{
+                            provider.horizontalFaceBlock(context.get(), AssetLookup.partialBaseModel(context, provider));
                         })
+                        .onRegister(CMMBlockStressValues.setGeneratorSpeed(tier.getSteamEngineGeneratedSpeed(),true))
+                        .onRegister(CMMBlockStressValues.setCapacities(tier.getSteamEngineCapacity()))
+                        .item()
+                        .transform(ModelGen.customItemModel())
+                        .register()
+                );
+            });
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void registrySteamEngineEntities(Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> blockMap, Map<ResourceLocation, BlockEntityEntry<CMMSteamEngineBlockEntity>> entityMap){
+        PLUGINS.forEach(plugin ->{
+            blockMap.forEach((id, steamEngine) ->{
+                CreateBlockEntityBuilder<CMMSteamEngineBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_steam_engine", (type, pos, state) -> new CMMSteamEngineBlockEntity(CMMTier.getTiers().get(id), type, pos, state));
+                entityMap.put(id,builder
+                        .visual(() -> SteamEngineVisual::new,false)
+                        .validBlocks(new NonNullSupplier[]{blockMap.get(id)})
+                        .renderer(CMMTier.getTiers().get(id).getSteamEngineRenderer())
                         .register()
                 );
             });

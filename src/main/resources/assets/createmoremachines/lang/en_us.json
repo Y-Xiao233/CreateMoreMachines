@@ -19,6 +19,7 @@
   "config.createmoremachines.mechanical_mixer_impact": "Mechanical Mixer Impact",
   "config.createmoremachines.deployer_impact": "Deployer Impact",
   "config.createmoremachines.deployer_processing_multiple": "Deployer Processing Multiple",
+  "config.createmoremachines.fluid_tank_capability": "Fluid Tank Capability",
 
   "block.createmoremachines.creative_casing": "Creative Casing",
   "block.createmoremachines.netherite_casing": "Netherite Casing",
@@ -47,5 +48,6 @@
 
   "tooltip.createmoremachines.item_capability": "§aItem Capability:§f %d",
   "tooltip.createmoremachines.fluid_capability": "§aFluid Capability:§f %dB",
-  "tooltip.createmoremachines.processing_multiple": "§aProcessing Multiple:§f %d"
+  "tooltip.createmoremachines.processing_multiple": "§aProcessing Multiple:§f %d",
+  "tooltip.createmoremachines.fluid_tank_capability": "§aFluid Tank Capability:§f %dB"
 }

@@ -1,1 +1,0 @@
-net.yxiao233.createmoremachines.compact.kubejs.CMMKubeJSPlugin

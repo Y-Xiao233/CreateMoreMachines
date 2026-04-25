@@ -1,6 +1,8 @@
 package net.yxiao233.createmoremachines.api.registry;
 
+import com.simibubi.create.content.fluids.tank.FluidTankRenderer;
 import com.simibubi.create.content.kinetics.deployer.DeployerRenderer;
+import com.simibubi.create.content.kinetics.steamEngine.SteamEngineRenderer;
 import com.simibubi.create.content.processing.basin.BasinRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
@@ -41,6 +43,9 @@ public class CMMTier {
     private double mechanicalPressImpact = 8;
     private double mechanicalMixerImpact = 4;
     private double deployerImpact = 4;
+    private int fluidTankCapability = 8;
+    private double steamEngineCapacity = 1024;
+    private int steamEngineGeneratedSpeed = 64;
     private static boolean frozen = false;
     private static final HashMap<String, CreateRegistrate> REGISTRATIONS = new HashMap<>();
     private static boolean registrateFrozen = false;
@@ -50,6 +55,8 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMSpoutBlockEntity>>> spoutRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> basinRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DeployerRenderer>> deployerRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> steamEngineRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> fluidTankRenderer;
     private CMMTier(ResourceLocation id){
         tiers.put(id,this);
         this.id = id;
@@ -92,11 +99,14 @@ public class CMMTier {
         }
         return this.setItemCapability(config.getItemCapability())
                 .setFluidCapability(config.getFluidCapability())
+                .setFluidTankCapability(config.getFluidTankCapability())
                 .setProcessingMultiple(config.getProcessingMultiple())
                 .setMechanicalPressImpact(config.getMechanicalPressImpact())
                 .setMechanicalMixerImpact(config.getMechanicalMixerImpact())
                 .setDeployerImpact(config.getDeployerImpact())
-                .setDeployerProcessingMultiple(config.getDeployerProcessingMultiple());
+                .setDeployerProcessingMultiple(config.getDeployerProcessingMultiple())
+                .setSteamEngineGeneratedSpeed(config.getSteamEngineGeneratedSpeed())
+                .setSteamEngineCapacity(config.getSteamEngineCapacity());
     }
     public static void freezy(){
         frozen = true;
@@ -129,11 +139,35 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setSteamEngineGeneratedSpeed(int steamEngineGeneratedSpeed){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.steamEngineGeneratedSpeed = steamEngineGeneratedSpeed;
+        return this;
+    }
+
+    public CMMTier setSteamEngineCapacity(double steamEngineCapacity){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.steamEngineCapacity = steamEngineCapacity;
+        return this;
+    }
+
     public CMMTier setFluidCapability(int fluidCapability) {
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
         this.fluidCapability = fluidCapability;
+        return this;
+    }
+
+    public CMMTier setFluidTankCapability(int fluidTankCapability) {
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.fluidTankCapability = fluidTankCapability;
         return this;
     }
 
@@ -225,6 +259,22 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setSteamEngineRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> renderer){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.steamEngineRenderer = renderer;
+        return this;
+    }
+
+    public CMMTier setFluidTankRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> renderer){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.fluidTankRenderer = renderer;
+        return this;
+    }
+
     public CMMTier defaultRenderer(){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
@@ -234,7 +284,9 @@ public class CMMTier {
                 .withDefaultMechanicalMixerRenderer()
                 .withDefaultMechanicalPressRenderer()
                 .withDefaultBasinRenderer()
-                .withDefaultDeployerRenderer();
+                .withDefaultDeployerRenderer()
+                .withDefaultSteamEngineRenderer()
+                .withDefaultFluidTankRenderer();
     }
 
 
@@ -260,13 +312,22 @@ public class CMMTier {
         return setDeployerRenderer(() -> DeployerRenderer::new);
     }
 
-
+    public CMMTier withDefaultSteamEngineRenderer(){
+        return setSteamEngineRenderer(() -> SteamEngineRenderer::new);
+    }
+    public CMMTier withDefaultFluidTankRenderer(){
+        return setFluidTankRenderer(() -> FluidTankRenderer::new);
+    }
     public int getItemCapability() {
         return itemCapability;
     }
 
     public int getFluidCapability() {
         return fluidCapability;
+    }
+
+    public int getFluidTankCapability() {
+        return fluidTankCapability;
     }
 
     public int getProcessingMultiple() {
@@ -287,6 +348,18 @@ public class CMMTier {
 
     public double getDeployerImpact() {
         return deployerImpact;
+    }
+
+    public double getSteamEngineCapacity() {
+        return steamEngineCapacity;
+    }
+
+    public int getSteamEngineGeneratedSpeed() {
+        return steamEngineGeneratedSpeed;
+    }
+
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> getSteamEngineRenderer() {
+        return steamEngineRenderer;
     }
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> getMechanicalMixerRenderer() {
@@ -311,6 +384,10 @@ public class CMMTier {
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DeployerRenderer>> getDeployerRenderer() {
         return deployerRenderer;
+    }
+
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> getFluidTankRenderer() {
+        return fluidTankRenderer;
     }
 
     public ResourceLocation getId() {

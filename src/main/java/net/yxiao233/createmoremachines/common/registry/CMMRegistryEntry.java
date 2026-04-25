@@ -34,6 +34,8 @@ import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
+import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlock;
+import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlockEntity;
 import net.yxiao233.createmoremachines.api.registry.CMMTierManager;
 import net.yxiao233.createmoremachines.api.registry.ICMMPlugin;
 
@@ -89,6 +91,8 @@ public class CMMRegistryEntry {
 
     private static final Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> FLUID_TANKS = new HashMap<>();
     private static final Map<ResourceLocation, BlockEntityEntry<CMMFluidTankBlockEntity>> FLUID_TANK_ENTITIES = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> STEAM_ENGINES = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntityEntry<CMMSteamEngineBlockEntity>> STEAM_ENGINE_ENTITIES = new HashMap<>();
 
     public static Map<ResourceLocation, RegistryEntry<MountedItemStorageType<?>, ?>> getAllDepotStorageTypes(){
         return Collections.unmodifiableMap(DEPOT_STORAGE_TYPES);
@@ -147,6 +151,14 @@ public class CMMRegistryEntry {
     public static Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> getFluidTanks(){
         return Collections.unmodifiableMap(FLUID_TANKS);
     }
+
+    public static Map<ResourceLocation, BlockEntityEntry<CMMSteamEngineBlockEntity>> getSteamEngineEntities(){
+        return Collections.unmodifiableMap(STEAM_ENGINE_ENTITIES);
+    }
+
+    public static Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> getSteamEngines(){
+        return Collections.unmodifiableMap(STEAM_ENGINES);
+    }
     public static void register() {
         CMMTierManager.getPlugins().forEach(ICMMPlugin::onRegister);
 
@@ -173,6 +185,8 @@ public class CMMRegistryEntry {
         CMMTierManager.registryFluidTankBlocks(FLUID_TANKS);
         CMMTierManager.registryFluidTankEntities(getFluidTanks(),FLUID_TANK_ENTITIES);
 
+        CMMTierManager.registrySteamEngines(STEAM_ENGINES);
+        CMMTierManager.registrySteamEngineEntities(getSteamEngines(),STEAM_ENGINE_ENTITIES);
 
         CMMTierManager.getPlugins().forEach(ICMMPlugin::onPostRegister);
     }

@@ -46,7 +46,7 @@ public class CMMDeployerBlockEntity extends DeployerBlockEntity{
     }
 
     public void initHandler() {
-        ReflectionUtil.runPrivateMethod("initHandler",null,this,DeployerBlockEntity.class,null);
+        ReflectionUtil.runPrivateMethod("initHandler",null,this,DeployerBlockEntity.class,null, null);
     }
 
     public boolean isRedstoneLocked(){
