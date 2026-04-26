@@ -436,15 +436,15 @@ public class CMMTier {
             }
         }
         boolean isBlackEmpty = tier.getBlackList().isEmpty();
-        if(isBlackEmpty && (white || tier.getWhiteList().isEmpty())){
-            return true;
-        }
         boolean black = false;
         for (BuiltInAdvancedMachineTypes.AdvancedMachineType advancedMachineType : tier.getBlackList()) {
             if(advancedMachineType.equals(type)){
                 black = true;
                 break;
             }
+        }
+        if((isBlackEmpty || !black) && (white || tier.getWhiteList().isEmpty())){
+            return true;
         }
         return !black;
     }
