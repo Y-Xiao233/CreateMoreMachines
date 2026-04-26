@@ -7,7 +7,9 @@
   "mixins": [
     "MixinAssemblyOperatorBlockItem",
     "MixinBoilerData",
-    "MixinPressingBehaviour"
+    "MixinPressingBehaviour",
+    "MixinSmartInventory",
+    "MixinSyncedStackHandler"
   ],
   "client": [
   ],

@@ -45,6 +45,14 @@ public class CMMTierPlugin implements ICMMPlugin {
 
     @Override
     public void onPostRegisterTier() {
+        //Temp disabled
+        BRASS.without(BuiltInAdvancedMachineTypes.FLUID_TANK, BuiltInAdvancedMachineTypes.STEAM_ENGINE);
+        NETHERITE.without(BuiltInAdvancedMachineTypes.FLUID_TANK, BuiltInAdvancedMachineTypes.STEAM_ENGINE);
+        END.without(BuiltInAdvancedMachineTypes.FLUID_TANK, BuiltInAdvancedMachineTypes.STEAM_ENGINE);
+        BEYOND.without(BuiltInAdvancedMachineTypes.FLUID_TANK, BuiltInAdvancedMachineTypes.STEAM_ENGINE);
+        CREATIVE.without(BuiltInAdvancedMachineTypes.STEAM_ENGINE);
+
+
         CREATIVE.without(BuiltInAdvancedMachineTypes.FLUID_TANK);
     }
 }
