@@ -1,6 +1,8 @@
 package net.yxiao233.createmoremachines.api.registry;
 
+import com.simibubi.create.content.fluids.tank.FluidTankRenderer;
 import com.simibubi.create.content.kinetics.deployer.DeployerRenderer;
+import com.simibubi.create.content.kinetics.steamEngine.SteamEngineRenderer;
 import com.simibubi.create.content.processing.basin.BasinRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
@@ -13,6 +15,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.config.TierConfigBase;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotRenderer;
@@ -23,10 +26,7 @@ import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutRenderer;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings({"UnusedReturnValue","unused","rawtypes","unchecked"})
 public class CMMTier {
@@ -40,6 +40,11 @@ public class CMMTier {
     private double mechanicalPressImpact = 8;
     private double mechanicalMixerImpact = 4;
     private double deployerImpact = 4;
+    private int fluidTankCapability = 8;
+    private double steamEngineCapacity = 1024;
+    private int steamEngineGeneratedSpeed = 64;
+    private final List<BuiltInAdvancedMachineTypes.AdvancedMachineType> blackList = new ArrayList<>();
+    private final List<BuiltInAdvancedMachineTypes.AdvancedMachineType> whiteList = new ArrayList<>();
     private static boolean frozen = false;
     private static final HashMap<String, CreateRegistrate> REGISTRATIONS = new HashMap<>();
     private static boolean registrateFrozen = false;
@@ -49,6 +54,8 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMSpoutBlockEntity>>> spoutRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> basinRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DeployerRenderer>> deployerRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> steamEngineRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> fluidTankRenderer;
     private CMMTier(ResourceLocation id){
         tiers.put(id,this);
         this.id = id;
@@ -81,7 +88,38 @@ public class CMMTier {
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
+        CreateMoreMachines.LOGGER.info("[Create More Machines] Successfully created tier {}", id.toString());
         return new CMMTier(id);
+    }
+
+    public CMMTier without(BuiltInAdvancedMachineTypes.AdvancedMachineType type){
+        if(this.whiteList.contains(type)){
+            throw new UnsupportedOperationException(String.format("Type: [%s] has been defined in white list",type.getName()));
+        }
+        this.blackList.add(type);
+        return this;
+    }
+
+    public CMMTier without(BuiltInAdvancedMachineTypes.AdvancedMachineType... types){
+        for (BuiltInAdvancedMachineTypes.AdvancedMachineType type : types) {
+            without(type);
+        }
+        return this;
+    }
+
+    public CMMTier with(BuiltInAdvancedMachineTypes.AdvancedMachineType type){
+        if(this.blackList.contains(type)){
+            throw new UnsupportedOperationException(String.format("Type: [%s] has been defined in black list",type.getName()));
+        }
+        this.whiteList.add(type);
+        return this;
+    }
+
+    public CMMTier with(BuiltInAdvancedMachineTypes.AdvancedMachineType... types){
+        for (BuiltInAdvancedMachineTypes.AdvancedMachineType type : types) {
+            with(type);
+        }
+        return this;
     }
 
     public CMMTier fromConfig(TierConfigBase config){
@@ -90,11 +128,14 @@ public class CMMTier {
         }
         return this.setItemCapability(config.getItemCapability())
                 .setFluidCapability(config.getFluidCapability())
+                .setFluidTankCapability(config.getFluidTankCapability())
                 .setProcessingMultiple(config.getProcessingMultiple())
                 .setMechanicalPressImpact(config.getMechanicalPressImpact())
                 .setMechanicalMixerImpact(config.getMechanicalMixerImpact())
                 .setDeployerImpact(config.getDeployerImpact())
-                .setDeployerProcessingMultiple(config.getDeployerProcessingMultiple());
+                .setDeployerProcessingMultiple(config.getDeployerProcessingMultiple())
+                .setSteamEngineGeneratedSpeed(config.getSteamEngineGeneratedSpeed())
+                .setSteamEngineCapacity(config.getSteamEngineCapacity());
     }
     public static void freezy(){
         frozen = true;
@@ -127,11 +168,35 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setSteamEngineGeneratedSpeed(int steamEngineGeneratedSpeed){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.steamEngineGeneratedSpeed = steamEngineGeneratedSpeed;
+        return this;
+    }
+
+    public CMMTier setSteamEngineCapacity(double steamEngineCapacity){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.steamEngineCapacity = steamEngineCapacity;
+        return this;
+    }
+
     public CMMTier setFluidCapability(int fluidCapability) {
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
         this.fluidCapability = fluidCapability;
+        return this;
+    }
+
+    public CMMTier setFluidTankCapability(int fluidTankCapability) {
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.fluidTankCapability = fluidTankCapability;
         return this;
     }
 
@@ -223,6 +288,22 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setSteamEngineRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> renderer){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.steamEngineRenderer = renderer;
+        return this;
+    }
+
+    public CMMTier setFluidTankRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> renderer){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.fluidTankRenderer = renderer;
+        return this;
+    }
+
     public CMMTier defaultRenderer(){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
@@ -232,7 +313,9 @@ public class CMMTier {
                 .withDefaultMechanicalMixerRenderer()
                 .withDefaultMechanicalPressRenderer()
                 .withDefaultBasinRenderer()
-                .withDefaultDeployerRenderer();
+                .withDefaultDeployerRenderer()
+                .withDefaultSteamEngineRenderer()
+                .withDefaultFluidTankRenderer();
     }
 
 
@@ -258,13 +341,22 @@ public class CMMTier {
         return setDeployerRenderer(() -> DeployerRenderer::new);
     }
 
-
+    public CMMTier withDefaultSteamEngineRenderer(){
+        return setSteamEngineRenderer(() -> SteamEngineRenderer::new);
+    }
+    public CMMTier withDefaultFluidTankRenderer(){
+        return setFluidTankRenderer(() -> FluidTankRenderer::new);
+    }
     public int getItemCapability() {
         return itemCapability;
     }
 
     public int getFluidCapability() {
         return fluidCapability;
+    }
+
+    public int getFluidTankCapability() {
+        return fluidTankCapability;
     }
 
     public int getProcessingMultiple() {
@@ -285,6 +377,18 @@ public class CMMTier {
 
     public double getDeployerImpact() {
         return deployerImpact;
+    }
+
+    public double getSteamEngineCapacity() {
+        return steamEngineCapacity;
+    }
+
+    public int getSteamEngineGeneratedSpeed() {
+        return steamEngineGeneratedSpeed;
+    }
+
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> getSteamEngineRenderer() {
+        return steamEngineRenderer;
     }
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> getMechanicalMixerRenderer() {
@@ -311,7 +415,53 @@ public class CMMTier {
         return deployerRenderer;
     }
 
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> getFluidTankRenderer() {
+        return fluidTankRenderer;
+    }
+
+    public List<BuiltInAdvancedMachineTypes.AdvancedMachineType> getBlackList() {
+        return blackList;
+    }
+
+    public List<BuiltInAdvancedMachineTypes.AdvancedMachineType> getWhiteList() {
+        return whiteList;
+    }
+
+    public static boolean shouldRegistry(CMMTier tier, BuiltInAdvancedMachineTypes.AdvancedMachineType type){
+        boolean white = false;
+        for (BuiltInAdvancedMachineTypes.AdvancedMachineType advancedMachineType : tier.getWhiteList()) {
+            if(advancedMachineType.equals(type)){
+                white = true;
+                break;
+            }
+        }
+        boolean isBlackEmpty = tier.getBlackList().isEmpty();
+        boolean black = false;
+        for (BuiltInAdvancedMachineTypes.AdvancedMachineType advancedMachineType : tier.getBlackList()) {
+            if(advancedMachineType.equals(type)){
+                black = true;
+                break;
+            }
+        }
+        if((isBlackEmpty || !black) && (white || tier.getWhiteList().isEmpty())){
+            return true;
+        }
+        return !black;
+    }
+
+    public static boolean shouldRegistry(ResourceLocation tierLocation, BuiltInAdvancedMachineTypes.AdvancedMachineType type){
+        boolean contains = CMMTier.getTiers().containsKey(tierLocation);
+        if(contains){
+            return shouldRegistry(CMMTier.getTiers().get(tierLocation),type);
+        }
+        return false;
+    }
+
     public ResourceLocation getId() {
         return id;
+    }
+
+    public static boolean isReady(){
+        return !frozen && !registrateFrozen;
     }
 }

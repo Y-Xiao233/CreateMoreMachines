@@ -1,14 +1,15 @@
 package net.yxiao233.createmoremachines.utils;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ReflectionUtil {
     @SuppressWarnings("unchecked")
-    public static <T, C> T getPrivateField(String memberName, Class<T> typeClass, Object targetObject, Class<C> targetClass){
+    public static <T, C> T getPrivateField(String memberName, Class<T> typeClass, @Nullable Object targetObject, Class<C> targetClass){
         try {
-            if(!targetClass.isAssignableFrom(targetObject.getClass())){
+            if(targetObject != null && !targetClass.isAssignableFrom(targetObject.getClass())){
                 return null;
             }
             Field field = targetClass.getDeclaredField(memberName);
@@ -27,9 +28,9 @@ public class ReflectionUtil {
         }
     }
 
-    public static <T, C> void setPrivateField(String memberName, Class<T> typeClass, Object targetObject, Class<C> targetClass, T newValue){
+    public static <T, C> void setPrivateField(String memberName, Class<T> typeClass, @Nullable Object targetObject, Class<C> targetClass, T newValue){
         try {
-            if(!targetClass.isAssignableFrom(targetObject.getClass())){
+            if(targetObject != null && !targetClass.isAssignableFrom(targetObject.getClass())){
                 return;
             }
             Field field = targetClass.getDeclaredField(memberName);
@@ -53,10 +54,19 @@ public class ReflectionUtil {
         }
     }
 
-    public static <C> void runPrivateMethod(String methodName, Class<?>[] parameterTypeClasses, C targetObject, Class<C> targetClass, Object[] methodParameterValues){
+    @SuppressWarnings("unchecked")
+    public static <C, R> R runPrivateMethod(String methodName, Class<?>[] parameterTypeClasses, C targetObject, Class<C> targetClass, Object[] methodParameterValues, @Nullable Class<R> returnTypeClass){
         Method method = getPrivateMethod(methodName, parameterTypeClasses, targetClass);
         try {
-            method.invoke(targetObject,methodParameterValues);
+            Object invoke = method.invoke(targetObject, methodParameterValues);
+            if(returnTypeClass == null){
+                return null;
+            }
+            if(returnTypeClass.isAssignableFrom(invoke.getClass())){
+                return (R) invoke;
+            }else{
+                return null;
+            }
         } catch (InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

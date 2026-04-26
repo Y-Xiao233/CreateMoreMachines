@@ -42,5 +42,15 @@ public class RegisterCapabilitiesHandler {
                 return be.getInvHandler().getValue();
             });
         });
+
+        CMMRegistryEntry.getFluidTankEntities().forEach((id,type) ->{
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, type.get(), (be, context) -> {
+                if (be.getFluidCapability() == null) {
+                    be.superRefreshCapability();
+                }
+
+                return be.getFluidCapability();
+            });
+        });
     }
 }

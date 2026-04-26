@@ -1,8 +1,6 @@
 package net.yxiao233.createmoremachines.api.content.basin;
 
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
-import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
-import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -11,7 +9,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
-import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 import net.yxiao233.createmoremachines.utils.TankCapabilityHelper;
 
 public class CMMBasinBlockEntity extends BasinBlockEntity {
@@ -22,6 +19,9 @@ public class CMMBasinBlockEntity extends BasinBlockEntity {
         this.tier = tier;
         this.capabilityHelper = new TankCapabilityHelper(this.inputTank,this.outputTank);
         this.capabilityHelper.setCapability(tier.getFluidCapability());
+
+        this.inputInventory.withMaxStackSize(tier.getItemCapability());
+        this.outputInventory.withMaxStackSize(tier.getItemCapability());
     }
 
     public CMMTier getTier() {
@@ -41,6 +41,7 @@ public class CMMBasinBlockEntity extends BasinBlockEntity {
         super.write(compound, registries, clientPacket);
         if(this.tier != null){
             compound.putInt("fluid_capability", this.tier.getFluidCapability());
+            compound.putInt("item_capability", this.tier.getItemCapability());
         }
     }
 
@@ -49,8 +50,13 @@ public class CMMBasinBlockEntity extends BasinBlockEntity {
         super.read(compound, registries, clientPacket);
         if(compound.contains("fluid_capability")){
             int fluidCapability = compound.getInt("fluid_capability");
+            int itemCapability = compound.getInt("item_capability");
             if(this.capabilityHelper != null && this.outputTank != null && this.inputTank != null){
                 this.capabilityHelper.setCapability(fluidCapability);
+            }
+            if(this.inputInventory != null && this.outputInventory != null){
+                this.inputInventory.withMaxStackSize(itemCapability);
+                this.outputInventory.withMaxStackSize(itemCapability);
             }
         }
     }

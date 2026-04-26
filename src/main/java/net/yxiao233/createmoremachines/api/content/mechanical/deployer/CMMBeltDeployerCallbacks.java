@@ -56,7 +56,7 @@ public class CMMBeltDeployerCallbacks {
                     } else if (blockEntity.getRecipe(s.stack) == null) {
                         return BeltProcessingBehaviour.ProcessingResult.PASS;
                     } else {
-                        ReflectionUtil.runPrivateMethod("start",null,blockEntity,DeployerBlockEntity.class,null);
+                        ReflectionUtil.runPrivateMethod("start",null,blockEntity,DeployerBlockEntity.class,null, null);
                         return BeltProcessingBehaviour.ProcessingResult.HOLD;
                     }
                 }
@@ -94,7 +94,7 @@ public class CMMBeltDeployerCallbacks {
                                 return BeltProcessingBehaviour.ProcessingResult.PASS;
                             }
 
-                            ReflectionUtil.runPrivateMethod("start",null,blockEntity,DeployerBlockEntity.class,null);
+                            ReflectionUtil.runPrivateMethod("start",null,blockEntity,DeployerBlockEntity.class,null, null);
                         }
 
                         return BeltProcessingBehaviour.ProcessingResult.HOLD;

@@ -6,7 +6,10 @@
   "refmap": "createmoremachines.refmap.json",
   "mixins": [
     "MixinAssemblyOperatorBlockItem",
-    "MixinPressingBehaviour"
+    "MixinBoilerData",
+    "MixinPressingBehaviour",
+    "MixinSmartInventory",
+    "MixinSyncedStackHandler"
   ],
   "client": [
   ],

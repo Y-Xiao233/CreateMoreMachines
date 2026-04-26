@@ -6,11 +6,11 @@ import net.yxiao233.createmoremachines.api.config.TierConfigBase;
 
 public class CMMConfig {
     private static final ModConfigSpec.Builder BUILDER;
-    public static final TierConfigBase BRASS = TierConfigBase.create("brass",256,4000,4,4,32,16,16);
-    public static final TierConfigBase NETHERITE = TierConfigBase.create("netherite",1024,16000,16,8,128,64,32);
-    public static final TierConfigBase END = TierConfigBase.create("end",4096,64000,64,16,512,256,64);
-    public static final TierConfigBase BEYOND = TierConfigBase.create("beyond",16384,256000,256,32,2048,1024,128);
-    public static final TierConfigBase CREATIVE = TierConfigBase.create("creative",Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,64,8,4,4);
+    public static final TierConfigBase BRASS = TierConfigBase.create("brass",256,4000,32000,4,4,64,2048,32,16,16);
+    public static final TierConfigBase NETHERITE = TierConfigBase.create("netherite",1024,16000,64000,16,8,64,4096,128,64,32);
+    public static final TierConfigBase END = TierConfigBase.create("end",4096,64000,256000,64,16,128,8192,512,256,64);
+    public static final TierConfigBase BEYOND = TierConfigBase.create("beyond",16384,256000,1024000,256,32,128,16384,2048,1024,128);
+    public static final TierConfigBase CREATIVE = TierConfigBase.create("creative",Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,64,256,Integer.MAX_VALUE,8,4,4);
     protected static final ModConfigSpec SPEC;
     static {
         BUILDER = new ModConfigSpec.Builder();

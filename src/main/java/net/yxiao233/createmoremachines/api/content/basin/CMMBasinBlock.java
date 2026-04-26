@@ -37,6 +37,6 @@ public class CMMBasinBlock extends BasinBlock implements IHaveTierInformation {
 
     @Override
     public void addTierInformation(List<Component> tooltips) {
-        CMMTierTooltip.byTypes(tooltips,tier, CMMTierTooltip.Type.FLUID_CAPABILITY);
+        CMMTierTooltip.byTypes(tooltips,tier, CMMTierTooltip.Type.FLUID_CAPABILITY, CMMTierTooltip.Type.ITEM_CAPABILITY);
     }
 }

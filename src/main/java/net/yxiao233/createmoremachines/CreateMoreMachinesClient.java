@@ -12,6 +12,7 @@ public class CreateMoreMachinesClient {
     public CreateMoreMachinesClient(IEventBus modEventBus) {
         modEventBus.addListener(CreateMoreMachinesClient::clientInit);
     }
+
     public static void clientInit(FMLClientSetupEvent event) {
         CMMTierManager.registryModels();
     }

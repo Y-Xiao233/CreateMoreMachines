@@ -19,6 +19,7 @@
   "config.createmoremachines.mechanical_mixer_impact": "搅拌机应力",
   "config.createmoremachines.deployer_impact": "机械手应力",
   "config.createmoremachines.deployer_processing_multiple": "机械手处理并行数",
+  "config.createmoremachines.fluid_tank_capability": "流体储罐容量",
 
   "block.createmoremachines.creative_casing": "创造机壳",
   "block.createmoremachines.netherite_casing": "下界机壳",
@@ -47,5 +48,6 @@
 
   "tooltip.createmoremachines.item_capability": "§a物品容量:§f %d",
   "tooltip.createmoremachines.fluid_capability": "§a流体容量:§f %dB",
-  "tooltip.createmoremachines.processing_multiple": "§a并行:§f %d"
+  "tooltip.createmoremachines.processing_multiple": "§a并行:§f %d",
+  "tooltip.createmoremachines.fluid_tank_capability": "§a流体储罐容量:§f %dB"
 }
