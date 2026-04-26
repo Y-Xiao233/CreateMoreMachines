@@ -44,6 +44,42 @@ public class ReflectionUtil {
         }
     }
 
+    @SuppressWarnings({"unchecked","rawtypes"})
+    public static Enum<?> getPackagedEnumField(String memberName, @Nullable Object targetObject, Class<?> targetClass){
+        try {
+            if(targetObject != null && !targetClass.isAssignableFrom(targetObject.getClass())){
+                return null;
+            }
+            Field field = targetClass.getDeclaredField(memberName);
+            field.setAccessible(true);
+            Object object = field.get(targetObject);
+            if(object != null){
+                return Enum.valueOf((Class<? extends Enum>) object.getClass(), ((Enum) object).name());
+            }
+            return null;
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings({"unchecked","rawtypes"})
+    public static void setPackagedEnumField(String memberName, @Nullable Object targetObject, Class<?> targetClass, String newValue){
+        try {
+            if(targetObject != null && !targetClass.isAssignableFrom(targetObject.getClass())){
+                return;
+            }
+            Field field = targetClass.getDeclaredField(memberName);
+            field.setAccessible(true);
+            Object object = field.get(targetObject);
+            if(object != null){
+                Enum value = Enum.valueOf((Class<? extends Enum>) object.getClass(), newValue);
+                field.set(targetObject,value);
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static <C> Method getPrivateMethod(String methodName, Class<?>[] parameterTypeClasses, Class<C> targetClass){
         try {
             Method method = targetClass.getDeclaredMethod(methodName, parameterTypeClasses);

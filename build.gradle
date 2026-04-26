@@ -108,7 +108,7 @@ repositories{
 
 dependencies {
     //create
-    implementation "curse.maven:create-328085:7408951"
+    implementation "curse.maven:create-328085:7963363"
 
     //JEI
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
