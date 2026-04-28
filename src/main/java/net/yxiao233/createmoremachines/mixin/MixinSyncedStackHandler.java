@@ -12,12 +12,16 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class MixinSyncedStackHandler extends ItemStackHandler {
     @Shadow private SyncedBlockEntity blockEntity;
 
+    @Shadow private boolean stackNonStackables;
+
+    @Shadow private int stackSize;
+
     @Override
     public int getSlotLimit(int slot) {
         if(blockEntity.getBlockState().getBlock() instanceof CMMBasinBlock basin){
             return basin.getTier().getItemCapability();
         }
-        return super.getSlotLimit(slot);
+        return Math.min(this.stackNonStackables ? 64 : super.getSlotLimit(slot), this.stackSize);
     }
 
     @Override

@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(SmartInventory.class)
 public abstract class MixinSmartInventory extends ItemHandlerContainer implements IItemHandlerModifiable, INBTSerializable<CompoundTag> {
-
     public MixinSmartInventory(IItemHandlerModifiable inv) {
         super(inv);
     }
