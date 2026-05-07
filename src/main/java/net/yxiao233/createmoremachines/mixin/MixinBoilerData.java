@@ -10,11 +10,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(BoilerData.class)
+@Mixin(value = BoilerData.class, priority = 100)
 public class MixinBoilerData {
     @Shadow public int attachedEngines;
 
@@ -26,8 +30,15 @@ public class MixinBoilerData {
      * @author Y_Xiao233
      * @reason Support the addition of steam engines to this mod
      */
-    @Overwrite
-    public boolean evaluate(FluidTankBlockEntity controller) {
+    @Inject(method = "evaluate", at = @At("HEAD"), cancellable = true)
+    private void evaluate(FluidTankBlockEntity controller, CallbackInfoReturnable<Boolean> cir){
+        if(controller instanceof CMMFluidTankBlockEntity){
+            cir.setReturnValue(createmoremachines$evaluate(controller));
+        }
+    }
+
+    @Unique
+    private boolean createmoremachines$evaluate(FluidTankBlockEntity controller) {
         BlockPos controllerPos = controller.getBlockPos();
         Level level = controller.getLevel();
         if(level == null){

@@ -23,6 +23,18 @@ public class BuiltInAdvancedMachineTypes {
             return name;
         }
 
+        public void withoutAll(){
+            CMMTier.getTiers().forEach((id, tier) ->{
+                tier.without(this);
+            });
+        }
+
+        public void without(CMMTier... tiers){
+            for (CMMTier tier : tiers) {
+                tier.without(this);
+            }
+        }
+
         @Override
         public boolean equals(Object other){
             if(other instanceof AdvancedMachineType type){
