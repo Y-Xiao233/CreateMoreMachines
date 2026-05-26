@@ -11,6 +11,7 @@ import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
 import com.simibubi.create.content.fluids.tank.*;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovementBehaviour;
 import com.simibubi.create.content.kinetics.deployer.DeployerMovingInteraction;
+import com.simibubi.create.content.kinetics.saw.SawVisual;
 import com.simibubi.create.content.kinetics.steamEngine.SteamEngineVisual;
 import com.simibubi.create.content.logistics.depot.MountedDepotInteractionBehaviour;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
@@ -44,6 +45,8 @@ import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMixerVisu
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMPressVisual;
+import net.yxiao233.createmoremachines.api.content.saw.CMMSawBlock;
+import net.yxiao233.createmoremachines.api.content.saw.CMMSawBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
 import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlock;
@@ -299,6 +302,7 @@ public class CMMTierManager {
         });
     }
 
+    //deployer
     @SuppressWarnings("unchecked")
     public static void registryDeployers(Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
@@ -340,6 +344,7 @@ public class CMMTierManager {
         });
     }
 
+    //fluid tank
     @SuppressWarnings("removal")
     public static void registryFluidTankBlocks(Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
@@ -383,6 +388,7 @@ public class CMMTierManager {
         });
     }
 
+    //steam engine
     public static void registrySteamEngines(Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> blockMap){
         PLUGINS.forEach(plugin ->{
             CMMTier.getTiers().forEach((id,tier) ->{
@@ -415,6 +421,47 @@ public class CMMTierManager {
                         .renderer(CMMTier.getTiers().get(id).getSteamEngineRenderer())
                         .register()
                 );
+            });
+        });
+    }
+
+    //saw
+    @SuppressWarnings("unchecked")
+    public static void registrySawEntities(Map<ResourceLocation, BlockEntry<CMMSawBlock>> blockMap, Map<ResourceLocation, BlockEntityEntry<CMMSawBlockEntity>> entityMap){
+        PLUGINS.forEach(plugin ->{
+            blockMap.forEach((id, saw) ->{
+                CreateBlockEntityBuilder<CMMSawBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_saw", (type, pos, state) -> new CMMSawBlockEntity(CMMTier.getTiers().get(id),type,pos,state));
+                entityMap.put(id,builder
+                        .visual(() -> SawVisual::new)
+                        .validBlocks(new NonNullSupplier[]{blockMap.get(id)})
+                        .renderer(CMMTier.getTiers().get(id).getSawRenderer())
+                        .register()
+                );
+            });
+        });
+    }
+
+    public static void registrySaws(Map<ResourceLocation, BlockEntry<CMMSawBlock>> blockMap){
+        PLUGINS.forEach(plugin ->{
+            CMMTier.getTiers().forEach((id, tier) ->{
+                if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.SAW)){
+                    blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_saw", properties -> new CMMSawBlock(tier,properties))
+                            .initialProperties(SharedProperties::stone)
+                            .properties(properties -> {
+                                return properties.noOcclusion().mapColor(MapColor.PODZOL);
+                            })
+                            .onRegister(CMMBlockStressValues.setImpact(tier.getSawImpact()))
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(TagGen.axeOrPickaxe())
+                            .blockstate((c, p) -> {
+                                p.horizontalBlock(c.get(), CMMAssetLookup.partialBaseModel(c, p,"saw"));
+                            })
+                            .item(AssemblyOperatorBlockItem::new)
+                            .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                            .transform(ModelGen.customItemModel("saw","item","_"))
+                            .register()
+                    );
+                }
             });
         });
     }

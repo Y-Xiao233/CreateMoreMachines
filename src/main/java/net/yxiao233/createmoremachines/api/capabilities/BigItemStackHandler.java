@@ -3,13 +3,46 @@ package net.yxiao233.createmoremachines.api.capabilities;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.yxiao233.createmoremachines.utils.BigItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class BigItemStackHandler extends ItemStackHandler {
+    public int maxStackSize = -1;
     public BigItemStackHandler(int slot){
         super(slot);
+    }
+
+    @Override
+    public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+        if (amount == 0) {
+            return ItemStack.EMPTY;
+        } else {
+            this.validateSlotIndex(slot);
+            ItemStack existing = this.stacks.get(slot);
+            if (existing.isEmpty()) {
+                return ItemStack.EMPTY;
+            } else {
+                int toExtract = Math.min(amount, existing.getCount());
+                if (existing.getCount() <= toExtract) {
+                    if (!simulate) {
+                        this.stacks.set(slot, ItemStack.EMPTY);
+                        this.onContentsChanged(slot);
+                        return existing;
+                    } else {
+                        return existing.copy();
+                    }
+                } else {
+                    if (!simulate) {
+                        this.stacks.set(slot, existing.copyWithCount(existing.getCount() - toExtract));
+                        this.onContentsChanged(slot);
+                    }
+
+                    return existing.copyWithCount(toExtract);
+                }
+            }
+        }
     }
 
     @Override

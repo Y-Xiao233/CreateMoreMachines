@@ -2,7 +2,10 @@ package net.yxiao233.createmoremachines.api.registry;
 
 import com.simibubi.create.content.fluids.tank.FluidTankRenderer;
 import com.simibubi.create.content.kinetics.deployer.DeployerRenderer;
+import com.simibubi.create.content.kinetics.saw.SawBlockEntity;
+import com.simibubi.create.content.kinetics.saw.SawRenderer;
 import com.simibubi.create.content.kinetics.steamEngine.SteamEngineRenderer;
+import com.simibubi.create.content.logistics.depot.DepotRenderer;
 import com.simibubi.create.content.processing.basin.BasinRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
@@ -43,12 +46,14 @@ public class CMMTier {
     private int fluidTankCapability = 8;
     private double steamEngineCapacity = 1024;
     private int steamEngineGeneratedSpeed = 64;
+    private double sawImpact = 4;
+    private int sawInventorySize = 64;
     private final List<BuiltInAdvancedMachineTypes.AdvancedMachineType> blackList = new ArrayList<>();
     private final List<BuiltInAdvancedMachineTypes.AdvancedMachineType> whiteList = new ArrayList<>();
     private static boolean frozen = false;
     private static final HashMap<String, CreateRegistrate> REGISTRATIONS = new HashMap<>();
     private static boolean registrateFrozen = false;
-    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMDepotBlockEntity>>> depotRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DepotRenderer>> depotRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalPressBlockEntity>>> mechanicalPressRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> mechanicalMixerRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMSpoutBlockEntity>>> spoutRenderer;
@@ -56,6 +61,7 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DeployerRenderer>> deployerRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> steamEngineRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> fluidTankRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<SawBlockEntity>>> sawRenderer;
     private CMMTier(ResourceLocation id){
         tiers.put(id,this);
         this.id = id;
@@ -135,7 +141,9 @@ public class CMMTier {
                 .setDeployerImpact(config.getDeployerImpact())
                 .setDeployerProcessingMultiple(config.getDeployerProcessingMultiple())
                 .setSteamEngineGeneratedSpeed(config.getSteamEngineGeneratedSpeed())
-                .setSteamEngineCapacity(config.getSteamEngineCapacity());
+                .setSteamEngineCapacity(config.getSteamEngineCapacity())
+                .setSawImpact(config.getSawImpact())
+                .setSawInventorySize(config.getSawInventorySize());
     }
     public static void freezy(){
         frozen = true;
@@ -224,6 +232,22 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setSawImpact(double impact) {
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.sawImpact = impact;
+        return this;
+    }
+
+    public CMMTier setSawInventorySize(int size) {
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.sawInventorySize = size;
+        return this;
+    }
+
     public CMMTier setProcessingMultiple(int processingMultiple) {
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
@@ -240,7 +264,7 @@ public class CMMTier {
         return this;
     }
 
-    public CMMTier setDepotRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMDepotBlockEntity>>> renderer){
+    public CMMTier setDepotRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DepotRenderer>> renderer){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
@@ -304,6 +328,14 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setSawRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<SawBlockEntity>>> renderer){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.sawRenderer = renderer;
+        return this;
+    }
+
     public CMMTier defaultRenderer(){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
@@ -315,7 +347,8 @@ public class CMMTier {
                 .withDefaultBasinRenderer()
                 .withDefaultDeployerRenderer()
                 .withDefaultSteamEngineRenderer()
-                .withDefaultFluidTankRenderer();
+                .withDefaultFluidTankRenderer()
+                .withDefaultSawRenderer();
     }
 
 
@@ -346,6 +379,9 @@ public class CMMTier {
     }
     public CMMTier withDefaultFluidTankRenderer(){
         return setFluidTankRenderer(() -> FluidTankRenderer::new);
+    }
+    public CMMTier withDefaultSawRenderer(){
+        return setSawRenderer(() -> SawRenderer::new);
     }
     public int getItemCapability() {
         return itemCapability;
@@ -379,6 +415,14 @@ public class CMMTier {
         return deployerImpact;
     }
 
+    public double getSawImpact() {
+        return sawImpact;
+    }
+
+    public int getSawInventorySize() {
+        return sawInventorySize;
+    }
+
     public double getSteamEngineCapacity() {
         return steamEngineCapacity;
     }
@@ -395,7 +439,7 @@ public class CMMTier {
         return mechanicalMixerRenderer;
     }
 
-    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMDepotBlockEntity>>> getDepotRenderer() {
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DepotRenderer>> getDepotRenderer() {
         return depotRenderer;
     }
 
@@ -419,12 +463,20 @@ public class CMMTier {
         return fluidTankRenderer;
     }
 
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<SawBlockEntity>>> getSawRenderer() {
+        return sawRenderer;
+    }
+
     public List<BuiltInAdvancedMachineTypes.AdvancedMachineType> getBlackList() {
         return blackList;
     }
 
     public List<BuiltInAdvancedMachineTypes.AdvancedMachineType> getWhiteList() {
         return whiteList;
+    }
+
+    public boolean shouldRegistry(BuiltInAdvancedMachineTypes.AdvancedMachineType type){
+        return shouldRegistry(this,type);
     }
 
     public static boolean shouldRegistry(CMMTier tier, BuiltInAdvancedMachineTypes.AdvancedMachineType type){

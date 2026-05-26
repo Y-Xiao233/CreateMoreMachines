@@ -44,8 +44,6 @@ public class SharedCMMDepotBlockMethods {
             CMMDepotBehaviour behaviour = get(level, pos);
             if (behaviour == null) {
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-            } else if (!(Boolean)behaviour.canAcceptItems.get()) {
-                return ItemInteractionResult.SUCCESS;
             } else {
                 boolean wasEmptyHanded = stack.isEmpty();
                 boolean shouldntPlaceItem = AllBlocks.MECHANICAL_ARM.isIn(stack);
@@ -57,16 +55,16 @@ public class SharedCMMDepotBlockMethods {
                     level.playSound((Player)null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, 1.0F + level.getRandom().nextFloat());
                 }
 
-                BigItemStackHandler outputs = behaviour.processingOutputBuffer;
+                BigItemStackHandler outputs = (BigItemStackHandler) behaviour.getProcessingOutputBuffer();
 
                 for(int i = 0; i < outputs.getSlots(); ++i) {
-                    player.getInventory().placeItemBackInInventory(outputs.extractItem(i, 64, false));
+                    player.getInventory().placeItemBackInInventory(outputs.extractItem(i, Integer.MAX_VALUE, false));
                 }
 
                 if (!wasEmptyHanded && !shouldntPlaceItem) {
                     ItemStack remain = stack.copy();
-                    TransportedItemStack old = behaviour.heldItem;
-                    int oldCount = old != null ? old.stack.copy().getCount() : 0;
+                    ItemStack old = behaviour.getHeldItemStack();
+                    int oldCount = old != null ? old.copy().getCount() : 0;
                     int handCount = stack.getCount();
                     int maxPutCount = Math.min(capability, handCount + oldCount);
                     TransportedItemStack transported = new TransportedItemStack(stack.copyWithCount(maxPutCount));
@@ -77,13 +75,13 @@ public class SharedCMMDepotBlockMethods {
                         behaviour.setHeldItem(transported);
                         player.setItemInHand(hand, remain.copyWithCount(handCount - maxPutCount));
                         AllSoundEvents.DEPOT_SLIDE.playOnServer(level, pos);
-                    }else if(ItemStack.isSameItemSameComponents(old.stack.copy(),stack.copy())){
+                    }else if(ItemStack.isSameItemSameComponents(old.copy(),stack.copy())){
                         behaviour.setHeldItem(transported);
                         player.setItemInHand(hand, remain.copyWithCount(handCount - (maxPutCount - oldCount)));
                         AllSoundEvents.DEPOT_SLIDE.playOnServer(level, pos);
                     }else{
                         TransportedItemStack t = new TransportedItemStack(stack.copyWithCount(Math.min(capability,handCount)));
-                        player.getInventory().placeItemBackInInventory(old.stack.copy());
+                        player.getInventory().placeItemBackInInventory(old.copy());
                         behaviour.removeHeldItem();
                         behaviour.setHeldItem(t);
                         player.setItemInHand(hand, remain.copyWithCount(handCount - maxPutCount));
@@ -127,7 +125,7 @@ public class SharedCMMDepotBlockMethods {
             return 0;
         } else {
             float f = (float)depotBehaviour.getPresentStackSize();
-            Integer max = (Integer)depotBehaviour.maxStackSize.get();
+            Integer max = (Integer)depotBehaviour.getMaxStackSize().get();
             f /= (float)(max == 0 ? 64 : max);
             return Mth.clamp(Mth.floor(f * 14.0F) + (f > 0.0F ? 1 : 0), 0, 15);
         }

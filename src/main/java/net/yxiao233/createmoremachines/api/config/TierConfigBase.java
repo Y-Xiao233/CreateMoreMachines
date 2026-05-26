@@ -15,6 +15,8 @@ public class TierConfigBase {
     private ModConfigSpec.IntValue FLUID_TANK_CAPABILITY;
     private ModConfigSpec.IntValue STEAM_ENGINE_GENERATED_SPEED;
     private ModConfigSpec.DoubleValue STEAM_ENGINE_CAPACITY;
+    private ModConfigSpec.DoubleValue SAW_IMPACT;
+    private ModConfigSpec.IntValue SAW_INVENTORY_SIZE;
     private int tiredItemCapability;
     private int tiredFluidCapability;
     private int tiredProcessingMultiple;
@@ -25,6 +27,8 @@ public class TierConfigBase {
     private int tiredFluidTankCapability;
     private int tiredSteamEngineGeneratedSpeed;
     private double tiredSteamEngineCapacity;
+    private double tiredSawImpact;
+    private int tiredSawInventorySize;
     private final String tier;
     private final int itemCapability;
     private final int fluidCapability;
@@ -36,8 +40,10 @@ public class TierConfigBase {
     private final int fluidTankCapability;
     private final int steamEngineGeneratedSpeed;
     private final double steamEngineCapacity;
+    private final double sawImpact;
+    private final int sawInventorySize;
 
-    private TierConfigBase(String tier, int itemCapability, int fluidCapability, int fluidTankCapability, int processingMultiple, int deployerProcessingMultiple, int steamEngineGeneratedSpeed, double steamEngineCapacity, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact){
+    private TierConfigBase(String tier, int itemCapability, int fluidCapability, int fluidTankCapability, int processingMultiple, int deployerProcessingMultiple, int steamEngineGeneratedSpeed, double steamEngineCapacity, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact, double sawImpact, int sawInventorySize){
         this.tier = tier;
         this.itemCapability = itemCapability;
         this.fluidCapability = fluidCapability;
@@ -49,10 +55,12 @@ public class TierConfigBase {
         this.deployerProcessingMultiple = deployerProcessingMultiple;
         this.steamEngineGeneratedSpeed = steamEngineGeneratedSpeed;
         this.steamEngineCapacity = steamEngineCapacity;
+        this.sawImpact = sawImpact;
+        this.sawInventorySize = sawInventorySize;
     }
 
-    public static TierConfigBase create(String tier, int itemCapability, int fluidCapability, int fluidTankCapability, int processingMultiple,int deployerProcessingMultiple, int steamEngineGeneratedSpeed, double steamEngineCapacity, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact){
-        return new TierConfigBase(tier,itemCapability,fluidCapability,fluidTankCapability,processingMultiple,deployerProcessingMultiple,steamEngineGeneratedSpeed,steamEngineCapacity,mechanicalPressImpact,mechanicalMixerImpact,deployerImpact);
+    public static TierConfigBase create(String tier, int itemCapability, int fluidCapability, int fluidTankCapability, int processingMultiple,int deployerProcessingMultiple, int steamEngineGeneratedSpeed, double steamEngineCapacity, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact, double sawImpact, int sawInventorySize){
+        return new TierConfigBase(tier,itemCapability,fluidCapability,fluidTankCapability,processingMultiple,deployerProcessingMultiple,steamEngineGeneratedSpeed,steamEngineCapacity,mechanicalPressImpact,mechanicalMixerImpact,deployerImpact,sawImpact,sawInventorySize);
     }
     public void registry(ModConfigSpec.Builder BUILDER){
         BUILDER.translation(key(tier + "_tier")).push(upperCaseForFirstChar(tier) + "Tier");
@@ -107,6 +115,16 @@ public class TierConfigBase {
                 .comment("Impact needed for" + tier + " tier deployer[default:" + deployerImpact + "]")
                 .defineInRange(tier + "deployer_impact",deployerImpact,1,Double.MAX_VALUE);
 
+        SAW_IMPACT = BUILDER
+                .translation(key("saw_impact"))
+                .comment("Impact needed for " + tier + " tier saw[default:" + sawImpact + "]")
+                .defineInRange(tier + "_saw_impact",sawImpact,1,Double.MAX_VALUE);
+
+        SAW_INVENTORY_SIZE = BUILDER
+                .translation(key("saw_inventory_size"))
+                .comment("Inventory size for " + tier + " tier saw[default:" + sawInventorySize + "]")
+                .defineInRange(tier + "_saw_inventory_size",sawInventorySize,4,4096);
+
         BUILDER.pop();
     }
 
@@ -122,6 +140,8 @@ public class TierConfigBase {
         this.tiredDeployerImpact = DEPLOYER_IMPACT.get();
         this.tiredSteamEngineGeneratedSpeed = STEAM_ENGINE_GENERATED_SPEED.get();
         this.tiredSteamEngineCapacity = STEAM_ENGINE_CAPACITY.get();
+        this.tiredSawImpact = SAW_IMPACT.get();
+        this.tiredSawInventorySize = SAW_INVENTORY_SIZE.get();
     }
 
     public int getItemCapability(){
@@ -161,6 +181,14 @@ public class TierConfigBase {
 
     public int getSteamEngineGeneratedSpeed() {
         return tiredSteamEngineGeneratedSpeed;
+    }
+
+    public double getSawImpact() {
+        return tiredSawImpact;
+    }
+
+    public int getSawInventorySize() {
+        return tiredSawInventorySize;
     }
 
     public static String key(String... prefix){

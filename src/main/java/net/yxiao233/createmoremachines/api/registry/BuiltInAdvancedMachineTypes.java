@@ -8,6 +8,7 @@ public class BuiltInAdvancedMachineTypes {
     public static final AdvancedMachineType MIXER = AdvancedMachineType.create("mixer");
     public static final AdvancedMachineType PRESS = AdvancedMachineType.create("press");
     public static final AdvancedMachineType SPOUT = AdvancedMachineType.create("spout");
+    public static final AdvancedMachineType SAW = AdvancedMachineType.create("saw");
     public static final AdvancedMachineType STEAM_ENGINE = AdvancedMachineType.create("steam_engine");
     public static class AdvancedMachineType{
         private final String name;

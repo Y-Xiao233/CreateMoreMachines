@@ -8,6 +8,7 @@
     "MixinAssemblyOperatorBlockItem",
     "MixinBoilerData",
     "MixinDeployerBlockEntity",
+    "MixinDepotBehaviour",
     "MixinPressingBehaviour",
     "MixinSmartInventory",
     "MixinSyncedStackHandler"

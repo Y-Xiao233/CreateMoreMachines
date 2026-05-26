@@ -32,6 +32,8 @@ import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
+import net.yxiao233.createmoremachines.api.content.saw.CMMSawBlock;
+import net.yxiao233.createmoremachines.api.content.saw.CMMSawBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
 import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlock;
@@ -86,13 +88,18 @@ public class CMMRegistryEntry {
     //Basin
     private static final Map<ResourceLocation, BlockEntry<CMMBasinBlock>> BASINS = new HashMap<>();
     private static final Map<ResourceLocation, BlockEntityEntry<CMMBasinBlockEntity>> BASIN_ENTITIES = new HashMap<>();
+    //Deployer
     private static final Map<ResourceLocation, BlockEntry<CMMDeployerBlock>> DEPLOYERS = new HashMap<>();
     private static final Map<ResourceLocation, BlockEntityEntry<CMMDeployerBlockEntity>> DEPLOYER_ENTITIES = new HashMap<>();
-
+    //Fluid Tank
     private static final Map<ResourceLocation, BlockEntry<CMMFluidTankBlock>> FLUID_TANKS = new HashMap<>();
     private static final Map<ResourceLocation, BlockEntityEntry<CMMFluidTankBlockEntity>> FLUID_TANK_ENTITIES = new HashMap<>();
+    //Steam Engine
     private static final Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> STEAM_ENGINES = new HashMap<>();
     private static final Map<ResourceLocation, BlockEntityEntry<CMMSteamEngineBlockEntity>> STEAM_ENGINE_ENTITIES = new HashMap<>();
+    //Saw
+    private static final Map<ResourceLocation, BlockEntry<CMMSawBlock>> SAWS = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntityEntry<CMMSawBlockEntity>> SAW_ENTITIES = new HashMap<>();
 
     public static Map<ResourceLocation, RegistryEntry<MountedItemStorageType<?>, ?>> getAllDepotStorageTypes(){
         return Collections.unmodifiableMap(DEPOT_STORAGE_TYPES);
@@ -159,6 +166,14 @@ public class CMMRegistryEntry {
     public static Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> getSteamEngines(){
         return Collections.unmodifiableMap(STEAM_ENGINES);
     }
+
+    public static Map<ResourceLocation, BlockEntry<CMMSawBlock>> getSaws(){
+        return Collections.unmodifiableMap(SAWS);
+    }
+
+    public static Map<ResourceLocation, BlockEntityEntry<CMMSawBlockEntity>> getSawEntities(){
+        return Collections.unmodifiableMap(SAW_ENTITIES);
+    }
     public static void register() {
         CMMTierManager.getPlugins().forEach(ICMMPlugin::onRegister);
 
@@ -187,6 +202,9 @@ public class CMMRegistryEntry {
 
         CMMTierManager.registrySteamEngines(STEAM_ENGINES);
         CMMTierManager.registrySteamEngineEntities(getSteamEngines(),STEAM_ENGINE_ENTITIES);
+
+        CMMTierManager.registrySaws(SAWS);
+        CMMTierManager.registrySawEntities(getSaws(),SAW_ENTITIES);
 
         CMMTierManager.getPlugins().forEach(ICMMPlugin::onPostRegister);
     }
