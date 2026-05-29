@@ -3,11 +3,14 @@ package net.yxiao233.createmoremachines.datagen;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.annotation.RecipeGen;
@@ -17,9 +20,13 @@ import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeploy
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
+import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @RecipeGen
@@ -71,116 +78,49 @@ public class CMMBaseRecipeProvider extends RecipeProvider {
 
 
 
-        pressRecipe(AllBlocks.BRASS_CASING,"brass").save(recipeOutput);
-        pressRecipe(CMMRegistryEntry.NETHERITE_CASING,"netherite").save(recipeOutput);
-        pressRecipe(CMMRegistryEntry.END_CASING,"end").save(recipeOutput);
-        pressRecipe(CMMRegistryEntry.BEYOND_CASING,"beyond").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getBasins(), AllBlocks.BASIN, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getBasins(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getBasins(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getBasins(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
 
-        mixerRecipe(AllBlocks.BRASS_CASING, "brass").save(recipeOutput);
-        mixerRecipe(CMMRegistryEntry.NETHERITE_CASING, "netherite").save(recipeOutput);
-        mixerRecipe(CMMRegistryEntry.END_CASING, "end").save(recipeOutput);
-        mixerRecipe(CMMRegistryEntry.BEYOND_CASING, "beyond").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getDepots(), AllBlocks.DEPOT, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getDepots(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getDepots(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getDepots(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
 
-        spoutRecipe(AllBlocks.BRASS_CASING, "brass").save(recipeOutput);
-        spoutRecipe(CMMRegistryEntry.NETHERITE_CASING, "netherite").save(recipeOutput);
-        spoutRecipe(CMMRegistryEntry.END_CASING, "end").save(recipeOutput);
-        spoutRecipe(CMMRegistryEntry.BEYOND_CASING, "beyond").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getDeployers(), AllBlocks.DEPLOYER, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getDeployers(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getDeployers(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getDeployers(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
 
-        depotRecipe(AllItems.BRASS_INGOT,AllBlocks.BRASS_CASING, "brass").save(recipeOutput);
-        depotRecipe(CMMRegistryEntry.NETHERITE_ALLOY,CMMRegistryEntry.NETHERITE_CASING, "netherite").save(recipeOutput);
-        depotRecipe(CMMRegistryEntry.END_ALLOY,CMMRegistryEntry.END_CASING, "end").save(recipeOutput);
-        depotRecipe(CMMRegistryEntry.BEYOND_ALLOY,CMMRegistryEntry.BEYOND_CASING, "beyond").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getMechanicalMixers(), AllBlocks.MECHANICAL_MIXER, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getMechanicalMixers(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getMechanicalMixers(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getMechanicalMixers(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
 
-        basinRecipe(AllItems.BRASS_INGOT,"brass").save(recipeOutput);
-        basinRecipe(CMMRegistryEntry.NETHERITE_ALLOY, "netherite").save(recipeOutput);
-        basinRecipe(CMMRegistryEntry.END_ALLOY, "end").save(recipeOutput);
-        basinRecipe(CMMRegistryEntry.BEYOND_ALLOY, "beyond").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getMechanicalPresses(), AllBlocks.MECHANICAL_PRESS, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getMechanicalPresses(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getMechanicalPresses(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getMechanicalPresses(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
 
-        handRecipe(CMMRegistryEntry.NETHERITE_ALLOY_SHEET, CMMRegistryEntry.NETHERITE_ALLOY_HAND).save(recipeOutput);
-        handRecipe(CMMRegistryEntry.END_ALLOY_SHEET, CMMRegistryEntry.END_ALLOY_HAND).save(recipeOutput);
-        handRecipe(CMMRegistryEntry.BEYOND_ALLOY_SHEET, CMMRegistryEntry.BEYOND_ALLOY_HAND).save(recipeOutput);
-
-        deployerRecipe(AllItems.BRASS_HAND, AllBlocks.BRASS_CASING, "brass").save(recipeOutput);
-        deployerRecipe(CMMRegistryEntry.NETHERITE_ALLOY_HAND, CMMRegistryEntry.NETHERITE_CASING, "netherite").save(recipeOutput);
-        deployerRecipe(CMMRegistryEntry.END_ALLOY_HAND, CMMRegistryEntry.END_CASING, "end").save(recipeOutput);
-        deployerRecipe(CMMRegistryEntry.BEYOND_ALLOY_HAND, CMMRegistryEntry.BEYOND_CASING, "beyond").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSpouts(), AllBlocks.SPOUT, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSpouts(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSpouts(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSpouts(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
     }
 
-    private ShapedRecipeBuilder pressRecipe(ItemLike casing, String id){
-        BlockEntry<CMMMechanicalPressBlock> press = CMMRegistryEntry.getMechanicalPresses().get(CreateMoreMachines.makeId(id));
-        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, press)
-                .pattern(" S ")
-                .pattern(" C ")
-                .pattern(" I ")
-                .define('S', AllBlocks.SHAFT)
-                .define('C', casing)
-                .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
-                .unlockedBy("has_item",has(casing));
-    }
-
-    private ShapedRecipeBuilder mixerRecipe(ItemLike casing, String id){
-        BlockEntry<CMMMechanicalMixerBlock> mixer = CMMRegistryEntry.getMechanicalMixers().get(CreateMoreMachines.makeId(id));
-        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, mixer)
-                .pattern(" L ")
-                .pattern(" C ")
-                .pattern(" W ")
-                .define('L', AllBlocks.COGWHEEL)
-                .define('C', casing)
-                .define('W', AllItems.WHISK)
-                .unlockedBy("has_item",has(casing));
-    }
-
-    private ShapedRecipeBuilder spoutRecipe(ItemLike casing, String id){
-        BlockEntry<CMMSpoutBlock> spout = CMMRegistryEntry.getSpouts().get(CreateMoreMachines.makeId(id));
-        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, spout)
-                .pattern(" C ")
-                .pattern(" D ")
-                .define('C', casing)
-                .define('D', Items.DRIED_KELP)
-                .unlockedBy("has_item",has(casing));
-    }
-
-    private ShapelessRecipeBuilder depotRecipe(ItemLike alloy, ItemLike casing, String id){
-        BlockEntry<CMMDepotBlock> depot = CMMRegistryEntry.getDepots().get(CreateMoreMachines.makeId(id));
-        return ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, depot)
-                .requires(alloy)
-                .requires(casing)
-                .unlockedBy("has_item",has(casing))
-                .unlockedBy("has_item",has(alloy));
-    }
-
-
-    private ShapedRecipeBuilder basinRecipe(ItemLike alloy, String id){
-        BlockEntry<CMMBasinBlock> basin = CMMRegistryEntry.getBasins().get(CreateMoreMachines.makeId(id));
-        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, basin)
-                .pattern("   ")
-                .pattern("A A")
-                .pattern("AAA")
-                .define('A', alloy)
-                .unlockedBy("has_item",has(alloy));
-    }
-
-    private ShapedRecipeBuilder deployerRecipe(ItemLike hand, ItemLike casing, String id){
-        BlockEntry<CMMDeployerBlock> deployer = CMMRegistryEntry.getDeployers().get(CreateMoreMachines.makeId(id));
-        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, deployer)
-                .pattern(" E ")
-                .pattern(" C ")
-                .pattern(" H ")
-                .define('E', AllItems.ELECTRON_TUBE)
-                .define('C', casing)
-                .define('H', hand)
-                .unlockedBy("has_item",has(hand))
-                .unlockedBy("has_item",has(casing));
-
-    }
-
-    private ShapedRecipeBuilder handRecipe(ItemLike sheet, ItemLike hand){
-        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, hand)
-                .pattern(" A ")
-                .pattern("SSS")
-                .pattern(" S ")
-                .define('A', AllItems.ANDESITE_ALLOY)
-                .define('S', sheet)
-                .unlockedBy("has_item",has(sheet));
+    private <T extends Block> ShapelessRecipeBuilder mechanicalCraftingRecipe(Map<ResourceLocation, BlockEntry<T>> map, @Nullable BlockEntry<?> createMechanical, ItemEntry<?> material, String requireId, String resultId){
+        BlockEntry<?> require;
+        if(createMechanical != null){
+            require = createMechanical;
+        }else{
+            require = map.get(CreateMoreMachines.makeId(requireId));
+        }
+        BlockEntry<?> result = map.get(CreateMoreMachines.makeId(resultId));
+        return ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,result)
+                .requires(require)
+                .requires(material)
+                .unlockedBy("has_item",has(require))
+                .unlockedBy("has_item",has(material));
     }
 }

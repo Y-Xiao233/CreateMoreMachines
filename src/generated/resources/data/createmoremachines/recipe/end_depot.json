@@ -3,10 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "createmoremachines:end_alloy"
+      "item": "createmoremachines:netherite_depot"
     },
     {
-      "item": "createmoremachines:end_casing"
+      "item": "createmoremachines:end_alloy_sheet"
     }
   ],
   "result": {

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "createmoremachines:beyond_alloy"
+            "items": "createmoremachines:beyond_alloy_sheet"
           }
         ]
       },

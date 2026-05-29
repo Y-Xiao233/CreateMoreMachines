@@ -3,10 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "createmoremachines:netherite_alloy"
+      "item": "createmoremachines:brass_depot"
     },
     {
-      "item": "createmoremachines:netherite_casing"
+      "item": "createmoremachines:netherite_alloy_sheet"
     }
   ],
   "result": {

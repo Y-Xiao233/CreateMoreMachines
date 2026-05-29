@@ -1,17 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "C": {
-      "item": "createmoremachines:netherite_casing"
+  "ingredients": [
+    {
+      "item": "createmoremachines:brass_spout"
     },
-    "D": {
-      "item": "minecraft:dried_kelp"
+    {
+      "item": "createmoremachines:netherite_alloy_sheet"
     }
-  },
-  "pattern": [
-    " C ",
-    " D "
   ],
   "result": {
     "count": 1,

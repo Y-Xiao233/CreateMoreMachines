@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "create:brass_ingot"
+            "items": "create:brass_sheet"
           }
         ]
       },

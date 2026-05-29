@@ -18,9 +18,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.config.TierConfigBase;
-import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotRenderer;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerRenderer;
@@ -30,11 +30,15 @@ import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutRenderer;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
 @SuppressWarnings({"UnusedReturnValue","unused","rawtypes","unchecked"})
 public class CMMTier {
     private static final Map<ResourceLocation, CMMTier> tiers = new HashMap<>();
     private final ResourceLocation id;
+    private final int tier;
+    private final Supplier<Item> upgradeMaterial;
     private final Map<String, Object> values = new HashMap<>();
     private int processingMultiple = 1;
     private int deployerProcessingMultiple = 1;
@@ -62,9 +66,11 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> steamEngineRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> fluidTankRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<SawBlockEntity>>> sawRenderer;
-    private CMMTier(ResourceLocation id){
+    private CMMTier(ResourceLocation id, int tier, Supplier<Item> upgradeMaterial){
         tiers.put(id,this);
         this.id = id;
+        this.tier = tier;
+        this.upgradeMaterial = upgradeMaterial;
     }
 
     public static void createRegistrate(String modid){
@@ -90,12 +96,12 @@ public class CMMTier {
         return REGISTRATIONS.values().stream().toList();
     }
 
-    public static CMMTier create(ResourceLocation id){
+    public static CMMTier create(ResourceLocation id, int tier, Supplier<Item> upgradeMaterial){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
         CreateMoreMachines.LOGGER.info("[Create More Machines] Successfully created tier {}", id.toString());
-        return new CMMTier(id);
+        return new CMMTier(id, tier, upgradeMaterial);
     }
 
     public CMMTier without(BuiltInAdvancedMachineTypes.AdvancedMachineType type){
@@ -515,5 +521,32 @@ public class CMMTier {
 
     public static boolean isReady(){
         return !frozen && !registrateFrozen;
+    }
+
+    public boolean isCreative(){
+        return this.tier == -1;
+    }
+
+    public Supplier<Item> getUpgradeMaterial(){
+        return upgradeMaterial;
+    }
+
+    public int getTierValue(){
+        return this.tier;
+    }
+
+    public static CMMTier getTier(int tier){
+        CMMTier t = null;
+        for (CMMTier value : CMMTier.getTiers().values()) {
+            if(value.tier == tier){
+                t = value;
+                break;
+            }
+        }
+        return t;
+    }
+
+    public CMMTier getNext(){
+        return getTier(this.tier + 1);
     }
 }

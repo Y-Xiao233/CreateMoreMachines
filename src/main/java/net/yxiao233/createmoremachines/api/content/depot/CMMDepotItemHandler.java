@@ -1,9 +1,11 @@
 package net.yxiao233.createmoremachines.api.content.depot;
 
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
+import com.simibubi.create.content.logistics.depot.DepotBehaviour;
 import com.simibubi.create.content.logistics.depot.DepotItemHandler;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class CMMDepotItemHandler extends DepotItemHandler {
@@ -48,16 +50,16 @@ public class CMMDepotItemHandler extends DepotItemHandler {
         if (slot != 0) {
             return this.behaviour.getProcessingOutputBuffer().extractItem(slot - 1, amount, simulate);
         } else {
-            TransportedItemStack held = this.behaviour.getHeldTransportedItemStack().getValue();
-            if (held == null) {
+            TransportedItemStack heldItem = ReflectionUtil.getPrivateField("heldItem", TransportedItemStack.class, this.behaviour, DepotBehaviour.class);
+            if (heldItem == null) {
                 return ItemStack.EMPTY;
             } else {
-                ItemStack stack = held.stack.copy();
+                ItemStack stack = heldItem.stack.copy();
                 ItemStack extracted = stack.split(amount);
                 if (!simulate) {
-                    this.behaviour.getHeldTransportedItemStack().getValue().stack = stack;
+                    heldItem.stack = stack;
                     if (stack.isEmpty()) {
-                        this.behaviour.getHeldTransportedItemStack().setValue(null);
+                        ReflectionUtil.setPrivateField("heldItem", TransportedItemStack.class, this.behaviour, DepotBehaviour.class, null);
                     }
 
                     this.behaviour.blockEntity.notifyUpdate();

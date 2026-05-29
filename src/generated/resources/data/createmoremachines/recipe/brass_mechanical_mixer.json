@@ -1,21 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "C": {
-      "item": "create:brass_casing"
+  "ingredients": [
+    {
+      "item": "create:mechanical_mixer"
     },
-    "L": {
-      "item": "create:cogwheel"
-    },
-    "W": {
-      "item": "create:whisk"
+    {
+      "item": "create:brass_sheet"
     }
-  },
-  "pattern": [
-    " L ",
-    " C ",
-    " W "
   ],
   "result": {
     "count": 1,

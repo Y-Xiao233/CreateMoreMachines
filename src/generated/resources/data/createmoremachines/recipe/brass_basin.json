@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "A": {
-      "item": "create:brass_ingot"
+  "ingredients": [
+    {
+      "item": "create:basin"
+    },
+    {
+      "item": "create:brass_sheet"
     }
-  },
-  "pattern": [
-    "   ",
-    "A A",
-    "AAA"
   ],
   "result": {
     "count": 1,

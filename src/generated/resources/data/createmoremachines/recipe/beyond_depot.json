@@ -3,10 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "createmoremachines:beyond_alloy"
+      "item": "createmoremachines:end_depot"
     },
     {
-      "item": "createmoremachines:beyond_casing"
+      "item": "createmoremachines:beyond_alloy_sheet"
     }
   ],
   "result": {

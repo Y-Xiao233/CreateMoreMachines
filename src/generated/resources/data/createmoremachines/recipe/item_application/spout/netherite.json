@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "createmoremachines:brass_spout"
+    },
+    {
+      "item": "createmoremachines:netherite_alloy_sheet"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:netherite_spout"
+    }
+  ]
+}

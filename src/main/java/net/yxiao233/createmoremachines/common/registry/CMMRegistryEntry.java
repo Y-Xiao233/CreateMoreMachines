@@ -61,10 +61,6 @@ public class CMMRegistryEntry {
     public static final ItemEntry<Item> NETHERITE_ALLOY_SHEET = simpleItem("netherite_alloy_sheet");
     public static final ItemEntry<Item> END_ALLOY_SHEET = simpleItem("end_alloy_sheet");
     public static final ItemEntry<Item> BEYOND_ALLOY_SHEET = simpleItem("beyond_alloy_sheet");
-    //Hand
-    public static final ItemEntry<Item> NETHERITE_ALLOY_HAND = simpleItem("netherite_alloy_hand");
-    public static final ItemEntry<Item> END_ALLOY_HAND = simpleItem("end_alloy_hand");
-    public static final ItemEntry<Item> BEYOND_ALLOY_HAND = simpleItem("beyond_alloy_hand");
     //Fluid
     public static final CMMBaseFluidInstance BINDER = simpleFluid("binder");
     public static final CMMBaseFluidInstance PURE_WATER = simpleFluid("pure_water");

@@ -1,17 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "C": {
-      "item": "create:brass_casing"
+  "ingredients": [
+    {
+      "item": "create:spout"
     },
-    "D": {
-      "item": "minecraft:dried_kelp"
+    {
+      "item": "create:brass_sheet"
     }
-  },
-  "pattern": [
-    " C ",
-    " D "
   ],
   "result": {
     "count": 1,

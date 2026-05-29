@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "createmoremachines:netherite_mechanical_press"
+    },
+    {
+      "item": "createmoremachines:end_alloy_sheet"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:end_mechanical_press"
+    }
+  ]
+}

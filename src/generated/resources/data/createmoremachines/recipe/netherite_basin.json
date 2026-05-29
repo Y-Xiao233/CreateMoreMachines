@@ -1,15 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "A": {
-      "item": "createmoremachines:netherite_alloy"
+  "ingredients": [
+    {
+      "item": "createmoremachines:brass_basin"
+    },
+    {
+      "item": "createmoremachines:netherite_alloy_sheet"
     }
-  },
-  "pattern": [
-    "   ",
-    "A A",
-    "AAA"
   ],
   "result": {
     "count": 1,

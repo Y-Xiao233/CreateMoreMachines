@@ -9,7 +9,6 @@ import net.yxiao233.createmoremachines.api.capabilities.BigItemStackHandler;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.utils.ReflectionUtil;
-import net.yxiao233.createmoremachines.utils.ReflectionValue;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
@@ -18,7 +17,6 @@ import java.util.function.Supplier;
 
 public class CMMDepotBehaviour extends DepotBehaviour {
     public static final BehaviourType<CMMDepotBehaviour> TYPE = new BehaviourType<>();
-    private final ReflectionValue<TransportedItemStack, DepotBehaviour> refHeldItem = new ReflectionValue<>("heldItem", TransportedItemStack.class, this, DepotBehaviour.class);
     public CMMTier tier;
     boolean allowMerge;
     public CMMDepotBehaviour(CMMDepotBlockEntity entity) {
@@ -58,9 +56,6 @@ public class CMMDepotBehaviour extends DepotBehaviour {
         return this.getTier()::getItemCapability;
     }
 
-    public ReflectionValue<TransportedItemStack, DepotBehaviour> getHeldTransportedItemStack(){
-        return refHeldItem;
-    }
 
     @SuppressWarnings("unchecked")
     public List<TransportedItemStack> getIncoming(){
@@ -81,10 +76,5 @@ public class CMMDepotBehaviour extends DepotBehaviour {
 
         int fromGetter = this.getMaxStackSize().get() == 0 ? 64 : this.getMaxStackSize().get();
         return fromGetter - cumulativeStackSize;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
     }
 }

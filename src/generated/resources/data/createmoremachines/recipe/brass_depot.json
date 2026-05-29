@@ -3,10 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "create:brass_ingot"
+      "item": "create:depot"
     },
     {
-      "item": "create:brass_casing"
+      "item": "create:brass_sheet"
     }
   ],
   "result": {

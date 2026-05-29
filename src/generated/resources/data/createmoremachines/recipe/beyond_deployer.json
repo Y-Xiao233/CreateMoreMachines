@@ -1,21 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "C": {
-      "item": "createmoremachines:beyond_casing"
+  "ingredients": [
+    {
+      "item": "createmoremachines:end_deployer"
     },
-    "E": {
-      "item": "create:electron_tube"
-    },
-    "H": {
-      "item": "createmoremachines:beyond_alloy_hand"
+    {
+      "item": "createmoremachines:beyond_alloy_sheet"
     }
-  },
-  "pattern": [
-    " E ",
-    " C ",
-    " H "
   ],
   "result": {
     "count": 1,

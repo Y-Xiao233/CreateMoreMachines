@@ -53,7 +53,7 @@ public abstract class MixinDepotBehaviour extends BlockEntityBehaviour implement
     Consumer<ItemStack> onHeldInserted;
 
     @Shadow
-    private ItemStackHandler processingOutputBuffer;
+    ItemStackHandler processingOutputBuffer;
 
     public MixinDepotBehaviour(SmartBlockEntity be) {
         super(be);

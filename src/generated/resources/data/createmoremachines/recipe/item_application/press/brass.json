@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "create:mechanical_press"
+    },
+    {
+      "item": "create:brass_sheet"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:brass_mechanical_press"
+    }
+  ]
+}

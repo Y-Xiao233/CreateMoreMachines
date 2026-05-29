@@ -46,7 +46,7 @@ public class CMMBasinBlockEntity extends BasinBlockEntity {
     }
 
     @Override
-    protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+    public void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.read(compound, registries, clientPacket);
         if(compound.contains("fluid_capability")){
             int fluidCapability = compound.getInt("fluid_capability");

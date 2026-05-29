@@ -1,21 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "C": {
-      "item": "create:brass_casing"
+  "ingredients": [
+    {
+      "item": "create:deployer"
     },
-    "E": {
-      "item": "create:electron_tube"
-    },
-    "H": {
-      "item": "create:brass_hand"
+    {
+      "item": "create:brass_sheet"
     }
-  },
-  "pattern": [
-    " E ",
-    " C ",
-    " H "
   ],
   "result": {
     "count": 1,
