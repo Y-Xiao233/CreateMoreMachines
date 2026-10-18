@@ -40,18 +40,7 @@ public class CMMTier {
     private final int tier;
     private final Supplier<Item> upgradeMaterial;
     private final Map<String, Object> values = new HashMap<>();
-    private int processingMultiple = 1;
-    private int deployerProcessingMultiple = 1;
-    private int itemCapability = 64;
-    private int fluidCapability = 1;
-    private double mechanicalPressImpact = 8;
-    private double mechanicalMixerImpact = 4;
-    private double deployerImpact = 4;
-    private int fluidTankCapability = 8;
-    private double steamEngineCapacity = 1024;
-    private int steamEngineGeneratedSpeed = 64;
-    private double sawImpact = 4;
-    private int sawInventorySize = 64;
+    private final TierConfigBase config;
     private final List<BuiltInAdvancedMachineTypes.AdvancedMachineType> blackList = new ArrayList<>();
     private final List<BuiltInAdvancedMachineTypes.AdvancedMachineType> whiteList = new ArrayList<>();
     private static boolean frozen = false;
@@ -66,10 +55,11 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> steamEngineRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> fluidTankRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<SawBlockEntity>>> sawRenderer;
-    private CMMTier(ResourceLocation id, int tier, Supplier<Item> upgradeMaterial){
+    private CMMTier(ResourceLocation id, int tier, Supplier<Item> upgradeMaterial, TierConfigBase config){
         tiers.put(id,this);
         this.id = id;
         this.tier = tier;
+        this.config = config;
         this.upgradeMaterial = upgradeMaterial;
     }
 
@@ -96,12 +86,12 @@ public class CMMTier {
         return REGISTRATIONS.values().stream().toList();
     }
 
-    public static CMMTier create(ResourceLocation id, int tier, Supplier<Item> upgradeMaterial){
+    public static CMMTier create(ResourceLocation id, int tier, Supplier<Item> upgradeMaterial, TierConfigBase config){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
         CreateMoreMachines.LOGGER.info("[Create More Machines] Successfully created tier {}", id.toString());
-        return new CMMTier(id, tier, upgradeMaterial);
+        return new CMMTier(id, tier, upgradeMaterial, config);
     }
 
     public CMMTier without(BuiltInAdvancedMachineTypes.AdvancedMachineType type){
@@ -134,23 +124,6 @@ public class CMMTier {
         return this;
     }
 
-    public CMMTier fromConfig(TierConfigBase config){
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        return this.setItemCapability(config.getItemCapability())
-                .setFluidCapability(config.getFluidCapability())
-                .setFluidTankCapability(config.getFluidTankCapability())
-                .setProcessingMultiple(config.getProcessingMultiple())
-                .setMechanicalPressImpact(config.getMechanicalPressImpact())
-                .setMechanicalMixerImpact(config.getMechanicalMixerImpact())
-                .setDeployerImpact(config.getDeployerImpact())
-                .setDeployerProcessingMultiple(config.getDeployerProcessingMultiple())
-                .setSteamEngineGeneratedSpeed(config.getSteamEngineGeneratedSpeed())
-                .setSteamEngineCapacity(config.getSteamEngineCapacity())
-                .setSawImpact(config.getSawImpact())
-                .setSawInventorySize(config.getSawInventorySize());
-    }
     public static void freezy(){
         frozen = true;
     }
@@ -172,102 +145,6 @@ public class CMMTier {
 
     public Object get(String key){
         return this.values.get(key);
-    }
-
-    public CMMTier setItemCapability(int itemCapability) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.itemCapability = itemCapability;
-        return this;
-    }
-
-    public CMMTier setSteamEngineGeneratedSpeed(int steamEngineGeneratedSpeed){
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.steamEngineGeneratedSpeed = steamEngineGeneratedSpeed;
-        return this;
-    }
-
-    public CMMTier setSteamEngineCapacity(double steamEngineCapacity){
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.steamEngineCapacity = steamEngineCapacity;
-        return this;
-    }
-
-    public CMMTier setFluidCapability(int fluidCapability) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.fluidCapability = fluidCapability;
-        return this;
-    }
-
-    public CMMTier setFluidTankCapability(int fluidTankCapability) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.fluidTankCapability = fluidTankCapability;
-        return this;
-    }
-
-    public CMMTier setMechanicalPressImpact(double impact) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.mechanicalPressImpact = impact;
-        return this;
-    }
-
-    public CMMTier setMechanicalMixerImpact(double impact) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.mechanicalMixerImpact = impact;
-        return this;
-    }
-
-    public CMMTier setDeployerImpact(double impact) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.deployerImpact = impact;
-        return this;
-    }
-
-    public CMMTier setSawImpact(double impact) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.sawImpact = impact;
-        return this;
-    }
-
-    public CMMTier setSawInventorySize(int size) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.sawInventorySize = size;
-        return this;
-    }
-
-    public CMMTier setProcessingMultiple(int processingMultiple) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.processingMultiple = processingMultiple;
-        return this;
-    }
-
-    public CMMTier setDeployerProcessingMultiple(int deployerProcessingMultiple) {
-        if(frozen){
-            throw new UnsupportedOperationException("registration CMMTier has been frozen");
-        }
-        this.deployerProcessingMultiple = deployerProcessingMultiple;
-        return this;
     }
 
     public CMMTier setDepotRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DepotRenderer>> renderer){
@@ -389,53 +266,26 @@ public class CMMTier {
     public CMMTier withDefaultSawRenderer(){
         return setSawRenderer(() -> SawRenderer::new);
     }
-    public int getItemCapability() {
-        return itemCapability;
+    public int getItemCapability(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type) {
+        return config.getItemCapability(type);
     }
 
-    public int getFluidCapability() {
-        return fluidCapability;
+    public int getFluidCapability(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type) {
+        return config.getFluidCapability(type);
     }
 
-    public int getFluidTankCapability() {
-        return fluidTankCapability;
+    public int getProcessingMultiple(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type) {
+        return config.getProcessingMultiple(type);
     }
 
-    public int getProcessingMultiple() {
-        return processingMultiple;
+    public double getMechanicalImpact(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type) {
+        return config.getMechanicalImpact(type);
     }
 
-    public int getDeployerProcessingMultiple() {
-        return deployerProcessingMultiple;
+    public Object getSpecial(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type, String key){
+        return config.getSpecial(type,key);
     }
 
-    public double getMechanicalPressImpact() {
-        return mechanicalPressImpact;
-    }
-
-    public double getMechanicalMixerImpact() {
-        return mechanicalMixerImpact;
-    }
-
-    public double getDeployerImpact() {
-        return deployerImpact;
-    }
-
-    public double getSawImpact() {
-        return sawImpact;
-    }
-
-    public int getSawInventorySize() {
-        return sawInventorySize;
-    }
-
-    public double getSteamEngineCapacity() {
-        return steamEngineCapacity;
-    }
-
-    public int getSteamEngineGeneratedSpeed() {
-        return steamEngineGeneratedSpeed;
-    }
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> getSteamEngineRenderer() {
         return steamEngineRenderer;

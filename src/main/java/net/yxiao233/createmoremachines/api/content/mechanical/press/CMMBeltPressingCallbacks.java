@@ -7,6 +7,7 @@ import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackH
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
 import com.simibubi.create.content.kinetics.press.PressingBehaviour;
 import net.minecraft.world.item.ItemStack;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class CMMBeltPressingCallbacks {
                     return copy;
                 }).collect(Collectors.toList());
                 TransportedItemStack left = transported.copy();
-                int max = Math.min(behaviour.getTier().getProcessingMultiple(), left.stack.getCount());
+                int max = Math.min(behaviour.getTier().getProcessingMultiple(BuiltInAdvancedMachineTypes.PRESS), left.stack.getCount());
                 left.stack.shrink(max);
                 if (collect.isEmpty()) {
                     handler.handleProcessingOnItem(transported, TransportedItemStackHandlerBehaviour.TransportedResult.convertTo(left));

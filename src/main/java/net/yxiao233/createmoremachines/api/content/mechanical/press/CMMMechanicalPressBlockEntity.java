@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yxiao233.createmoremachines.api.processing.CMMBasinRecipe;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 
 import java.util.List;
@@ -104,7 +105,7 @@ public class CMMMechanicalPressBlockEntity extends BasinOperatingBlockEntity imp
             if (optionalBasin.isPresent()) {
                 BasinBlockEntity basin = optionalBasin.get();
                 boolean wasEmpty = basin.canContinueProcessing();
-                if (CMMBasinRecipe.apply(basin, this.currentRecipe, tier.getProcessingMultiple())) {
+                if (CMMBasinRecipe.apply(basin, this.currentRecipe, tier.getProcessingMultiple(BuiltInAdvancedMachineTypes.PRESS))) {
                     this.getProcessedRecipeTrigger().ifPresent(this::award);
                     basin.inputTank.sendDataImmediately();
                     if (wasEmpty && this.matchBasinRecipe(this.currentRecipe)) {
@@ -140,7 +141,7 @@ public class CMMMechanicalPressBlockEntity extends BasinOperatingBlockEntity imp
             return true;
         } else {
             this.pressingBehaviour.particleItems.add(input.stack);
-            int max = Math.min(tier.getProcessingMultiple(), input.stack.getCount());
+            int max = Math.min(tier.getProcessingMultiple(BuiltInAdvancedMachineTypes.PRESS), input.stack.getCount());
             List<ItemStack> outputs = RecipeApplier.applyRecipeOn(this.level, input.stack.copyWithCount(max), recipe.get().value(), true);
 
             for (ItemStack created : outputs) {
@@ -166,7 +167,7 @@ public class CMMMechanicalPressBlockEntity extends BasinOperatingBlockEntity imp
         } else {
             ItemStack itemCreated = ItemStack.EMPTY;
             this.pressingBehaviour.particleItems.add(item.copy());
-            int max = Math.min(item.getCount(), this.getTier().getProcessingMultiple());
+            int max = Math.min(item.getCount(), this.getTier().getProcessingMultiple(BuiltInAdvancedMachineTypes.PRESS));
             for (ItemStack result : RecipeApplier.applyRecipeOn(this.level, item.copyWithCount(max), recipe.get().value(), true)) {
                 if (itemCreated.isEmpty()) {
                     itemCreated = result.copy();

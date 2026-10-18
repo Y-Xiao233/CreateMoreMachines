@@ -21,6 +21,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.yxiao233.createmoremachines.api.CMMTierTooltip;
 import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +37,7 @@ public class CMMMechanicalPressBlock extends HorizontalKineticBlock implements I
 
     @Override
     public void addTierInformation(List<Component> tooltips) {
-        CMMTierTooltip.byTypes(tooltips,tier, CMMTierTooltip.Type.PROCESSING_MULTIPLE);
+        CMMTierTooltip.byTypes(tooltips,tier, BuiltInAdvancedMachineTypes.PRESS,CMMTierTooltip.Type.PROCESSING_MULTIPLE);
     }
 
     @Override

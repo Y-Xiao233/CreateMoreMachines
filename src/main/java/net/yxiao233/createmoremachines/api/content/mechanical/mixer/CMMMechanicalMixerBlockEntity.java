@@ -8,10 +8,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yxiao233.createmoremachines.api.IPartialModelRenderer;
 import net.yxiao233.createmoremachines.api.processing.CMMBasinRecipe;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMPartialModelsRegistry;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 
-import java.util.List;
 import java.util.Optional;
 
 public class CMMMechanicalMixerBlockEntity extends MechanicalMixerBlockEntity implements IPartialModelRenderer {
@@ -33,7 +33,7 @@ public class CMMMechanicalMixerBlockEntity extends MechanicalMixerBlockEntity im
             if (optionalBasin.isPresent()) {
                 BasinBlockEntity basin = optionalBasin.get();
                 boolean wasEmpty = basin.canContinueProcessing();
-                if (CMMBasinRecipe.apply(basin, this.currentRecipe, tier.getProcessingMultiple())) {
+                if (CMMBasinRecipe.apply(basin, this.currentRecipe, tier.getProcessingMultiple(BuiltInAdvancedMachineTypes.MIXER))) {
                     this.getProcessedRecipeTrigger().ifPresent(this::award);
                     basin.inputTank.sendDataImmediately();
                     if (wasEmpty && this.matchBasinRecipe(this.currentRecipe)) {

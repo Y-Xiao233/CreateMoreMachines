@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yxiao233.createmoremachines.api.capabilities.BigItemStackHandler;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 
 public class SharedCMMDepotBlockMethods {
@@ -48,7 +49,7 @@ public class SharedCMMDepotBlockMethods {
                 boolean wasEmptyHanded = stack.isEmpty();
                 boolean shouldntPlaceItem = AllBlocks.MECHANICAL_ARM.isIn(stack);
                 ItemStack mainItemStack = behaviour.getHeldItemStack();
-                int capability = tier != null ? tier.getItemCapability() : (!mainItemStack.isEmpty() ? mainItemStack.getMaxStackSize() : 64);
+                int capability = tier != null ? tier.getItemCapability(BuiltInAdvancedMachineTypes.DEPOT) : (!mainItemStack.isEmpty() ? mainItemStack.getMaxStackSize() : 64);
                 if(!mainItemStack.isEmpty() && (capability <= mainItemStack.getCount() || wasEmptyHanded)){
                     player.getInventory().placeItemBackInInventory(mainItemStack);
                     behaviour.removeHeldItem();

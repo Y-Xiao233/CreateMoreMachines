@@ -28,6 +28,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlock;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 
@@ -71,7 +72,7 @@ public class CMMBeltDeployerCallbacks {
         if(tier == null && blockEntity.getBlockState().getBlock() instanceof CMMDepotBlock depotBlock){
             tier = depotBlock.getTier();
         }
-        int processingMultiple = tier == null ? 1 : (Math.min(tier.getDeployerProcessingMultiple(), 64));
+        int processingMultiple = tier == null ? 1 : (Math.min(tier.getProcessingMultiple(BuiltInAdvancedMachineTypes.DEPLOYER), 64));
         if (blockEntity.getSpeed() == 0.0F) {
             return BeltProcessingBehaviour.ProcessingResult.PASS;
         } else {

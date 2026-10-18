@@ -31,6 +31,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.yxiao233.createmoremachines.api.IPartialModelRenderer;
 import net.yxiao233.createmoremachines.api.processing.CMMFilingBySpout;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMPartialModelsRegistry;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 
@@ -52,7 +53,7 @@ public class CMMSpoutBlockEntity  extends SmartBlockEntity implements IHaveGoggl
     public CMMSpoutBlockEntity(CMMTier tier, BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.tier = tier;
-        this.fluidCapability = tier.getFluidCapability();
+        this.fluidCapability = tier.getFluidCapability(BuiltInAdvancedMachineTypes.SPOUT);
         this.tank.getPrimaryHandler().setCapacity(fluidCapability);
     }
 
@@ -108,7 +109,7 @@ public class CMMSpoutBlockEntity  extends SmartBlockEntity implements IHaveGoggl
                 AllSoundEvents.SPOUTING.playOnServer(this.level, this.worldPosition, 0.75F, 0.9F + 0.2F * (float)Math.random());
                 return BeltProcessingBehaviour.ProcessingResult.HOLD;
             } else {
-                int multiple = tier == null ? 1 : tier.getProcessingMultiple();
+                int multiple = tier == null ? 1 : tier.getProcessingMultiple(BuiltInAdvancedMachineTypes.SPOUT);
                 int max = Math.min(multiple, Math.min(transported.stack.copy().getCount(), fluid.getAmount() / requiredAmountForItem));
                 ItemStack out = CMMFilingBySpout.fillItem(this.level, requiredAmountForItem, transported.stack, fluid, max);
                 if (!out.isEmpty()) {
@@ -172,7 +173,7 @@ public class CMMSpoutBlockEntity  extends SmartBlockEntity implements IHaveGoggl
         }
 
         if(this.tier != null){
-            compound.putInt("fluid_capability", this.tier.getFluidCapability());
+            compound.putInt("fluid_capability", this.tier.getFluidCapability(BuiltInAdvancedMachineTypes.SPOUT));
         }
     }
 

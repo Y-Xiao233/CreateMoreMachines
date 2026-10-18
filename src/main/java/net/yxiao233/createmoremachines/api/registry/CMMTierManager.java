@@ -162,7 +162,7 @@ public class CMMTierManager {
                 if(CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.PRESS)){
                     blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_mechanical_press", properties -> new CMMMechanicalPressBlock(tier,properties))
                             .initialProperties(SharedProperties::stone)
-                            .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalPressImpact()))
+                            .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalImpact(BuiltInAdvancedMachineTypes.PRESS)))
                             .properties(properties -> {
                                 return properties.noOcclusion().mapColor(MapColor.PODZOL);
                             })
@@ -204,7 +204,7 @@ public class CMMTierManager {
                             .properties(properties -> {
                                 return properties.noOcclusion().mapColor(MapColor.STONE);
                             })
-                            .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalMixerImpact()))
+                            .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalImpact(BuiltInAdvancedMachineTypes.MIXER)))
                             .setData(ProviderType.LANG, NonNullBiConsumer.noop())
                             .transform(TagGen.axeOrPickaxe())
                             .blockstate((c, p) -> {
@@ -318,7 +318,7 @@ public class CMMTierManager {
                             .blockstate(CMMBlockStateGen.directionalAxisBlockProvider())
                             .onRegister(MovementBehaviour.movementBehaviour(new DeployerMovementBehaviour()))
                             .onRegister(MovingInteractionBehaviour.interactionBehaviour(new DeployerMovingInteraction()))
-                            .onRegister(CMMBlockStressValues.setImpact(tier.getDeployerImpact()))
+                            .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalImpact(BuiltInAdvancedMachineTypes.DEPLOYER)))
                             .item(AssemblyOperatorBlockItem::new)
                             .tag(new TagKey[]{AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag})
                             .transform(ModelGen.customItemModel("deployer","item","_"))
@@ -399,8 +399,8 @@ public class CMMTierManager {
                             .blockstate((context, provider) ->{
                                 provider.horizontalFaceBlock(context.get(), AssetLookup.partialBaseModel(context, provider));
                             })
-                            .onRegister(CMMBlockStressValues.setGeneratorSpeed(tier.getSteamEngineGeneratedSpeed(),true))
-                            .onRegister(CMMBlockStressValues.setCapacities(tier.getSteamEngineCapacity()))
+                            .onRegister(CMMBlockStressValues.setGeneratorSpeed((int) tier.getSpecial(BuiltInAdvancedMachineTypes.STEAM_ENGINE,"generated_speed"),true))
+                            .onRegister(CMMBlockStressValues.setCapacities((int) tier.getSpecial(BuiltInAdvancedMachineTypes.STEAM_ENGINE,"capacity")))
                             .item()
                             .transform(ModelGen.customItemModel())
                             .register()
@@ -450,7 +450,7 @@ public class CMMTierManager {
                             .properties(properties -> {
                                 return properties.noOcclusion().mapColor(MapColor.PODZOL);
                             })
-                            .onRegister(CMMBlockStressValues.setImpact(tier.getSawImpact()))
+                            .onRegister(CMMBlockStressValues.setImpact(tier.getMechanicalImpact(BuiltInAdvancedMachineTypes.SAW)))
                             .setData(ProviderType.LANG, NonNullBiConsumer.noop())
                             .transform(TagGen.axeOrPickaxe())
                             .blockstate((c, p) -> {

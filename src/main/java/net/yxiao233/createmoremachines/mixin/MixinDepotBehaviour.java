@@ -13,6 +13,7 @@ import net.minecraft.world.Clearable;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.utils.BigItemHelper;
 import net.yxiao233.createmoremachines.utils.BigTransportedItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -76,7 +77,7 @@ public abstract class MixinDepotBehaviour extends BlockEntityBehaviour implement
                 ItemStack inserted = heldItem.stack;
                 if (remainingSpace <= 0) {
                     cir.setReturnValue(inserted);
-                } else if (this.heldItem != null && !BigItemHelper.canItemStackAmountsStack(this.heldItem.stack, inserted,depotBlockEntity.getTier().getItemCapability())) {
+                } else if (this.heldItem != null && !BigItemHelper.canItemStackAmountsStack(this.heldItem.stack, inserted,depotBlockEntity.getTier().getItemCapability(BuiltInAdvancedMachineTypes.DEPOT))) {
                     cir.setReturnValue(inserted);
                 } else {
                     ItemStack returned = ItemStack.EMPTY;
@@ -103,7 +104,7 @@ public abstract class MixinDepotBehaviour extends BlockEntityBehaviour implement
                 }
             } else {
                 ItemStack returned = ItemStack.EMPTY;
-                int maxCount = depotBlockEntity.getTier().getItemCapability();
+                int maxCount = depotBlockEntity.getTier().getItemCapability(BuiltInAdvancedMachineTypes.DEPOT);
                 boolean stackTooLarge = maxCount < heldItem.stack.getCount();
                 if (stackTooLarge) {
                     returned = heldItem.stack.copyWithCount(heldItem.stack.getCount() - maxCount);

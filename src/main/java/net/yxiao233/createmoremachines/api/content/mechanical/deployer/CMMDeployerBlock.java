@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.yxiao233.createmoremachines.api.CMMTierTooltip;
 import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +38,6 @@ public class CMMDeployerBlock extends DeployerBlock implements IHaveTierInformat
 
     @Override
     public void addTierInformation(List<Component> tooltips) {
-        CMMTierTooltip.byTypes(tooltips, tier, CMMTierTooltip.Type.DEPLOYER_PROCESSING_MULTIPLE);
+        CMMTierTooltip.byTypes(tooltips,tier, BuiltInAdvancedMachineTypes.DEPLOYER,CMMTierTooltip.Type.DEPLOYER_PROCESSING_MULTIPLE);
     }
 }

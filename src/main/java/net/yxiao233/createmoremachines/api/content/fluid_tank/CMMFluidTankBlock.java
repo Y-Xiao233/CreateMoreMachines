@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yxiao233.createmoremachines.api.CMMTierTooltip;
 import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
@@ -46,6 +47,6 @@ public class CMMFluidTankBlock extends FluidTankBlock implements IHaveTierInform
 
     @Override
     public void addTierInformation(List<Component> tooltips) {
-        CMMTierTooltip.byTypes(tooltips,tier, CMMTierTooltip.Type.FLUID_TANK_CAPABILITY);
+        CMMTierTooltip.byTypes(tooltips,tier, BuiltInAdvancedMachineTypes.FLUID_TANK,CMMTierTooltip.Type.FLUID_TANK_CAPABILITY);
     }
 }

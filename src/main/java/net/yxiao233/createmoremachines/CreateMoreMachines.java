@@ -31,6 +31,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.yxiao233.createmoremachines.api.annotation.RecipeGen;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutingBehaviours;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.api.registry.ICMMPlugin;
 import net.yxiao233.createmoremachines.common.registry.CMMCreativeModeTab;

@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.yxiao233.createmoremachines.api.capabilities.BigItemStackHandler;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +29,7 @@ public class CMMDepotBehaviour extends DepotBehaviour {
 
             @Override
             protected int getStackLimit(int slot, @NotNull ItemStack stack) {
-                return getTier().getItemCapability();
+                return getTier().getItemCapability(BuiltInAdvancedMachineTypes.DEPOT);
             }
         });
         this.itemHandler = new CMMDepotItemHandler(this);
@@ -53,7 +54,7 @@ public class CMMDepotBehaviour extends DepotBehaviour {
     }
 
     public Supplier<Integer> getMaxStackSize(){
-        return this.getTier()::getItemCapability;
+        return () -> this.tier.getItemCapability(BuiltInAdvancedMachineTypes.DEPOT);
     }
 
 

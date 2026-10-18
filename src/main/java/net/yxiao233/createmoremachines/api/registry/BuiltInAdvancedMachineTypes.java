@@ -18,8 +18,10 @@ import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class BuiltInAdvancedMachineTypes {
+    private static final List<AdvancedMachineType<?>> entries = new ArrayList<>();
     public static final AdvancedMachineType<CMMBasinBlock> BASIN = AdvancedMachineType.create("basin", AllBlocks.BASIN, CMMRegistryEntry.getBasins());
     public static final AdvancedMachineType<CMMDepotBlock> DEPOT = AdvancedMachineType.create("depot", AllBlocks.DEPOT, CMMRegistryEntry.getDepots());
     public static final AdvancedMachineType<CMMFluidTankBlock> FLUID_TANK = AdvancedMachineType.create("fluid_tank", AllBlocks.FLUID_TANK, CMMRegistryEntry.getFluidTanks());
@@ -29,6 +31,12 @@ public class BuiltInAdvancedMachineTypes {
     public static final AdvancedMachineType<CMMSpoutBlock> SPOUT = AdvancedMachineType.create("spout", AllBlocks.SPOUT, CMMRegistryEntry.getSpouts());
     public static final AdvancedMachineType<CMMSawBlock> SAW = AdvancedMachineType.create("saw", AllBlocks.MECHANICAL_SAW, CMMRegistryEntry.getSaws());
     public static final AdvancedMachineType<CMMSteamEngineBlock> STEAM_ENGINE = AdvancedMachineType.create("steam_engine", AllBlocks.STEAM_ENGINE, CMMRegistryEntry.getSteamEngines());
+    public static void forEach(Consumer<AdvancedMachineType<?>> consumer){
+        entries.forEach(consumer);
+    }
+    public static void init(){
+
+    }
     public static class AdvancedMachineType<T extends Block>{
         private final String name;
         private final BlockEntry<?> mechanical;
@@ -40,7 +48,9 @@ public class BuiltInAdvancedMachineTypes {
         }
 
         public static <T extends Block> AdvancedMachineType<T> create(String name, BlockEntry<?> mechanical, Map<ResourceLocation,BlockEntry<T>> advancedMechanicals){
-            return new AdvancedMachineType<>(name,mechanical,advancedMechanicals);
+            AdvancedMachineType<T> type = new AdvancedMachineType<>(name, mechanical, advancedMechanicals);
+            entries.add(type);
+            return type;
         }
 
         public String getName() {
@@ -79,7 +89,7 @@ public class BuiltInAdvancedMachineTypes {
 
         @Override
         public boolean equals(Object other){
-            if(other instanceof AdvancedMachineType type){
+            if(other instanceof AdvancedMachineType<?> type){
                 return type.name.equals(this.name);
             }else if(other instanceof String s){
                 return s.equals(this.name);

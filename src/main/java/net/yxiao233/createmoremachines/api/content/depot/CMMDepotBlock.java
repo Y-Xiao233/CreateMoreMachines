@@ -30,6 +30,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.yxiao233.createmoremachines.api.CMMTierTooltip;
 import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
 import net.yxiao233.createmoremachines.api.processing.IAdjustPlacedBlock;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
@@ -50,7 +51,7 @@ public class CMMDepotBlock extends Block implements IBE<CMMDepotBlockEntity>, IW
 
     @Override
     public void addTierInformation(List<Component> tooltips) {
-        CMMTierTooltip.byTypes(tooltips,tier, CMMTierTooltip.Type.ITEM_CAPABILITY);
+        CMMTierTooltip.byTypes(tooltips,tier,BuiltInAdvancedMachineTypes.DEPOT,CMMTierTooltip.Type.ITEM_CAPABILITY);
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

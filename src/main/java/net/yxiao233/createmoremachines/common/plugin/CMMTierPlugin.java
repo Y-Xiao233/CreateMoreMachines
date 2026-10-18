@@ -27,20 +27,15 @@ public class CMMTierPlugin implements ICMMPlugin {
 
     @Override
     public void registryTiers() {
-        BRASS = CMMTier.create(CreateMoreMachines.makeId("brass"),2, CMMRegistryEntry.NETHERITE_ALLOY_SHEET)
-                .fromConfig(CMMConfig.BRASS)
+        BRASS = CMMTier.create(CreateMoreMachines.makeId("brass"),2, CMMRegistryEntry.NETHERITE_ALLOY_SHEET,CMMConfig.BRASS)
                 .defaultRenderer();
-        NETHERITE = CMMTier.create(CreateMoreMachines.makeId("netherite"),3, CMMRegistryEntry.END_ALLOY_SHEET)
-                .fromConfig(CMMConfig.NETHERITE)
+        NETHERITE = CMMTier.create(CreateMoreMachines.makeId("netherite"),3, CMMRegistryEntry.END_ALLOY_SHEET,CMMConfig.NETHERITE)
                 .defaultRenderer();
-        END = CMMTier.create(CreateMoreMachines.makeId("end"),4, CMMRegistryEntry.BEYOND_ALLOY_SHEET)
-                .fromConfig(CMMConfig.END)
+        END = CMMTier.create(CreateMoreMachines.makeId("end"),4, CMMRegistryEntry.BEYOND_ALLOY_SHEET,CMMConfig.END)
                 .defaultRenderer();
-        BEYOND = CMMTier.create(CreateMoreMachines.makeId("beyond"),5, null)
-                .fromConfig(CMMConfig.BEYOND)
+        BEYOND = CMMTier.create(CreateMoreMachines.makeId("beyond"),5, null,CMMConfig.BEYOND)
                 .defaultRenderer();
-        CREATIVE = CMMTier.create(CreateMoreMachines.makeId("creative"),-1, null)
-                .fromConfig(CMMConfig.CREATIVE)
+        CREATIVE = CMMTier.create(CreateMoreMachines.makeId("creative"),-1, null,CMMConfig.CREATIVE)
                 .defaultRenderer();
     }
 

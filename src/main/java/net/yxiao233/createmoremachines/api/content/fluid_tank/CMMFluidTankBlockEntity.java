@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 
@@ -20,7 +21,7 @@ public class CMMFluidTankBlockEntity extends FluidTankBlockEntity {
 
     @Override
     public void applyFluidTankSize(int blocks) {
-        this.tankInventory.setCapacity(Math.min(Integer.MAX_VALUE, blocks * this.tier.getFluidTankCapability()));
+        this.tankInventory.setCapacity(Math.min(Integer.MAX_VALUE, blocks * this.tier.getFluidCapability(BuiltInAdvancedMachineTypes.FLUID_TANK)));
         int overflow = this.tankInventory.getFluidAmount() - this.tankInventory.getCapacity();
         if (overflow > 0) {
             this.tankInventory.drain(overflow, IFluidHandler.FluidAction.EXECUTE);
@@ -45,14 +46,14 @@ public class CMMFluidTankBlockEntity extends FluidTankBlockEntity {
         if(tier == null){
             this.tier = this.getBlockState().getBlock() instanceof CMMFluidTankBlock tankBlock ? tankBlock.getTier() : this.tier;
         }
-        return tier.getFluidTankCapability();
+        return tier.getFluidCapability(BuiltInAdvancedMachineTypes.FLUID_TANK);
     }
 
     @Override
     public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(compound, registries, clientPacket);
         if(this.tier != null){
-            compound.putInt("fluid_capability", this.tier.getFluidTankCapability());
+            compound.putInt("fluid_capability", this.tier.getFluidCapability(BuiltInAdvancedMachineTypes.FLUID_TANK));
         }
     }
 

@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.utils.TankCapabilityHelper;
 
@@ -18,10 +19,10 @@ public class CMMBasinBlockEntity extends BasinBlockEntity {
         super(type, pos, state);
         this.tier = tier;
         this.capabilityHelper = new TankCapabilityHelper(this.inputTank,this.outputTank);
-        this.capabilityHelper.setCapability(tier.getFluidCapability());
+        this.capabilityHelper.setCapability(tier.getFluidCapability(BuiltInAdvancedMachineTypes.BASIN));
 
-        this.inputInventory.withMaxStackSize(tier.getItemCapability());
-        this.outputInventory.withMaxStackSize(tier.getItemCapability());
+        this.inputInventory.withMaxStackSize(tier.getItemCapability(BuiltInAdvancedMachineTypes.BASIN));
+        this.outputInventory.withMaxStackSize(tier.getItemCapability(BuiltInAdvancedMachineTypes.BASIN));
     }
 
     public CMMTier getTier() {
@@ -40,8 +41,8 @@ public class CMMBasinBlockEntity extends BasinBlockEntity {
     public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(compound, registries, clientPacket);
         if(this.tier != null){
-            compound.putInt("fluid_capability", this.tier.getFluidCapability());
-            compound.putInt("item_capability", this.tier.getItemCapability());
+            compound.putInt("fluid_capability", this.tier.getFluidCapability(BuiltInAdvancedMachineTypes.BASIN));
+            compound.putInt("item_capability", this.tier.getItemCapability(BuiltInAdvancedMachineTypes.BASIN));
         }
     }
 

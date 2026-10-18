@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.yxiao233.createmoremachines.api.CMMTierTooltip;
 import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +42,6 @@ public class CMMSawBlock extends SawBlock implements IHaveTierInformation {
 
     @Override
     public void addTierInformation(List<Component> tooltips) {
-        CMMTierTooltip.byTypes(tooltips, tier, CMMTierTooltip.Type.PROCESSING_MULTIPLE);
+        CMMTierTooltip.byTypes(tooltips,tier,BuiltInAdvancedMachineTypes.SAW,CMMTierTooltip.Type.PROCESSING_MULTIPLE);
     }
 }

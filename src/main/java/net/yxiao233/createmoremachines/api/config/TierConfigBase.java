@@ -3,192 +3,197 @@ package net.yxiao233.createmoremachines.api.config;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
+import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
 
 public class TierConfigBase {
-    private ModConfigSpec.IntValue ITEM_CAPABILITY;
-    private ModConfigSpec.IntValue FLUID_CAPABILITY;
-    private ModConfigSpec.IntValue PROCESSING_MULTIPLE;
-    private ModConfigSpec.IntValue DEPLOYER_PROCESSING_MULTIPLE;
-    private ModConfigSpec.DoubleValue MECHANICAL_PRESS_IMPACT;
-    private ModConfigSpec.DoubleValue MECHANICAL_MIXER_IMPACT;
-    private ModConfigSpec.DoubleValue DEPLOYER_IMPACT;
-    private ModConfigSpec.IntValue FLUID_TANK_CAPABILITY;
-    private ModConfigSpec.IntValue STEAM_ENGINE_GENERATED_SPEED;
-    private ModConfigSpec.DoubleValue STEAM_ENGINE_CAPACITY;
-    private ModConfigSpec.DoubleValue SAW_IMPACT;
-    private ModConfigSpec.IntValue SAW_INVENTORY_SIZE;
-    private int tiredItemCapability;
-    private int tiredFluidCapability;
-    private int tiredProcessingMultiple;
-    private int tiredDeployerProcessingMultiple;
-    private double tiredMechanicalPressImpact;
-    private double tiredMechanicalMixerImpact;
-    private double tiredDeployerImpact;
-    private int tiredFluidTankCapability;
-    private int tiredSteamEngineGeneratedSpeed;
-    private double tiredSteamEngineCapacity;
-    private double tiredSawImpact;
-    private int tiredSawInventorySize;
-    private final String tier;
-    private final int itemCapability;
-    private final int fluidCapability;
-    private final int processingMultiple;
-    private final int deployerProcessingMultiple;
-    private final double mechanicalPressImpact;
-    private final double mechanicalMixerImpact;
-    private final double deployerImpact;
-    private final int fluidTankCapability;
-    private final int steamEngineGeneratedSpeed;
-    private final double steamEngineCapacity;
-    private final double sawImpact;
-    private final int sawInventorySize;
+    private final String tierId;
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> itemCaps;
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> fluidCaps;
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> multiples;
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Double> impacts;
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, HashMap<String, Object>> specials;
 
-    private TierConfigBase(String tier, int itemCapability, int fluidCapability, int fluidTankCapability, int processingMultiple, int deployerProcessingMultiple, int steamEngineGeneratedSpeed, double steamEngineCapacity, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact, double sawImpact, int sawInventorySize){
-        this.tier = tier;
-        this.itemCapability = itemCapability;
-        this.fluidCapability = fluidCapability;
-        this.fluidTankCapability = fluidTankCapability;
-        this.processingMultiple = processingMultiple;
-        this.mechanicalPressImpact = mechanicalPressImpact;
-        this.mechanicalMixerImpact = mechanicalMixerImpact;
-        this.deployerImpact = deployerImpact;
-        this.deployerProcessingMultiple = deployerProcessingMultiple;
-        this.steamEngineGeneratedSpeed = steamEngineGeneratedSpeed;
-        this.steamEngineCapacity = steamEngineCapacity;
-        this.sawImpact = sawImpact;
-        this.sawInventorySize = sawInventorySize;
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, ModConfigSpec.IntValue> specItemCaps = new HashMap<>();
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, ModConfigSpec.IntValue> specFluidCaps = new HashMap<>();
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, ModConfigSpec.IntValue> specMultiples = new HashMap<>();
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, ModConfigSpec.DoubleValue> specImpacts = new HashMap<>();
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, HashMap<String, Object>> specSpecials = new HashMap<>();
+
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> loadedItemCaps = new HashMap<>();
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> loadedFluidCaps = new HashMap<>();
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> loadedMultiples = new HashMap<>();
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Double> loadedImpacts = new HashMap<>();
+    private final HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, HashMap<String, Object>> loadedSpecials = new HashMap<>();
+
+    private final int defaultItemCap;
+    private final int defaultFluidCap;
+    private final int defaultMultiple;
+    private final double defaultImpact;
+
+    protected TierConfigBase(String tierId, HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> itemCaps, HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> fluidCaps, HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Integer> multiples, HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, Double> impacts, HashMap<BuiltInAdvancedMachineTypes.AdvancedMachineType<?>, HashMap<String, Object>> specials, int itemCap, int fluidCap, int multiple, double impact){
+        this.tierId = tierId;
+        this.itemCaps = new HashMap<>(itemCaps);
+        this.fluidCaps = new HashMap<>(fluidCaps);
+        this.multiples = new HashMap<>(multiples);
+        this.impacts = new HashMap<>(impacts);
+        this.specials = new HashMap<>(specials);
+        this.defaultItemCap = itemCap;
+        this.defaultFluidCap = fluidCap;
+        this.defaultMultiple = multiple;
+        this.defaultImpact = impact;
     }
 
-    public static TierConfigBase create(String tier, int itemCapability, int fluidCapability, int fluidTankCapability, int processingMultiple,int deployerProcessingMultiple, int steamEngineGeneratedSpeed, double steamEngineCapacity, double mechanicalPressImpact, double mechanicalMixerImpact, double deployerImpact, double sawImpact, int sawInventorySize){
-        return new TierConfigBase(tier,itemCapability,fluidCapability,fluidTankCapability,processingMultiple,deployerProcessingMultiple,steamEngineGeneratedSpeed,steamEngineCapacity,mechanicalPressImpact,mechanicalMixerImpact,deployerImpact,sawImpact,sawInventorySize);
-    }
     public void registry(ModConfigSpec.Builder BUILDER){
-        BUILDER.translation(key(tier + "_tier")).push(upperCaseForFirstChar(tier) + "Tier");
+        BUILDER.translation(key(tierId + "_tier")).push(upperCaseForFirstChar(tierId) + " Tier");
 
-        ITEM_CAPABILITY = BUILDER
-                .translation(key("item_capability"))
-                .comment("Item capability for " + tier + " tier mechanical[default:" + itemCapability + "]")
-                .defineInRange(tier + "_item_capability",itemCapability,1,Integer.MAX_VALUE);
+        {
+            BUILDER.translation(key("item_capability")).push("Item Capability");
+            BuiltInAdvancedMachineTypes.forEach(type -> {
+                int value = itemCaps.getOrDefault(type,defaultItemCap);
+                if(value == 0){
+                    return;
+                }
+                String typeId = type.getName();
+                ModConfigSpec.IntValue intValue = BUILDER
+                        .translation(key(typeId))
+                        .comment(String.format("Item capability for %s %s",tierId,typeId))
+                        .defineInRange(String.format("%s_%s_item_capability",tierId,typeId),value,1,Integer.MAX_VALUE);
+                specItemCaps.put(type,intValue);
+            });
+            BUILDER.pop();
+        }
 
-        FLUID_CAPABILITY = BUILDER
-                .translation(key("fluid_capability"))
-                .comment("Fluid capability for " + tier + " tier mechanical[default:" + fluidCapability + "]")
-                .defineInRange(tier + "_fluid_capability",fluidCapability,1,Integer.MAX_VALUE);
+        {
+            BUILDER.translation(key("fluid_capability")).push("Fluid Capability");
+            BuiltInAdvancedMachineTypes.forEach(type -> {
+                int value = fluidCaps.getOrDefault(type,defaultFluidCap);
+                if(value == 0){
+                    return;
+                }
+                String typeId = type.getName();
+                ModConfigSpec.IntValue intValue = BUILDER
+                        .translation(key(typeId))
+                        .comment(String.format("Fluid capability for %s %s",tierId,typeId))
+                        .defineInRange(String.format("%s_%s_fluid_capability",tierId,typeId),value,1,Integer.MAX_VALUE);
+                specFluidCaps.put(type,intValue);
+            });
+            BUILDER.pop();
+        }
 
-        FLUID_TANK_CAPABILITY = BUILDER
-                .translation(key("fluid_tank_capability"))
-                .comment("Fluid Tank capability for " + tier + " tier mechanical[default:" + fluidTankCapability + "]")
-                .defineInRange(tier + "_fluid_tank_capability",fluidTankCapability,1,Integer.MAX_VALUE);
+        {
+            BUILDER.translation(key("processing_multiple")).push("Processing Multiple");
+            BuiltInAdvancedMachineTypes.forEach(type -> {
+                int value = multiples.getOrDefault(type,defaultMultiple);
+                if(value == 0){
+                    return;
+                }
+                String typeId = type.getName();
+                ModConfigSpec.IntValue intValue = BUILDER
+                        .translation(key(typeId))
+                        .comment(String.format("Processing Multiple for %s %s",tierId,typeId))
+                        .defineInRange(String.format("%s_%s_processing_multiple",tierId,typeId),value,1,Integer.MAX_VALUE);
+                specMultiples.put(type,intValue);
+            });
+            BUILDER.pop();
+        }
 
-        PROCESSING_MULTIPLE = BUILDER
-                .translation(key("processing_multiple"))
-                .comment("Processing multiple for " + tier + " tier mechanical[default:" + processingMultiple + "]")
-                .defineInRange(tier + "_processing_multiple",processingMultiple,1,Integer.MAX_VALUE);
+        {
+            BUILDER.translation(key("mechanical_impact")).push("Mechanical Impact");
+            BuiltInAdvancedMachineTypes.forEach(type -> {
+                double value = impacts.getOrDefault(type,defaultImpact);
+                if(value == 0){
+                    return;
+                }
+                String typeId = type.getName();
+                ModConfigSpec.DoubleValue doubleValue = BUILDER
+                        .translation(key(typeId))
+                        .comment(String.format("Mechanical Impact for %s %s",tierId,typeId))
+                        .defineInRange(String.format("%s_%s_mechanical_impact",tierId,typeId),value,1,Integer.MAX_VALUE);
+                specImpacts.put(type,doubleValue);
+            });
+            BUILDER.pop();
+        }
 
-        DEPLOYER_PROCESSING_MULTIPLE = BUILDER
-                .translation(key("deployer_processing_multiple"))
-                .comment("Processing multiple for " + tier + " tier Deployer[default:" + deployerProcessingMultiple + "]")
-                .defineInRange(tier + "_deployer_processing_multiple",deployerProcessingMultiple,1,64);
-
-        STEAM_ENGINE_GENERATED_SPEED = BUILDER
-                .translation(key("steam_engine_generated_speed"))
-                .comment("Generated Speed for " + tier + " tier Steam Engine[default:" + steamEngineGeneratedSpeed + "]")
-                .defineInRange(tier + "_steam_engine_generated_speed",steamEngineGeneratedSpeed,1,256);
-
-        STEAM_ENGINE_CAPACITY = BUILDER
-                .translation(key("steam_engine_capacity"))
-                .comment("Capacity for " + tier + " tier Steam Engine[default:" + steamEngineCapacity + "]")
-                .defineInRange(tier + "_steam_engine_capacity",steamEngineCapacity,1,Integer.MAX_VALUE);
-
-        MECHANICAL_PRESS_IMPACT = BUILDER
-                .translation(key("mechanical_press_impact"))
-                .comment("Impact needed for " + tier + " tier mechanical press[default:" + mechanicalPressImpact + "]")
-                .defineInRange(tier + "_mechanical_press_impact",mechanicalPressImpact,1,Double.MAX_VALUE);
-
-        MECHANICAL_MIXER_IMPACT = BUILDER
-                .translation(key("mechanical_mixer_impact"))
-                .comment("Impact needed for " + tier + " tier mechanical mixer[default:" + mechanicalMixerImpact + "]")
-                .defineInRange(tier + "_mechanical_mixer_impact",mechanicalMixerImpact,1,Double.MAX_VALUE);
-
-        DEPLOYER_IMPACT = BUILDER
-                .translation(key("deployer_impact"))
-                .comment("Impact needed for" + tier + " tier deployer[default:" + deployerImpact + "]")
-                .defineInRange(tier + "deployer_impact",deployerImpact,1,Double.MAX_VALUE);
-
-        SAW_IMPACT = BUILDER
-                .translation(key("saw_impact"))
-                .comment("Impact needed for " + tier + " tier saw[default:" + sawImpact + "]")
-                .defineInRange(tier + "_saw_impact",sawImpact,1,Double.MAX_VALUE);
-
-        SAW_INVENTORY_SIZE = BUILDER
-                .translation(key("saw_inventory_size"))
-                .comment("Inventory size for " + tier + " tier saw[default:" + sawInventorySize + "]")
-                .defineInRange(tier + "_saw_inventory_size",sawInventorySize,4,4096);
+        {
+            BUILDER.translation(key("special")).push("Special");
+            specials.forEach((type, map) -> {
+                String typeId = type.getName();
+                BUILDER.translation(key(typeId)).push(StringUtils.capitalize(typeId));
+                HashMap<String, Object> specMap = new HashMap<>();
+                map.forEach((key, value) ->{
+                    Object v;
+                    if(value instanceof Integer i){
+                        v = BUILDER
+                                .translation(key(typeId,key))
+                                .defineInRange(String.format("%s_%s_%s",tierId,typeId,key),i,1,Integer.MAX_VALUE);
+                        specMap.put(key,v);
+                    }else if(value instanceof Double d){
+                        v = BUILDER
+                                .translation(key(typeId,key))
+                                .defineInRange(String.format("%s_%s_%s",tierId,typeId,key),d,1,Double.MAX_VALUE);
+                        specMap.put(key,v);
+                    }
+                });
+                specSpecials.put(type,specMap);
+                BUILDER.pop();
+            });
+            BUILDER.pop();
+        }
 
         BUILDER.pop();
     }
 
     @SuppressWarnings("unused")
     public void onLoad(ModConfigEvent.Loading event){
-        this.tiredItemCapability = ITEM_CAPABILITY.get();
-        this.tiredFluidCapability = FLUID_CAPABILITY.get();
-        this.tiredFluidTankCapability = FLUID_TANK_CAPABILITY.get();
-        this.tiredProcessingMultiple = PROCESSING_MULTIPLE.get();
-        this.tiredDeployerProcessingMultiple = DEPLOYER_PROCESSING_MULTIPLE.get();
-        this.tiredMechanicalPressImpact = MECHANICAL_PRESS_IMPACT.get();
-        this.tiredMechanicalMixerImpact = MECHANICAL_MIXER_IMPACT.get();
-        this.tiredDeployerImpact = DEPLOYER_IMPACT.get();
-        this.tiredSteamEngineGeneratedSpeed = STEAM_ENGINE_GENERATED_SPEED.get();
-        this.tiredSteamEngineCapacity = STEAM_ENGINE_CAPACITY.get();
-        this.tiredSawImpact = SAW_IMPACT.get();
-        this.tiredSawInventorySize = SAW_INVENTORY_SIZE.get();
+        this.specItemCaps.forEach(((type, intValue) -> {
+            this.loadedItemCaps.put(type,intValue.get());
+        }));
+        this.specFluidCaps.forEach(((type, intValue) -> {
+            this.loadedFluidCaps.put(type,intValue.get());
+        }));
+        this.specMultiples.forEach(((type, intValue) -> {
+            this.loadedMultiples.put(type,intValue.get());
+        }));
+        this.specImpacts.forEach(((type, doubleValue) -> {
+            this.loadedImpacts.put(type,doubleValue.get());
+        }));
+        this.specSpecials.forEach(((type, map) -> {
+            HashMap<String, Object> loadedMap = new HashMap<>();
+            map.forEach((key,value) ->{
+                if(value instanceof ModConfigSpec.IntValue intValue){
+                    loadedMap.put(key,intValue.get());
+                }else if(value instanceof ModConfigSpec.DoubleValue doubleValue){
+                    loadedMap.put(key,doubleValue.get());
+                }
+            });
+            this.loadedSpecials.put(type,loadedMap);
+        }));
     }
 
-    public int getItemCapability(){
-        return tiredItemCapability;
+    public int getItemCapability(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type){
+        return loadedItemCaps.get(type);
     }
 
-    public int getFluidCapability(){
-        return tiredFluidCapability;
+    public int getFluidCapability(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type){
+        return loadedFluidCaps.get(type);
     }
 
-    public int getFluidTankCapability() {
-        return tiredFluidTankCapability;
+    public int getProcessingMultiple(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type){
+        return loadedMultiples.get(type);
     }
 
-    public int getProcessingMultiple(){
-        return tiredProcessingMultiple;
-    }
-    public int getDeployerProcessingMultiple(){
-        return tiredDeployerProcessingMultiple;
+    public double getMechanicalImpact(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type){
+        return loadedImpacts.get(type);
     }
 
-    public double getMechanicalPressImpact(){
-        return tiredMechanicalPressImpact;
-    }
-
-    public double getMechanicalMixerImpact(){
-        return tiredMechanicalMixerImpact;
-    }
-
-    public double getDeployerImpact() {
-        return tiredDeployerImpact;
-    }
-
-    public double getSteamEngineCapacity() {
-        return tiredSteamEngineCapacity;
-    }
-
-    public int getSteamEngineGeneratedSpeed() {
-        return tiredSteamEngineGeneratedSpeed;
-    }
-
-    public double getSawImpact() {
-        return tiredSawImpact;
-    }
-
-    public int getSawInventorySize() {
-        return tiredSawInventorySize;
+    public Object getSpecial(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type, String key){
+        if(loadedSpecials.containsKey(type)){
+            return loadedSpecials.get(type).get(key);
+        }
+        return null;
     }
 
     public static String key(String... prefix){
@@ -196,10 +201,10 @@ public class TierConfigBase {
         builder.append("config.");
         builder.append(CreateMoreMachines.MODID + ".");
         for (int i = 0; i < prefix.length; i++) {
+            builder.append(prefix[i]);
             if(i != prefix.length - 1){
                 builder.append(".");
             }
-            builder.append(prefix[i]);
         }
         return builder.toString();
     }
