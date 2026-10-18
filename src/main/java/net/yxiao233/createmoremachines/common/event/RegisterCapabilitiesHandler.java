@@ -1,5 +1,6 @@
 package net.yxiao233.createmoremachines.common.event;
 
+import net.minecraft.core.Direction;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -52,5 +53,18 @@ public class RegisterCapabilitiesHandler {
                 return be.getFluidCapability();
             });
         });
+
+        CMMRegistryEntry.getCrushingWheelControllerEntities()
+                .forEach((id, type) -> {
+                    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), (be, context) -> {
+                        return be.inventory;
+                    });
+                });
+        CMMRegistryEntry.getSawEntities()
+                .forEach((id, type) -> {
+                    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), (be, side) -> {
+                        return side == Direction.DOWN ? null : be.inventory;
+                    });
+                });
     }
 }

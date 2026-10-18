@@ -4,4 +4,4 @@
 
 # Create More Machines
 - Added more tiers of machines to create
-- Artist: [MHanHanBing](https://github.com/MHanHanBing)
+- Artist: [MHanHanBing](https://github.com/MHanHanBing), [tomorrow325](https://github.com/tomorrow325)

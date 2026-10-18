@@ -2,6 +2,8 @@ package net.yxiao233.createmoremachines.api.registry;
 
 import com.simibubi.create.content.fluids.tank.FluidTankRenderer;
 import com.simibubi.create.content.kinetics.deployer.DeployerRenderer;
+import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
+import com.simibubi.create.content.kinetics.fan.EncasedFanRenderer;
 import com.simibubi.create.content.kinetics.saw.SawBlockEntity;
 import com.simibubi.create.content.kinetics.saw.SawRenderer;
 import com.simibubi.create.content.kinetics.steamEngine.SteamEngineRenderer;
@@ -55,6 +57,7 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> steamEngineRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> fluidTankRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<SawBlockEntity>>> sawRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<EncasedFanBlockEntity>>> encasedFanRenderer;
     private CMMTier(ResourceLocation id, int tier, Supplier<Item> upgradeMaterial, TierConfigBase config){
         tiers.put(id,this);
         this.id = id;
@@ -219,6 +222,14 @@ public class CMMTier {
         return this;
     }
 
+    public CMMTier setEncasedFanRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<EncasedFanBlockEntity>>> renderer){
+        if(frozen){
+            throw new UnsupportedOperationException("registration CMMTier has been frozen");
+        }
+        this.encasedFanRenderer = renderer;
+        return this;
+    }
+
     public CMMTier defaultRenderer(){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
@@ -231,7 +242,8 @@ public class CMMTier {
                 .withDefaultDeployerRenderer()
                 .withDefaultSteamEngineRenderer()
                 .withDefaultFluidTankRenderer()
-                .withDefaultSawRenderer();
+                .withDefaultSawRenderer()
+                .withDefaultEncasedFanRenderer();
     }
 
 
@@ -240,6 +252,10 @@ public class CMMTier {
     }
     public CMMTier withDefaultMechanicalPressRenderer(){
         return setMechanicalPressRenderer(() -> CMMMechanicalPressRenderer::new);
+    }
+
+    public CMMTier withDefaultEncasedFanRenderer(){
+        return setEncasedFanRenderer(() -> EncasedFanRenderer::new);
     }
 
     public CMMTier withDefaultMechanicalMixerRenderer(){
@@ -321,6 +337,10 @@ public class CMMTier {
 
     public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<SawBlockEntity>>> getSawRenderer() {
         return sawRenderer;
+    }
+
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<EncasedFanBlockEntity>>> getEncasedFanRenderer() {
+        return encasedFanRenderer;
     }
 
     public List<BuiltInAdvancedMachineTypes.AdvancedMachineType> getBlackList() {

@@ -1,0 +1,14 @@
+{
+	"parent": "create:block/crushing_wheel/textures",
+	"loader": "neoforge:obj",
+	"flip_v": true,
+	"model": "create:models/block/crushing_wheel/crushing_wheel.obj",
+	"textures": {
+		"axis": "create:block/axis",
+		"axis_top": "create:block/axis_top",
+		"spruce_log_top": "block/spruce_log_top",
+		"plates": "createmoremachines:block/end_crushing_wheel_plates",
+		"insert": "createmoremachines:block/end_crushing_wheel_insert",
+		"particle": "createmoremachines:block/end_casing"
+	}
+}

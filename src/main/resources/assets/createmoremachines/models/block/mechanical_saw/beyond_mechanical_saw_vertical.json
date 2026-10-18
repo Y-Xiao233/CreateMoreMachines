@@ -1,0 +1,10 @@
+{
+	"parent": "create:block/mechanical_saw/vertical",
+	"textures": {
+		"gearbox_top": "createmoremachines:block/beyond_mechanical_saw_gearbox_top",
+		"gearbox": "createmoremachines:block/beyond_mechanical_saw_gearbox",
+		"andesite_casing_short": "createmoremachines:block/beyond_casing_short",
+		"particle": "createmoremachines:block/beyond_mechanical_saw_saw_top",
+		"mechanical_saw_top": "createmoremachines:block/beyond_mechanical_saw_saw_top"
+	}
+}

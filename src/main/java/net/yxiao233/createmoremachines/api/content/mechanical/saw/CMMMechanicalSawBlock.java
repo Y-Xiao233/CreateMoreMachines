@@ -1,4 +1,4 @@
-package net.yxiao233.createmoremachines.api.content.saw;
+package net.yxiao233.createmoremachines.api.content.mechanical.saw;
 
 import com.simibubi.create.content.kinetics.saw.SawBlock;
 import com.simibubi.create.content.kinetics.saw.SawBlockEntity;
@@ -15,10 +15,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class CMMSawBlock extends SawBlock implements IHaveTierInformation {
+public class CMMMechanicalSawBlock extends SawBlock implements IHaveTierInformation {
     private final CMMTier tier;
 
-    public CMMSawBlock(CMMTier tier, Properties properties) {
+    public CMMMechanicalSawBlock(CMMTier tier, Properties properties) {
         super(properties);
         this.tier = tier;
     }
@@ -34,10 +34,7 @@ public class CMMSawBlock extends SawBlock implements IHaveTierInformation {
 
     @Override
     public @NotNull String getDescriptionId() {
-        return ChatFormatting.YELLOW +
-            Component.translatable(Util.makeDescriptionId("tier", tier.getId())).getString() +
-            ChatFormatting.WHITE +
-            Component.translatable("block.create.mechanical_saw").getString();
+        return ChatFormatting.YELLOW + Component.translatable(Util.makeDescriptionId("tier", tier.getId())).getString() + ChatFormatting.WHITE + Component.translatable("block.create.mechanical_saw").getString();
     }
 
     @Override

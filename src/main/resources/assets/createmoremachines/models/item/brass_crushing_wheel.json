@@ -1,0 +1,50 @@
+{
+	"parent": "create:block/crushing_wheel/textures",
+	"loader": "neoforge:obj",
+	"flip_v": true,
+	"model": "create:models/block/crushing_wheel/crushing_wheel.obj",
+	"textures": {
+		"axis": "create:block/axis",
+		"axis_top": "create:block/axis_top",
+		"spruce_log_top": "block/spruce_log_top",
+		"plates": "createmoremachines:block/brass_crushing_wheel_plates",
+		"insert": "createmoremachines:block/brass_crushing_wheel_insert",
+		"particle": "create:block/palettes/stone_types/cut/andesite_cut"
+	},
+	"display": {
+		"gui": {
+			"rotation": [
+				30,
+				225,
+				0
+			],
+			"translation": [
+				0,
+				0,
+				0
+			],
+			"scale": [
+				0.45,
+				0.45,
+				0.45
+			]
+		},
+		"fixed": {
+			"rotation": [
+				90,
+				0,
+				0
+			],
+			"translation": [
+				0,
+				0,
+				0
+			],
+			"scale": [
+				0.45,
+				0.45,
+				0.45
+			]
+		}
+	}
+}

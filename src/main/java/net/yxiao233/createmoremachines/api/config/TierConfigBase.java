@@ -174,19 +174,31 @@ public class TierConfigBase {
     }
 
     public int getItemCapability(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type){
-        return loadedItemCaps.get(type);
+        if(loadedItemCaps.containsKey(type)){
+            return loadedItemCaps.get(type);
+        }
+        return 0;
     }
 
     public int getFluidCapability(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type){
-        return loadedFluidCaps.get(type);
+        if(loadedFluidCaps.containsKey(type)){
+            return loadedFluidCaps.get(type);
+        }
+        return 0;
     }
 
     public int getProcessingMultiple(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type){
-        return loadedMultiples.get(type);
+        if(loadedMultiples.containsKey(type)){
+            return loadedMultiples.get(type);
+        }
+        return 0;
     }
 
     public double getMechanicalImpact(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type){
-        return loadedImpacts.get(type);
+        if(loadedImpacts.containsKey(type)){
+            return loadedImpacts.get(type);
+        }
+        return 0;
     }
 
     public Object getSpecial(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type, String key){

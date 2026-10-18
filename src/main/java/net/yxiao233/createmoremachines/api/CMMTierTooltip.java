@@ -42,8 +42,6 @@ public class CMMTierTooltip {
         tooltips.add(Component.translatable("tooltip.createmoremachines.processing_multiple",tier.getProcessingMultiple(type)));
     }
 
-
-
     public enum Type{
         PROCESSING_MULTIPLE,
         ITEM_CAPABILITY,

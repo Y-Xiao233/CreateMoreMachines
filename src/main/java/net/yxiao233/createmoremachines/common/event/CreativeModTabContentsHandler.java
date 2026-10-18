@@ -60,7 +60,9 @@ public class CreativeModTabContentsHandler {
                         Map<?,?> map = (Map<?, ?>) method.invoke(instance);
                         MapUtil.valueList(map).forEach(value ->{
                             if(value instanceof ItemLike itemLike){
-                                items.add(itemLike);
+                                if(!itemLike.asItem().getDefaultInstance().isEmpty()){
+                                    items.add(itemLike);
+                                }
                             }
                         });
                     } catch (IllegalAccessException | InvocationTargetException e) {

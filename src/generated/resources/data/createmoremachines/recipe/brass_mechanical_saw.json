@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "create:mechanical_saw"
+    },
+    {
+      "item": "create:brass_sheet"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:brass_mechanical_saw"
+  }
+}

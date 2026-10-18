@@ -1,0 +1,17 @@
+{
+	"variants": {
+		"axis=x": {
+			"model": "createmoremachines:block/crushing_wheel/creative_crushing_wheel",
+			"x": 90,
+			"y": 90
+		},
+		"axis=y": {
+			"model": "createmoremachines:block/crushing_wheel/creative_crushing_wheel"
+		},
+		"axis=z": {
+			"model": "createmoremachines:block/crushing_wheel/creative_crushing_wheel",
+			"x": 90,
+			"y": 180
+		}
+	}
+}

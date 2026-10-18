@@ -1,0 +1,10 @@
+{
+	"parent": "create:block/encased_fan/block",
+	"textures": {
+		"3": "createmoremachines:block/netherite_encased_fan_frame",
+		"fan_casing": "createmoremachines:block/netherite_encased_fan_casing",
+		"fan_side": "createmoremachines:block/netherite_encased_fan_side",
+		"back": "createmoremachines:block/netherite_encased_fan_back",
+		"particle": "createmoremachines:block/netherite_encased_fan_side"
+	}
+}

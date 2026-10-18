@@ -25,14 +25,22 @@ public class BaseConfigBuilder {
         return new BaseConfigBuilder(tierId,itemCap,fluidCap,multiple);
     }
 
+    public static BaseConfigBuilder builder(String tierId, int itemCap, int fluidCap, int multiple, ConfigSettings settings){
+        BaseConfigBuilder builder = new BaseConfigBuilder(tierId, itemCap, fluidCap, multiple);
+        settings.forEach(ConfigSettings.Rule.NO_ITEM,types -> builder.noItemCap(types.toArray(BuiltInAdvancedMachineTypes.AdvancedMachineType[]::new)));
+        settings.forEach(ConfigSettings.Rule.NO_FLUID,types -> builder.noFluidCap(types.toArray(BuiltInAdvancedMachineTypes.AdvancedMachineType[]::new)));
+        settings.forEach(ConfigSettings.Rule.NO_MULTIPLE,types -> builder.noMultiple(types.toArray(BuiltInAdvancedMachineTypes.AdvancedMachineType[]::new)));
+        return builder;
+    }
+
     public BaseConfigBuilder overrideItemCap(BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type, int itemCap){
         return action(() -> this.itemCaps.put(type,itemCap));
     }
 
-    public BaseConfigBuilder noItemCap(BuiltInAdvancedMachineTypes.AdvancedMachineType<?>... types){
-        return action(() ->{
+    public void noItemCap(BuiltInAdvancedMachineTypes.AdvancedMachineType<?>... types){
+        action(() -> {
             for (BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type : types) {
-                this.itemCaps.put(type,0);
+                this.itemCaps.put(type, 0);
             }
         });
     }
@@ -41,10 +49,10 @@ public class BaseConfigBuilder {
         return action(() -> this.fluidCaps.put(type,fluidCap));
     }
 
-    public BaseConfigBuilder noFluidCap(BuiltInAdvancedMachineTypes.AdvancedMachineType<?>... types){
-        return action(() ->{
+    public void noFluidCap(BuiltInAdvancedMachineTypes.AdvancedMachineType<?>... types){
+        action(() -> {
             for (BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type : types) {
-                this.fluidCaps.put(type,0);
+                this.fluidCaps.put(type, 0);
             }
         });
     }
@@ -53,10 +61,10 @@ public class BaseConfigBuilder {
         return action(() -> this.multiples.put(type,multiple));
     }
 
-    public BaseConfigBuilder noMultiple(BuiltInAdvancedMachineTypes.AdvancedMachineType<?>... types){
-        return action(() ->{
+    public void noMultiple(BuiltInAdvancedMachineTypes.AdvancedMachineType<?>... types){
+        action(() -> {
             for (BuiltInAdvancedMachineTypes.AdvancedMachineType<?> type : types) {
-                this.multiples.put(type,0);
+                this.multiples.put(type, 0);
             }
         });
     }

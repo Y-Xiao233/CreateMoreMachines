@@ -28,6 +28,14 @@ public class CMMJEIPlugin implements IModPlugin {
         RecipeType<?> packing = RecipeType.createRecipeHolderType(Create.asResource("packing"));
         RecipeType<?> automaticPacking = RecipeType.createRecipeHolderType(Create.asResource("automatic_packing"));
         RecipeType<?> spoutFilling = RecipeType.createRecipeHolderType(Create.asResource("spout_filling"));
+        RecipeType<?> crushing = RecipeType.createRecipeHolderType(Create.asResource("crushing"));
+        RecipeType<?> milling = RecipeType.createRecipeHolderType(Create.asResource("milling"));
+        RecipeType<?> cutting = RecipeType.createRecipeHolderType(Create.asResource("cutting"));
+        RecipeType<?> stonecutting = RecipeType.createRecipeHolderType(ResourceLocation.fromNamespaceAndPath("minecraft", "stonecutting"));
+        RecipeType<?> fanWashing = RecipeType.createRecipeHolderType(Create.asResource("fan_washing"));
+        RecipeType<?> fanSmoking = RecipeType.createRecipeHolderType(Create.asResource("fan_smoking"));
+        RecipeType<?> fanBlasting = RecipeType.createRecipeHolderType(Create.asResource("fan_blasting"));
+        RecipeType<?> fanHaunting = RecipeType.createRecipeHolderType(Create.asResource("fan_haunting"));
         MapUtil.valueList(CMMRegistryEntry.getMechanicalMixers()).forEach(mixer ->{
             registration.addRecipeCatalyst(mixer, mixing);
             registration.addRecipeCatalyst(mixer, automaticShapeless);
@@ -53,6 +61,21 @@ public class CMMJEIPlugin implements IModPlugin {
             registration.addRecipeCatalyst(basin, mixing);
             registration.addRecipeCatalyst(basin, packing);
             registration.addRecipeCatalyst(basin, automaticPacking);
+        });
+
+        MapUtil.valueList(CMMRegistryEntry.getEncasedFans()).forEach(fan ->{
+            registration.addRecipeCatalyst(fan, fanWashing);
+            registration.addRecipeCatalyst(fan, fanSmoking);
+            registration.addRecipeCatalyst(fan, fanBlasting);
+            registration.addRecipeCatalyst(fan, fanHaunting);
+        });
+        MapUtil.valueList(CMMRegistryEntry.getSaws()).forEach(saw ->{
+            registration.addRecipeCatalyst(saw, cutting);
+            registration.addRecipeCatalyst(saw, stonecutting);
+        });
+        MapUtil.valueList(CMMRegistryEntry.getCrushingWheels()).forEach(crushingWheel ->{
+            registration.addRecipeCatalyst(crushingWheel, crushing);
+            registration.addRecipeCatalyst(crushingWheel, milling);
         });
     }
 }

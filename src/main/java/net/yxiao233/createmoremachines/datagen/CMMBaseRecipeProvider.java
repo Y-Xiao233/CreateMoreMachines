@@ -107,6 +107,21 @@ public class CMMBaseRecipeProvider extends RecipeProvider {
         mechanicalCraftingRecipe(CMMRegistryEntry.getSpouts(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
         mechanicalCraftingRecipe(CMMRegistryEntry.getSpouts(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
         mechanicalCraftingRecipe(CMMRegistryEntry.getSpouts(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
+
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSaws(), AllBlocks.MECHANICAL_SAW, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSaws(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSaws(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSaws(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
+
+        mechanicalCraftingRecipe(CMMRegistryEntry.getEncasedFans(), AllBlocks.ENCASED_FAN, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getEncasedFans(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getEncasedFans(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getEncasedFans(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
+
+        mechanicalCraftingRecipe(CMMRegistryEntry.getCrushingWheels(), AllBlocks.CRUSHING_WHEEL, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getCrushingWheels(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getCrushingWheels(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getCrushingWheels(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
     }
 
     private <T extends Block> ShapelessRecipeBuilder mechanicalCraftingRecipe(Map<ResourceLocation, BlockEntry<T>> map, @Nullable BlockEntry<?> createMechanical, ItemEntry<?> material, String requireId, String resultId){

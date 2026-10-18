@@ -28,6 +28,10 @@
   "config.createmoremachines.steam_engine": "Steam Engine",
   "config.createmoremachines.steam_engine.generated_speed": "Generator Speed",
   "config.createmoremachines.steam_engine.capacity": "Capacity",
+  "config.createmoremachines.encased_fan": "Encased Fan",
+  "config.createmoremachines.encased_fan.speed": "Speed",
+  "config.createmoremachines.crushing_wheel": "Crushing Wheel",
+  "config.createmoremachines.crushing_wheel.speed": "Speed",
 
   "block.createmoremachines.creative_casing": "Creative Casing",
   "block.createmoremachines.netherite_casing": "Netherite Casing",
@@ -57,5 +61,7 @@
   "tooltip.createmoremachines.item_capability": "§aItem Capability:§f %d",
   "tooltip.createmoremachines.fluid_capability": "§aFluid Capability:§f %dB",
   "tooltip.createmoremachines.processing_multiple": "§aProcessing Multiple:§f %d",
-  "tooltip.createmoremachines.fluid_tank_capability": "§aFluid Tank Capability:§f %dB"
+  "tooltip.createmoremachines.fluid_tank_capability": "§aFluid Tank Capability:§f %dB",
+  "tooltip.createmoremachines.encased_fan_speed": "§aSpeed:§f %d",
+  "tooltip.createmoremachines.crushing_wheel_speed": "§aSpeed:§f %d"
 }

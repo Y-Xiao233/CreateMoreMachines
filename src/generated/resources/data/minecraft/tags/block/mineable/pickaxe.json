@@ -36,6 +36,21 @@
     "createmoremachines:beyond_deployer",
     "createmoremachines:creative_deployer",
     "createmoremachines:brass_deployer",
-    "createmoremachines:end_deployer"
+    "createmoremachines:end_deployer",
+    "createmoremachines:netherite_mechanical_saw",
+    "createmoremachines:beyond_mechanical_saw",
+    "createmoremachines:creative_mechanical_saw",
+    "createmoremachines:brass_mechanical_saw",
+    "createmoremachines:end_mechanical_saw",
+    "createmoremachines:netherite_encased_fan",
+    "createmoremachines:beyond_encased_fan",
+    "createmoremachines:creative_encased_fan",
+    "createmoremachines:brass_encased_fan",
+    "createmoremachines:end_encased_fan",
+    "createmoremachines:netherite_crushing_wheel",
+    "createmoremachines:beyond_crushing_wheel",
+    "createmoremachines:creative_crushing_wheel",
+    "createmoremachines:brass_crushing_wheel",
+    "createmoremachines:end_crushing_wheel"
   ]
 }

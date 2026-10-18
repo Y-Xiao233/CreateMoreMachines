@@ -48,6 +48,15 @@ public class CMMPartialModelsRegistry {
         });
     }
 
+    public static void registryCrushingWheel(){
+        CMMTier.getTiers().forEach((id, tier) -> {
+            if (CMMTier.shouldRegistry(tier, BuiltInAdvancedMachineTypes.CRUSHING_WHEEL)) {
+                PartialModel wheel = PartialModel.of(CreateMoreMachines.makeId("block/crushing_wheel/" + tier.getId().getPath() + "_crushing_wheel"));
+                registry(tier, "crushing_wheel", new PartialModel[]{wheel});
+            }
+        });
+    }
+
     private static PartialModel spout(String path, CMMTier tier) {
         return block("spout/" + path + "/" + tier.getId().getPath() + "_spout_" + path);
     }

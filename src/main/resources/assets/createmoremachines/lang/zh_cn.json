@@ -28,6 +28,10 @@
   "config.createmoremachines.steam_engine": "蒸汽引擎",
   "config.createmoremachines.steam_engine.generated_speed": "生产速度",
   "config.createmoremachines.steam_engine.capacity": "容量",
+  "config.createmoremachines.encased_fan": "鼓风机",
+  "config.createmoremachines.encased_fan.speed": "速度",
+  "config.createmoremachines.crushing_wheel": "粉碎轮",
+  "config.createmoremachines.crushing_wheel.speed": "速度",
 
   "block.createmoremachines.creative_casing": "创造机壳",
   "block.createmoremachines.netherite_casing": "下界机壳",
@@ -57,5 +61,7 @@
   "tooltip.createmoremachines.item_capability": "§a物品容量:§f %d",
   "tooltip.createmoremachines.fluid_capability": "§a流体容量:§f %dB",
   "tooltip.createmoremachines.processing_multiple": "§a并行:§f %d",
-  "tooltip.createmoremachines.fluid_tank_capability": "§a流体储罐容量:§f %dB"
+  "tooltip.createmoremachines.fluid_tank_capability": "§a流体储罐容量:§f %dB",
+  "tooltip.createmoremachines.encased_fan_speed": "§a速度:§f %d",
+  "tooltip.createmoremachines.crushing_wheel_speed": "§a速度:§f %d"
 }

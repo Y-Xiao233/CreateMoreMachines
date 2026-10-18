@@ -5,12 +5,14 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlock;
+import net.yxiao233.createmoremachines.api.content.crushing_wheel.CMMCrushingWheelBlock;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlock;
+import net.yxiao233.createmoremachines.api.content.encased_fan.CMMEncasedFanBlock;
 import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlock;
-import net.yxiao233.createmoremachines.api.content.saw.CMMSawBlock;
+import net.yxiao233.createmoremachines.api.content.mechanical.saw.CMMMechanicalSawBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlock;
 import net.yxiao233.createmoremachines.common.registry.CMMRegistryEntry;
@@ -29,8 +31,10 @@ public class BuiltInAdvancedMachineTypes {
     public static final AdvancedMachineType<CMMMechanicalMixerBlock> MIXER = AdvancedMachineType.create("mixer", AllBlocks.MECHANICAL_MIXER, CMMRegistryEntry.getMechanicalMixers());
     public static final AdvancedMachineType<CMMMechanicalPressBlock> PRESS = AdvancedMachineType.create("press", AllBlocks.MECHANICAL_PRESS, CMMRegistryEntry.getMechanicalPresses());
     public static final AdvancedMachineType<CMMSpoutBlock> SPOUT = AdvancedMachineType.create("spout", AllBlocks.SPOUT, CMMRegistryEntry.getSpouts());
-    public static final AdvancedMachineType<CMMSawBlock> SAW = AdvancedMachineType.create("saw", AllBlocks.MECHANICAL_SAW, CMMRegistryEntry.getSaws());
+    public static final AdvancedMachineType<CMMMechanicalSawBlock> SAW = AdvancedMachineType.create("saw", AllBlocks.MECHANICAL_SAW, CMMRegistryEntry.getSaws());
     public static final AdvancedMachineType<CMMSteamEngineBlock> STEAM_ENGINE = AdvancedMachineType.create("steam_engine", AllBlocks.STEAM_ENGINE, CMMRegistryEntry.getSteamEngines());
+    public static final AdvancedMachineType<CMMEncasedFanBlock> ENCASED_FAN = AdvancedMachineType.create("encased_fan", AllBlocks.ENCASED_FAN, CMMRegistryEntry.getEncasedFans());
+    public static final AdvancedMachineType<CMMCrushingWheelBlock> CRUSHING_WHEEL = AdvancedMachineType.create("crushing_wheel", AllBlocks.CRUSHING_WHEEL, CMMRegistryEntry.getCrushingWheels());
     public static void forEach(Consumer<AdvancedMachineType<?>> consumer){
         entries.forEach(consumer);
     }

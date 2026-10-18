@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "createmoremachines:netherite_mechanical_saw"
+    },
+    {
+      "item": "createmoremachines:end_alloy_sheet"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:end_mechanical_saw"
+  }
+}

@@ -20,8 +20,14 @@ import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.content.CMMBuilderTransformers;
 import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlock;
 import net.yxiao233.createmoremachines.api.content.basin.CMMBasinBlockEntity;
+import net.yxiao233.createmoremachines.api.content.crushing_wheel.CMMCrushingWheelBlock;
+import net.yxiao233.createmoremachines.api.content.crushing_wheel.CMMCrushingWheelBlockEntity;
+import net.yxiao233.createmoremachines.api.content.crushing_wheel.CMMCrushingWheelControllerBlock;
+import net.yxiao233.createmoremachines.api.content.crushing_wheel.CMMCrushingWheelControllerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlock;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotBlockEntity;
+import net.yxiao233.createmoremachines.api.content.encased_fan.CMMEncasedFanBlock;
+import net.yxiao233.createmoremachines.api.content.encased_fan.CMMEncasedFanBlockEntity;
 import net.yxiao233.createmoremachines.api.content.fluid.CMMBaseFluidInstance;
 import net.yxiao233.createmoremachines.api.content.fluid.ClientFluidTypeExtensions;
 import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlock;
@@ -32,8 +38,8 @@ import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanica
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.press.CMMMechanicalPressBlockEntity;
-import net.yxiao233.createmoremachines.api.content.saw.CMMSawBlock;
-import net.yxiao233.createmoremachines.api.content.saw.CMMSawBlockEntity;
+import net.yxiao233.createmoremachines.api.content.mechanical.saw.CMMMechanicalSawBlock;
+import net.yxiao233.createmoremachines.api.content.mechanical.saw.CMMMechanicalSawBlockEntity;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
 import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlock;
@@ -94,8 +100,16 @@ public class CMMRegistryEntry {
     private static final Map<ResourceLocation, BlockEntry<CMMSteamEngineBlock>> STEAM_ENGINES = new HashMap<>();
     private static final Map<ResourceLocation, BlockEntityEntry<CMMSteamEngineBlockEntity>> STEAM_ENGINE_ENTITIES = new HashMap<>();
     //Saw
-    private static final Map<ResourceLocation, BlockEntry<CMMSawBlock>> SAWS = new HashMap<>();
-    private static final Map<ResourceLocation, BlockEntityEntry<CMMSawBlockEntity>> SAW_ENTITIES = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntry<CMMMechanicalSawBlock>> SAWS = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntityEntry<CMMMechanicalSawBlockEntity>> SAW_ENTITIES = new HashMap<>();
+    //Encased Fan
+    private static final Map<ResourceLocation, BlockEntry<CMMEncasedFanBlock>> ENCASED_FANS = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntityEntry<CMMEncasedFanBlockEntity>> ENCASED_FAN_ENTITIES = new HashMap<>();
+    // Crushing Wheel
+    private static final Map<ResourceLocation, BlockEntry<CMMCrushingWheelBlock>> CRUSHING_WHEELS = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntry<CMMCrushingWheelControllerBlock>> CRUSHING_WHEEL_CONTROLLERS = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntityEntry<CMMCrushingWheelBlockEntity>> CRUSHING_WHEEL_ENTITIES = new HashMap<>();
+    private static final Map<ResourceLocation, BlockEntityEntry<CMMCrushingWheelControllerBlockEntity>> CRUSHING_WHEEL_CONTROLLER_ENTITIES = new HashMap<>();
 
     public static Map<ResourceLocation, RegistryEntry<MountedItemStorageType<?>, ?>> getAllDepotStorageTypes(){
         return Collections.unmodifiableMap(DEPOT_STORAGE_TYPES);
@@ -163,13 +177,38 @@ public class CMMRegistryEntry {
         return Collections.unmodifiableMap(STEAM_ENGINES);
     }
 
-    public static Map<ResourceLocation, BlockEntry<CMMSawBlock>> getSaws(){
+    public static Map<ResourceLocation, BlockEntry<CMMMechanicalSawBlock>> getSaws(){
         return Collections.unmodifiableMap(SAWS);
     }
 
-    public static Map<ResourceLocation, BlockEntityEntry<CMMSawBlockEntity>> getSawEntities(){
+    public static Map<ResourceLocation, BlockEntityEntry<CMMMechanicalSawBlockEntity>> getSawEntities(){
         return Collections.unmodifiableMap(SAW_ENTITIES);
     }
+
+    public static Map<ResourceLocation, BlockEntry<CMMEncasedFanBlock>> getEncasedFans() {
+        return Collections.unmodifiableMap(ENCASED_FANS);
+    }
+
+    public static Map<ResourceLocation, BlockEntityEntry<CMMEncasedFanBlockEntity>> getEncasedFanEntities() {
+        return Collections.unmodifiableMap(ENCASED_FAN_ENTITIES);
+    }
+
+    public static Map<ResourceLocation, BlockEntry<CMMCrushingWheelBlock>> getCrushingWheels() {
+        return Collections.unmodifiableMap(CRUSHING_WHEELS);
+    }
+
+    public static Map<ResourceLocation, BlockEntry<CMMCrushingWheelControllerBlock>> getCrushingWheelControllers() {
+        return Collections.unmodifiableMap(CRUSHING_WHEEL_CONTROLLERS);
+    }
+
+    public static Map<ResourceLocation, BlockEntityEntry<CMMCrushingWheelBlockEntity>> getCrushingWheelEntities() {
+        return Collections.unmodifiableMap(CRUSHING_WHEEL_ENTITIES);
+    }
+
+    public static Map<ResourceLocation, BlockEntityEntry<CMMCrushingWheelControllerBlockEntity>> getCrushingWheelControllerEntities() {
+        return Collections.unmodifiableMap(CRUSHING_WHEEL_CONTROLLER_ENTITIES);
+    }
+
     public static void register() {
         CMMTierManager.getPlugins().forEach(ICMMPlugin::onRegister);
 
@@ -201,6 +240,14 @@ public class CMMRegistryEntry {
 
         CMMTierManager.registrySaws(SAWS);
         CMMTierManager.registrySawEntities(getSaws(),SAW_ENTITIES);
+
+        CMMTierManager.registerEncasedFans(ENCASED_FANS);
+        CMMTierManager.registryEncasedFanEntities(getEncasedFans(),ENCASED_FAN_ENTITIES);
+
+        CMMTierManager.registerCrushingWheels(CRUSHING_WHEELS);
+        CMMTierManager.registryCrushingWheelEntities(getCrushingWheels(),CRUSHING_WHEEL_ENTITIES);
+        CMMTierManager.registerCrushingWheelControllers(CRUSHING_WHEEL_CONTROLLERS);
+        CMMTierManager.registryCrushingWheelControllerEntities(getCrushingWheelControllers(),CRUSHING_WHEEL_CONTROLLER_ENTITIES);
 
         CMMTierManager.getPlugins().forEach(ICMMPlugin::onPostRegister);
     }
