@@ -1,16 +1,22 @@
 package net.yxiao233.createmoremachines.api.content.basin;
 
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
+import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.data.IntAttached;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
+import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 import net.yxiao233.createmoremachines.utils.TankCapabilityHelper;
+
+import java.util.List;
 
 public class CMMBasinBlockEntity extends BasinBlockEntity {
     private final CMMTier tier;
@@ -35,6 +41,15 @@ public class CMMBasinBlockEntity extends BasinBlockEntity {
 
     public IFluidHandler getFluidCapability(){
         return this.fluidCapability;
+    }
+
+    public LerpedFloat getIngredientRotation(){
+        return ReflectionUtil.getPrivateField("ingredientRotation",LerpedFloat.class,this,BasinBlockEntity.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<IntAttached<ItemStack>> getVisualizedOutputItems(){
+        return ReflectionUtil.getPrivateField("visualizedOutputItems",List.class,this,BasinBlockEntity.class);
     }
 
     @Override

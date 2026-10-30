@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.yxiao233.createmoremachines.CreateMoreMachines;
 import net.yxiao233.createmoremachines.api.config.TierConfigBase;
+import net.yxiao233.createmoremachines.api.content.basin.CMMBasinRenderer;
 import net.yxiao233.createmoremachines.api.content.depot.CMMDepotRenderer;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.mixer.CMMMechanicalMixerRenderer;
@@ -52,7 +53,7 @@ public class CMMTier {
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalPressBlockEntity>>> mechanicalPressRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMMechanicalMixerBlockEntity>>> mechanicalMixerRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BlockEntityRenderer<CMMSpoutBlockEntity>>> spoutRenderer;
-    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> basinRenderer;
+    private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, CMMBasinRenderer>> basinRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, DeployerRenderer>> deployerRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, SteamEngineRenderer>> steamEngineRenderer;
     private NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, FluidTankRenderer>> fluidTankRenderer;
@@ -182,7 +183,7 @@ public class CMMTier {
         return this;
     }
 
-    public CMMTier setBasinRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> renderer){
+    public CMMTier setBasinRenderer(NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, CMMBasinRenderer>> renderer){
         if(frozen){
             throw new UnsupportedOperationException("registration CMMTier has been frozen");
         }
@@ -266,7 +267,7 @@ public class CMMTier {
         return setSpoutRenderer(() -> CMMSpoutRenderer::new);
     }
     public CMMTier withDefaultBasinRenderer(){
-        return setBasinRenderer(() -> BasinRenderer::new);
+        return setBasinRenderer(() -> CMMBasinRenderer::new);
     }
 
     public CMMTier withDefaultDeployerRenderer(){
@@ -323,7 +324,7 @@ public class CMMTier {
         return spoutRenderer;
     }
 
-    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, BasinRenderer>> getBasinRenderer() {
+    public NonNullSupplier<NonNullFunction<BlockEntityRendererProvider.Context, CMMBasinRenderer>> getBasinRenderer() {
         return basinRenderer;
     }
 
