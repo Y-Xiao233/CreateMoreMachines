@@ -4,11 +4,8 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.yxiao233.createmoremachines.api.CMMTierTooltip;
 import net.yxiao233.createmoremachines.api.content.IHaveTierInformation;
 import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
@@ -30,12 +27,6 @@ public class CMMFluidTankBlock extends FluidTankBlock implements IHaveTierInform
     }
 
     @Override
-    public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean moved) {
-        //TODO 一键为大型的储罐添加一层操作要在这里实现,目前有问题
-        super.onPlace(state, world, pos, oldState, moved);
-    }
-
-    @Override
     public BlockEntityType<? extends FluidTankBlockEntity> getBlockEntityType() {
         return CMMRegistryEntry.getFluidTankEntities().get(tier.getId()).get();
     }
@@ -47,6 +38,6 @@ public class CMMFluidTankBlock extends FluidTankBlock implements IHaveTierInform
 
     @Override
     public void addTierInformation(List<Component> tooltips) {
-        CMMTierTooltip.byTypes(tooltips,tier, BuiltInAdvancedMachineTypes.FLUID_TANK,CMMTierTooltip.Type.FLUID_TANK_CAPABILITY);
+        CMMTierTooltip.byTypes(tooltips,tier, BuiltInAdvancedMachineTypes.FLUID_TANK,CMMTierTooltip.Type.FLUID_CAPABILITY);
     }
 }

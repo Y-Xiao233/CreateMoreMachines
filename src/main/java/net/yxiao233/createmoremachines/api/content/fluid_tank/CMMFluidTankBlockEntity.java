@@ -2,21 +2,28 @@ package net.yxiao233.createmoremachines.api.content.fluid_tank;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.yxiao233.createmoremachines.api.IPartialModelRenderer;
 import net.yxiao233.createmoremachines.api.registry.BuiltInAdvancedMachineTypes;
+import net.yxiao233.createmoremachines.api.registry.CMMPartialModelsRegistry;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 
-public class CMMFluidTankBlockEntity extends FluidTankBlockEntity {
+public class CMMFluidTankBlockEntity extends FluidTankBlockEntity implements IPartialModelRenderer {
     private CMMTier tier;
     public CMMFluidTankBlockEntity(CMMTier tier, BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.tier = tier;
+    }
+
+    public boolean hasWindow(){
+        return window;
     }
 
     @Override
@@ -66,5 +73,10 @@ public class CMMFluidTankBlockEntity extends FluidTankBlockEntity {
                 this.getTankInventory().setCapacity(fluidCapability * this.getTotalTankSize());
             }
         }
+    }
+
+    @Override
+    public PartialModel[] getPartialModels() {
+        return CMMPartialModelsRegistry.getPartialModels(tier,"fluid_tank");
     }
 }

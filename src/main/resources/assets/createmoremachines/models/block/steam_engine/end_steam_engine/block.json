@@ -1,0 +1,7 @@
+{
+  "parent": "createmoremachines:block/steam_engine/block",
+  "textures": {
+    "engine": "createmoremachines:block/end_steam_engine",
+    "particle": "createmoremachines:block/end_steam_engine"
+  }
+}

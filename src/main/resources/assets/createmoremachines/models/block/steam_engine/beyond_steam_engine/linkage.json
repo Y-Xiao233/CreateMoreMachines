@@ -1,0 +1,6 @@
+{
+  "parent": "createmoremachines:block/steam_engine/linkage",
+  "textures": {
+    "linkage": "createmoremachines:block/beyond_cam_linkage"
+  }
+}

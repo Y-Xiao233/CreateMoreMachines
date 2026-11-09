@@ -1,0 +1,9 @@
+{
+  "parent": "createmoremachines:block/fluid_tank/block_top",
+  "textures": {
+    "top": "createmoremachines:block/brass_fluid_tank_top",
+    "tank": "createmoremachines:block/brass_fluid_tank",
+    "inner": "createmoremachines:block/brass_fluid_tank_inner",
+    "particle": "createmoremachines:block/brass_fluid_tank"
+  }
+}

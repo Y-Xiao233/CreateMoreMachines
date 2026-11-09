@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "create:steam_engine"
+    },
+    {
+      "item": "create:brass_sheet"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:brass_steam_engine"
+    }
+  ]
+}

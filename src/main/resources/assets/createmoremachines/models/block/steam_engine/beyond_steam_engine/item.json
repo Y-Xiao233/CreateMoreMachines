@@ -1,0 +1,8 @@
+{
+  "parent": "createmoremachines:block/steam_engine/item",
+  "textures": {
+    "linkage": "createmoremachines:block/beyond_cam_linkage",
+    "engine": "createmoremachines:block/beyond_steam_engine",
+    "particle": "create:block/copper_underside"
+  }
+}

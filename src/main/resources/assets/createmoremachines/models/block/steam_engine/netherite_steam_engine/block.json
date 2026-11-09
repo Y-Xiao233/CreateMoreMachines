@@ -1,0 +1,7 @@
+{
+  "parent": "createmoremachines:block/steam_engine/block",
+  "textures": {
+    "engine": "createmoremachines:block/netherite_steam_engine",
+    "particle": "createmoremachines:block/netherite_steam_engine"
+  }
+}

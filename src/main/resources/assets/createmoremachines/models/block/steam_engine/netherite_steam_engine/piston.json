@@ -1,0 +1,6 @@
+{
+  "parent": "createmoremachines:block/steam_engine/piston",
+  "textures": {
+    "linkage": "createmoremachines:block/netherite_cam_linkage"
+  }
+}

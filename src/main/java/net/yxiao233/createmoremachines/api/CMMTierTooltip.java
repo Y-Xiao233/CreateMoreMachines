@@ -45,8 +45,6 @@ public class CMMTierTooltip {
     public enum Type{
         PROCESSING_MULTIPLE,
         ITEM_CAPABILITY,
-        FLUID_CAPABILITY,
-        DEPLOYER_PROCESSING_MULTIPLE,
-        FLUID_TANK_CAPABILITY
+        FLUID_CAPABILITY
     }
 }

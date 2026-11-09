@@ -1,0 +1,68 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"linkage": "create:block/cam_linkage"
+	},
+	"elements": [
+		{
+			"from": [11, 5, 5],
+			"to": [14, 11, 11],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [9.5, 1.5, 11, 4.5], "texture": "#linkage"},
+				"east": {"uv": [11, 1.5, 14, 4.5], "texture": "#linkage"},
+				"south": {"uv": [9.5, 1.5, 11, 4.5], "texture": "#linkage"},
+				"west": {"uv": [11, 1.5, 14, 4.5], "texture": "#linkage"},
+				"up": {"uv": [11, 0, 14, 1.5], "rotation": 270, "texture": "#linkage"},
+				"down": {"uv": [11, 4.5, 14, 6], "rotation": 270, "texture": "#linkage"}
+			}
+		},
+		{
+			"from": [2, 5, 5],
+			"to": [5, 11, 11],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [9.5, 1.5, 11, 4.5], "texture": "#linkage"},
+				"east": {"uv": [11, 1.5, 14, 4.5], "texture": "#linkage"},
+				"south": {"uv": [9.5, 1.5, 11, 4.5], "texture": "#linkage"},
+				"west": {"uv": [11, 1.5, 14, 4.5], "texture": "#linkage"},
+				"up": {"uv": [11, 0, 14, 1.5], "rotation": 270, "texture": "#linkage"},
+				"down": {"uv": [11, 4.5, 14, 6], "rotation": 270, "texture": "#linkage"}
+			}
+		},
+		{
+			"from": [10, -1, 5],
+			"to": [13, 5, 11],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [9.5, 1.5, 11, 4.5], "rotation": 180, "texture": "#linkage"},
+				"east": {"uv": [11, 1.5, 14, 4.5], "rotation": 180, "texture": "#linkage"},
+				"south": {"uv": [9.5, 1.5, 11, 4.5], "rotation": 180, "texture": "#linkage"},
+				"west": {"uv": [11, 1.5, 14, 4.5], "rotation": 180, "texture": "#linkage"},
+				"up": {"uv": [11, 4.5, 14, 6], "rotation": 270, "texture": "#linkage"},
+				"down": {"uv": [11, 0, 14, 1.5], "rotation": 270, "texture": "#linkage"}
+			}
+		},
+		{
+			"from": [3, -1, 5],
+			"to": [6, 5, 11],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [9.5, 1.5, 11, 4.5], "rotation": 180, "texture": "#linkage"},
+				"east": {"uv": [11, 1.5, 14, 4.5], "rotation": 180, "texture": "#linkage"},
+				"south": {"uv": [9.5, 1.5, 11, 4.5], "rotation": 180, "texture": "#linkage"},
+				"west": {"uv": [11, 1.5, 14, 4.5], "rotation": 180, "texture": "#linkage"},
+				"up": {"uv": [11, 4.5, 14, 6], "rotation": 270, "texture": "#linkage"},
+				"down": {"uv": [11, 0, 14, 1.5], "rotation": 270, "texture": "#linkage"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "Cam",
+			"origin": [-7.5, 18, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

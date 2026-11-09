@@ -1,0 +1,10 @@
+{
+  "parent": "createmoremachines:block/fluid_tank/block_bottom_window_sw",
+  "textures": {
+    "top": "createmoremachines:block/end_fluid_tank_top",
+    "tank": "createmoremachines:block/end_fluid_tank",
+    "window": "createmoremachines:block/end_fluid_tank_window",
+    "inner": "createmoremachines:block/end_fluid_tank_inner",
+    "particle": "createmoremachines:block/end_fluid_tank"
+  }
+}

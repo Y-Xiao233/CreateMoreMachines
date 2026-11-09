@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "createmoremachines:netherite_steam_engine"
+    },
+    {
+      "item": "createmoremachines:end_alloy_sheet"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoremachines:end_steam_engine"
+  }
+}

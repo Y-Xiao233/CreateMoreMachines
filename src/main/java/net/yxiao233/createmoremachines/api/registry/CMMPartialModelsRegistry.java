@@ -57,6 +57,27 @@ public class CMMPartialModelsRegistry {
         });
     }
 
+    public static void registrySteamEngine(){
+        CMMTier.getTiers().values().forEach(tier -> {
+            if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineTypes.STEAM_ENGINE)){
+                PartialModel piston = PartialModel.of(CreateMoreMachines.makeId("block/steam_engine/" + tier.getId().getPath() + "_steam_engine/piston"));
+                PartialModel linkage = PartialModel.of(CreateMoreMachines.makeId("block/steam_engine/" + tier.getId().getPath() + "_steam_engine/linkage"));
+                PartialModel connector = PartialModel.of(CreateMoreMachines.makeId("block/steam_engine/" + tier.getId().getPath() + "_steam_engine/shaft_connector"));
+                registry(tier,"steam_engine",new PartialModel[]{piston,linkage,connector});
+            }
+        });
+    }
+
+    public static void registryFluidTank(){
+        CMMTier.getTiers().values().forEach(tier -> {
+            if(CMMTier.shouldRegistry(tier,BuiltInAdvancedMachineTypes.STEAM_ENGINE)){
+                PartialModel gauge = PartialModel.of(CreateMoreMachines.makeId("block/steam_engine/" + tier.getId().getPath() + "_steam_engine/gauge"));
+                PartialModel gauge_dial = PartialModel.of(CreateMoreMachines.makeId("block/steam_engine/" + tier.getId().getPath() + "_steam_engine/gauge_dial"));
+                registry(tier,"fluid_tank",new PartialModel[]{gauge,gauge_dial});
+            }
+        });
+    }
+
     private static PartialModel spout(String path, CMMTier tier) {
         return block("spout/" + path + "/" + tier.getId().getPath() + "_spout_" + path);
     }

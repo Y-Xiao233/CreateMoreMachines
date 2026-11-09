@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "createmoremachines:end_steam_engine"
+    },
+    {
+      "item": "createmoremachines:beyond_alloy_sheet"
+    }
+  ],
+  "results": [
+    {
+      "id": "createmoremachines:beyond_steam_engine"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "createmoremachines:block/steam_engine/gauge_dial",
+  "textures": {
+    "gauge": "createmoremachines:block/netherite_boiler_gauge",
+    "particle": "createmoremachines:block/netherite_boiler_gauge"
+  }
+}

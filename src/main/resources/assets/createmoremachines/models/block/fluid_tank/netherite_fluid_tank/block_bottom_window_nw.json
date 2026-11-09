@@ -1,0 +1,10 @@
+{
+  "parent": "createmoremachines:block/fluid_tank/block_bottom_window_nw",
+  "textures": {
+    "top": "createmoremachines:block/netherite_fluid_tank_top",
+    "tank": "createmoremachines:block/netherite_fluid_tank",
+    "window": "createmoremachines:block/netherite_fluid_tank_window",
+    "inner": "createmoremachines:block/netherite_fluid_tank_inner",
+    "particle": "createmoremachines:block/netherite_fluid_tank"
+  }
+}

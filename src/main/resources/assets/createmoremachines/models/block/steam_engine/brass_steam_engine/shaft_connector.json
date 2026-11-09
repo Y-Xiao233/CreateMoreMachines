@@ -1,0 +1,6 @@
+{
+  "parent": "createmoremachines:block/steam_engine/shaft_connector",
+  "textures": {
+    "linkage": "createmoremachines:block/brass_cam_linkage"
+  }
+}

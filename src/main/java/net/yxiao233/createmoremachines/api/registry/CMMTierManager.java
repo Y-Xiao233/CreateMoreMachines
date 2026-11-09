@@ -47,6 +47,8 @@ import net.yxiao233.createmoremachines.api.content.encased_fan.CMMEncasedFanBloc
 import net.yxiao233.createmoremachines.api.content.encased_fan.CMMEncasedFanBlockEntity;
 import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlock;
 import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlockEntity;
+import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankItem;
+import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankModel;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerVisual;
@@ -62,14 +64,17 @@ import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlock;
 import net.yxiao233.createmoremachines.api.content.spout.CMMSpoutBlockEntity;
 import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlock;
 import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineBlockEntity;
+import net.yxiao233.createmoremachines.api.content.steam_engine.CMMSteamEngineVisual;
 import net.yxiao233.createmoremachines.datagen.content.CMMBasinGenerator;
 import net.yxiao233.createmoremachines.datagen.content.CMMBlockStateGen;
+import net.yxiao233.createmoremachines.datagen.content.CMMFluidTankGenerator;
 import net.yxiao233.createmoremachines.utils.AnnotationUtil;
 import net.yxiao233.createmoremachines.datagen.content.CMMAssetLookup;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("CodeBlock2Expr")
 public class CMMTierManager {
@@ -340,9 +345,10 @@ public class CMMTierManager {
                         .initialProperties(SharedProperties::copperMetal)
                         .properties(properties -> properties.noOcclusion().isRedstoneConductor((blockState, blockGetter, blockPos) -> true))
                         .transform(TagGen.pickaxeOnly())
-                        .blockstate(new FluidTankGenerator()::generate)
-                        .onRegister(CreateRegistrate.blockModel(() ->{
-                            return FluidTankModel::standard;
+                        .blockstate(new CMMFluidTankGenerator()::generate)
+                        .setData(ProviderType.LANG, NonNullBiConsumer.noop())
+                        .onRegister(CreateRegistrate.blockModel(() -> {
+                            return model -> CMMFluidTankModel.byTier(model, tier);
                         }))
                         .transform(DisplaySource.displaySource(AllDisplaySources.BOILER))
                         .transform(MountedFluidStorageType.mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
@@ -350,8 +356,8 @@ public class CMMTierManager {
                         .addLayer(() ->{
                             return RenderType::cutoutMipped;
                         })
-                        .item(FluidTankItem::new)
-                        .model(AssetLookup.customBlockItemModel("_","block_single_window"))
+                        .item(CMMFluidTankItem::new)
+                        .model(AssetLookup.customBlockItemModel("fluid_tank","_","block_single_window"))
                         .build()
                         .register()
                 );
@@ -378,13 +384,14 @@ public class CMMTierManager {
                 blockMap.put(id, CMMTier.getRegistrate(id.getNamespace()).block(id.getPath() + "_steam_engine", properties -> new CMMSteamEngineBlock(tier,properties))
                         .initialProperties(SharedProperties::copperMetal)
                         .transform(TagGen.pickaxeOnly())
+                        .setData(ProviderType.LANG,NonNullBiConsumer.noop())
                         .blockstate((context, provider) ->{
-                            provider.horizontalFaceBlock(context.get(), AssetLookup.partialBaseModel(context, provider));
+                            provider.horizontalFaceBlock(context.get(), CMMAssetLookup.partialBaseModel(context, provider,"steam_engine","/block"));
                         })
                         .onRegister(CMMBlockStressValues.setGeneratorSpeed((int) tier.getSpecial(BuiltInAdvancedMachineTypes.STEAM_ENGINE,"generated_speed"),true))
                         .onRegister(CMMBlockStressValues.setCapacities((int) tier.getSpecial(BuiltInAdvancedMachineTypes.STEAM_ENGINE,"capacity")))
                         .item()
-                        .transform(ModelGen.customItemModel())
+                        .transform(ModelGen.customItemModel("steam_engine","_","item"))
                         .register()
                 );
             }
@@ -396,7 +403,7 @@ public class CMMTierManager {
         blockMap.forEach((id, steamEngine) ->{
             CreateBlockEntityBuilder<CMMSteamEngineBlockEntity, CreateRegistrate> builder = CMMTier.getRegistrate(id.getNamespace()).blockEntity(id.getPath() + "_steam_engine", (type, pos, state) -> new CMMSteamEngineBlockEntity(CMMTier.getTiers().get(id), type, pos, state));
             entityMap.put(id,builder
-                    .visual(() -> SteamEngineVisual::new,false)
+                    .visual(() -> CMMSteamEngineVisual::new,false)
                     .validBlocks(new NonNullSupplier[]{blockMap.get(id)})
                     .renderer(CMMTier.getTiers().get(id).getSteamEngineRenderer())
                     .register()

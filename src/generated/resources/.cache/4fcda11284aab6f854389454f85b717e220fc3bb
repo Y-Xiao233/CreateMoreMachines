@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-18T15:39:18.4842338	createmoremachines's processing recipes: item_application
+// 1.21.1	2026-11-09T15:50:07.0297192	createmoremachines's processing recipes: item_application
 0567396f9d73619d30529ab396933b821739d442 data/createmoremachines/recipe/item_application/basin/beyond.json
 c68953e27f383713413d229c70e9f817ffc8d6ed data/createmoremachines/recipe/item_application/basin/brass.json
 dc2899e57bc3402e841217b96f88db3673834713 data/createmoremachines/recipe/item_application/basin/end.json
@@ -21,6 +21,10 @@ f64bc3a81d62d1cb1562f819ffd20abb2d075e87 data/createmoremachines/recipe/item_app
 f30da7e1f070242374528783787b60d7cb386f7a data/createmoremachines/recipe/item_application/encased_fan/end.json
 03f15e9488cd15fb579473ef7fc4573fd4173c88 data/createmoremachines/recipe/item_application/encased_fan/netherite.json
 b32a2251775dc40f2d03d6c7f9afb9ca5eded0ab data/createmoremachines/recipe/item_application/end_casing.json
+15112cf3945975b9cb83187641ee9135b9cbc342 data/createmoremachines/recipe/item_application/fluid_tank/beyond.json
+50c6ebb33fca2f56d5cadb9c39748b5c01d4328d data/createmoremachines/recipe/item_application/fluid_tank/brass.json
+e2fc446d55bf3e3f60528f76addc3778ffcb2472 data/createmoremachines/recipe/item_application/fluid_tank/end.json
+41ea6c5ca01fc62c695b66ffe1368b841aad12be data/createmoremachines/recipe/item_application/fluid_tank/netherite.json
 e6a70ea8b6448ef367f8ce408854256cda72d536 data/createmoremachines/recipe/item_application/mixer/beyond.json
 38ea517f9018579f8d34e1493b5105fc8c4fcc82 data/createmoremachines/recipe/item_application/mixer/brass.json
 37387adaca1ef23226e2d0c5ccdf0d7a577b3905 data/createmoremachines/recipe/item_application/mixer/end.json
@@ -38,3 +42,7 @@ bd9c0d0af919fbc74b4282d741ae5e65bf9cf552 data/createmoremachines/recipe/item_app
 605216bc3ddb2a61b4ad7a7dbfa1f36053408661 data/createmoremachines/recipe/item_application/spout/brass.json
 65edc9eb368e2b5abc37ef3a0b1f0116721f427c data/createmoremachines/recipe/item_application/spout/end.json
 f16330275b8e08167e7513d10b66f47c968991d4 data/createmoremachines/recipe/item_application/spout/netherite.json
+1d65365c341a01409dfe5f865c59aeb15111ff22 data/createmoremachines/recipe/item_application/steam_engine/beyond.json
+65ae1d535caf3f06e61aa25678384eae3d9b1095 data/createmoremachines/recipe/item_application/steam_engine/brass.json
+0fc3607805e5592ec5af345f52094f0fd839bcd3 data/createmoremachines/recipe/item_application/steam_engine/end.json
+df26db4d29dea092fc3894fe99e2e15750451fb9 data/createmoremachines/recipe/item_application/steam_engine/netherite.json

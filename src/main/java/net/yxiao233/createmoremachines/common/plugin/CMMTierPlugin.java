@@ -19,6 +19,8 @@ public class CMMTierPlugin implements ICMMPlugin {
         CMMPartialModelsRegistry.registrySpouts();
         CMMPartialModelsRegistry.registryMixers();
         CMMPartialModelsRegistry.registryCrushingWheel();
+        CMMPartialModelsRegistry.registrySteamEngine();
+        CMMPartialModelsRegistry.registryFluidTank();
     }
 
     @Override
@@ -42,10 +44,6 @@ public class CMMTierPlugin implements ICMMPlugin {
 
     @Override
     public void onPostRegisterTier() {
-        //Temp disabled
-        BuiltInAdvancedMachineTypes.STEAM_ENGINE.withoutAll();
-        BuiltInAdvancedMachineTypes.FLUID_TANK.without(BRASS, NETHERITE, END, BEYOND);
-
         CREATIVE.without(BuiltInAdvancedMachineTypes.FLUID_TANK);
     }
 }

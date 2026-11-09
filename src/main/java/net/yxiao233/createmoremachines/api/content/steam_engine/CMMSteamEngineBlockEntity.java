@@ -10,6 +10,7 @@ import com.simibubi.create.content.kinetics.steamEngine.PoweredShaftBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlock;
 import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlockEntity;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,11 +21,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.yxiao233.createmoremachines.api.IPartialModelRenderer;
+import net.yxiao233.createmoremachines.api.registry.CMMPartialModelsRegistry;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
 import net.yxiao233.createmoremachines.utils.ReflectionUtil;
 import org.jetbrains.annotations.Nullable;
 
-public class CMMSteamEngineBlockEntity extends SteamEngineBlockEntity {
+public class CMMSteamEngineBlockEntity extends SteamEngineBlockEntity implements IPartialModelRenderer {
     private final CMMTier tier;
     public CMMSteamEngineBlockEntity(CMMTier tier, BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -138,5 +141,10 @@ public class CMMSteamEngineBlockEntity extends SteamEngineBlockEntity {
                 }
             }
         }
+    }
+
+    @Override
+    public PartialModel[] getPartialModels() {
+        return CMMPartialModelsRegistry.getPartialModels(tier,"steam_engine");
     }
 }

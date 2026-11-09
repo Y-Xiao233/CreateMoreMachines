@@ -1,0 +1,6 @@
+{
+  "parent": "createmoremachines:block/steam_engine/piston",
+  "textures": {
+    "linkage": "createmoremachines:block/creative_cam_linkage"
+  }
+}

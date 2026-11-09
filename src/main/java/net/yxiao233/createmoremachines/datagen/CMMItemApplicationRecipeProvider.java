@@ -48,6 +48,8 @@ public class CMMItemApplicationRecipeProvider extends ItemApplicationRecipeGen {
         mechanicalApplicationRecipes(BuiltInAdvancedMachineTypes.SAW);
         mechanicalApplicationRecipes(BuiltInAdvancedMachineTypes.ENCASED_FAN);
         mechanicalApplicationRecipes(BuiltInAdvancedMachineTypes.CRUSHING_WHEEL);
+        mechanicalApplicationRecipes(BuiltInAdvancedMachineTypes.FLUID_TANK);
+        mechanicalApplicationRecipes(BuiltInAdvancedMachineTypes.STEAM_ENGINE);
     }
 
     private <T extends Block> void  mechanicalApplicationRecipes(BuiltInAdvancedMachineTypes.AdvancedMachineType<T> type){

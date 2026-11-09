@@ -122,6 +122,16 @@ public class CMMBaseRecipeProvider extends RecipeProvider {
         mechanicalCraftingRecipe(CMMRegistryEntry.getCrushingWheels(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
         mechanicalCraftingRecipe(CMMRegistryEntry.getCrushingWheels(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
         mechanicalCraftingRecipe(CMMRegistryEntry.getCrushingWheels(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
+
+        mechanicalCraftingRecipe(CMMRegistryEntry.getFluidTanks(), AllBlocks.FLUID_TANK, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getFluidTanks(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getFluidTanks(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getFluidTanks(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
+
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSteamEngines(), AllBlocks.STEAM_ENGINE, AllItems.BRASS_SHEET, null, "brass").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSteamEngines(), null, CMMRegistryEntry.NETHERITE_ALLOY_SHEET, "brass", "netherite").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSteamEngines(), null, CMMRegistryEntry.END_ALLOY_SHEET, "netherite", "end").save(recipeOutput);
+        mechanicalCraftingRecipe(CMMRegistryEntry.getSteamEngines(), null, CMMRegistryEntry.BEYOND_ALLOY_SHEET, "end", "beyond").save(recipeOutput);
     }
 
     private <T extends Block> ShapelessRecipeBuilder mechanicalCraftingRecipe(Map<ResourceLocation, BlockEntry<T>> map, @Nullable BlockEntry<?> createMechanical, ItemEntry<?> material, String requireId, String resultId){

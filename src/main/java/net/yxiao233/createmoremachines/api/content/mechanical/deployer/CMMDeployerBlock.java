@@ -38,6 +38,6 @@ public class CMMDeployerBlock extends DeployerBlock implements IHaveTierInformat
 
     @Override
     public void addTierInformation(List<Component> tooltips) {
-        CMMTierTooltip.byTypes(tooltips,tier, BuiltInAdvancedMachineTypes.DEPLOYER,CMMTierTooltip.Type.DEPLOYER_PROCESSING_MULTIPLE);
+        CMMTierTooltip.byTypes(tooltips,tier, BuiltInAdvancedMachineTypes.DEPLOYER,CMMTierTooltip.Type.PROCESSING_MULTIPLE);
     }
 }
