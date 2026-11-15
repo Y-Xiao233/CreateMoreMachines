@@ -48,7 +48,6 @@ import net.yxiao233.createmoremachines.api.content.encased_fan.CMMEncasedFanBloc
 import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlock;
 import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankBlockEntity;
 import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankItem;
-import net.yxiao233.createmoremachines.api.content.fluid_tank.CMMFluidTankModel;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlock;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerBlockEntity;
 import net.yxiao233.createmoremachines.api.content.mechanical.deployer.CMMDeployerVisual;
@@ -347,9 +346,6 @@ public class CMMTierManager {
                         .transform(TagGen.pickaxeOnly())
                         .blockstate(new CMMFluidTankGenerator()::generate)
                         .setData(ProviderType.LANG, NonNullBiConsumer.noop())
-                        .onRegister(CreateRegistrate.blockModel(() -> {
-                            return model -> CMMFluidTankModel.byTier(model, tier);
-                        }))
                         .transform(DisplaySource.displaySource(AllDisplaySources.BOILER))
                         .transform(MountedFluidStorageType.mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
                         .onRegister(MovementBehaviour.movementBehaviour(new FluidTankMovementBehavior()))

@@ -13,6 +13,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
 import net.yxiao233.createmoremachines.api.registry.CMMTier;
@@ -22,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+@OnlyIn(Dist.CLIENT)
 public class CMMFluidTankModel extends CTModel {
     protected static final ModelProperty<CullData> CULL_PROPERTY = new ModelProperty<>();
     public static CMMFluidTankModel brass(BakedModel originalModel) {
